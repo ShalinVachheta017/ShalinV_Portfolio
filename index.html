@@ -9,667 +9,494 @@
 
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;900&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
 
     <style>
+        :root {
+            --primary-glow: #06b6d4; /* Cyan-500 */
+            --secondary-glow: #3b82f6; /* Blue-500 */
+        }
+
         body {
             font-family: 'Inter', sans-serif;
-            background-color: #0A0A10; /* Near-black */
-            color: #E0E0E0;
+            background-color: #050508;
+            color: #e2e8f0;
             overflow-x: hidden;
         }
 
-        /* Voice Agent/NLP themed background */
-        .nlp-gradient-bg {
-            background-color: #0A0A10;
-            background-image: 
-                radial-gradient(at 15% 15%, hsla(200, 80%, 30%, 0.2) 0px, transparent 50%),
-                radial-gradient(at 85% 85%, hsla(260, 70%, 25%, 0.15) 0px, transparent 50%);
+        h1, h2, h3, h4 {
+            font-family: 'Space Grotesk', sans-serif;
         }
 
-        /* Refined glassmorphism effect */
-        .glass-effect {
-            background: rgba(16, 16, 32, 0.6);
-            backdrop-filter: blur(12px);
-            -webkit-backdrop-filter: blur(12px);
-            border: 1px solid rgba(68, 204, 224, 0.1);
-            transition: all 0.3s ease;
+        /* Fixed Background Canvas */
+        #bg-canvas {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            opacity: 0.6; /* Slight fade so text is readable */
         }
 
-        /* Nav link active state with a cyan glow */
-        .nav-link.active {
-            color: #fff;
-            background-color: #0891b2; /* Cyan-600 */
-            box-shadow: 0 0 15px rgba(8, 145, 178, 0.5);
+        /* Modern Glassmorphism Card */
+        .glass-card {
+            background: rgba(20, 20, 35, 0.4);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
         }
 
-        .section-min-height { min-height: 100vh; }
-        
-        /* Scroll reveal animation */
+        .glass-card:hover {
+            background: rgba(30, 30, 50, 0.6);
+            border-color: rgba(6, 182, 212, 0.4);
+            transform: translateY(-8px);
+            box-shadow: 0 20px 40px -10px rgba(6, 182, 212, 0.15);
+        }
+
+        /* Header Glass */
+        .header-glass {
+            background: rgba(5, 5, 8, 0.7);
+            backdrop-filter: blur(20px);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        /* Text Gradient */
+        .text-gradient {
+            background: linear-gradient(135deg, #22d3ee 0%, #3b82f6 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        /* Scroll Animations */
         .reveal {
             opacity: 0;
-            transform: translateY(50px);
-            transition: opacity 0.8s ease-out, transform 0.8s ease-out;
+            transform: translateY(30px);
+            transition: all 0.8s ease-out;
         }
         .reveal.visible {
             opacity: 1;
             transform: translateY(0);
         }
 
-        /* Custom scrollbar */
-        ::-webkit-scrollbar { width: 8px; }
-        ::-webkit-scrollbar-track { background: #0A0A10; }
-        ::-webkit-scrollbar-thumb { background: #0e7490; border-radius: 4px; }
-        ::-webkit-scrollbar-thumb:hover { background: #0891b2; }
-        
-        /* Project card hover effect */
-        .project-card {
-            display: block; /* Ensures anchor behaves like a block */
-            height: 100%;
-        }
-        .project-card:hover {
-            transform: translateY(-5px);
-            border-color: rgba(68, 204, 224, 0.5);
-            box-shadow: 0 10px 30px rgba(8, 145, 178, 0.15);
-        }
-        .project-card:hover h3 {
-            color: #22d3ee; /* Light Cyan */
-        }
-        
-        #hero-canvas {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            z-index: 0;
-            pointer-events: none;
-        }
-        
-        .section-heading {
-            position: relative;
-            display: inline-block;
-            padding-bottom: 0.5rem;
-        }
-        .section-heading::after {
-            content: '';
-            position: absolute;
-            bottom: 0;
-            left: 50%;
-            transform: translateX(-50%);
-            width: 60px;
-            height: 3px;
-            background: linear-gradient(90deg, #0e7490, #22d3ee);
-            border-radius: 2px;
-        }
-
-        /* --- Experience Section Styles --- */
-        .exp-tab {
-            cursor: pointer;
-            padding: 1rem;
-            border-radius: 0.5rem;
-            transition: all 0.3s ease;
-            border: 1px solid transparent;
-        }
-        .exp-tab:hover {
-            background-color: rgba(68, 204, 224, 0.1);
-        }
-        .exp-tab.active {
-            background-color: rgba(68, 204, 224, 0.15);
-            border-color: rgba(68, 204, 224, 0.3);
-            color: #22d3ee;
-        }
-        .exp-content {
-            display: none;
-            animation: fadeIn 0.5s ease;
-        }
-        .exp-content.active {
-            display: block;
-        }
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(10px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-
-        /* Animated Grid background for experience card */
-        .animated-grid-bg {
-            position: relative;
-            overflow: hidden;
-        }
-        .animated-grid-bg::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 200%;
-            height: 200%;
-            background-image: 
-                linear-gradient(to right, rgba(68, 204, 224, 0.1) 1px, transparent 1px),
-                linear-gradient(to bottom, rgba(68, 204, 224, 0.1) 1px, transparent 1px);
-            background-size: 40px 40px;
-            animation: moveGrid 20s linear infinite;
-            z-index: 0;
-        }
-        @keyframes moveGrid {
-            from { transform: translate(0, 0); }
-            to { transform: translate(-50%, -50%); }
-        }
-        
-        #skills-canvas-container {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            z-index: 0;
-            opacity: 0.3;
-        }
-        
-        /* Badge Styles */
+        /* Tech Badge */
         .tech-badge {
-            font-size: 0.75rem;
-            padding: 0.2rem 0.6rem;
-            border-radius: 9999px;
-            background-color: rgba(34, 211, 238, 0.1);
-            color: #22d3ee;
-            border: 1px solid rgba(34, 211, 238, 0.2);
+            font-size: 0.7rem;
+            padding: 4px 10px;
+            border-radius: 20px;
+            background: rgba(6, 182, 212, 0.1);
+            color: #67e8f9;
+            border: 1px solid rgba(6, 182, 212, 0.2);
+            font-weight: 500;
         }
+
+        /* Nav Link Active */
+        .nav-link { position: relative; }
+        .nav-link::after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 2px;
+            bottom: -2px;
+            left: 0;
+            background-color: #22d3ee;
+            transition: width 0.3s;
+        }
+        .nav-link:hover::after, .nav-link.active::after {
+            width: 100%;
+        }
+
+        /* Scrollbar */
+        ::-webkit-scrollbar { width: 8px; }
+        ::-webkit-scrollbar-track { background: #050508; }
+        ::-webkit-scrollbar-thumb { background: #1e293b; border-radius: 4px; }
+        ::-webkit-scrollbar-thumb:hover { background: #334155; }
     </style>
 </head>
 
-<body class="nlp-gradient-bg">
+<body class="antialiased selection:bg-cyan-500 selection:text-white">
 
-    <div id="hero-canvas"></div>
+    <div id="bg-canvas"></div>
 
-    <header id="main-header" class="glass-effect fixed top-4 left-1/2 -translate-x-1/2 w-[95%] max-w-4xl z-50 rounded-full transition-all duration-300">
-        <nav class="flex items-center justify-between p-2">
-            <a href="#introduction" class="text-xl font-bold text-white pl-4 hover:text-cyan-300 transition">SV</a>
-            <div class="hidden md:flex items-center space-x-2">
-                <a href="#summary" class="nav-link px-4 py-2 rounded-full text-sm font-medium text-gray-300 hover:bg-gray-800 transition">About</a>
-                <a href="#experience" class="nav-link px-4 py-2 rounded-full text-sm font-medium text-gray-300 hover:bg-gray-800 transition">Experience</a>
-                <a href="#projects" class="nav-link px-4 py-2 rounded-full text-sm font-medium text-gray-300 hover:bg-gray-800 transition">Projects</a>
-                <a href="#skills" class="nav-link px-4 py-2 rounded-full text-sm font-medium text-gray-300 hover:bg-gray-800 transition">Skills</a>
-                <a href="#contact" class="nav-link px-4 py-2 rounded-full text-sm font-medium text-gray-300 hover:bg-gray-800 transition">Contact</a>
-            </div>
-            <a href="#contact" class="bg-cyan-600 hover:bg-cyan-500 text-white text-sm font-medium px-5 py-2.5 rounded-full transition mr-1 shadow-lg shadow-cyan-600/20">
-                Get in Touch
+    <header class="fixed w-full top-0 z-50 header-glass transition-all duration-300">
+        <div class="max-w-7xl mx-auto px-6 py-4 flex justify-between items-center">
+            <a href="#" class="text-2xl font-bold tracking-tighter text-white">SV<span class="text-cyan-500">.</span></a>
+            
+            <nav class="hidden md:flex space-x-8">
+                <a href="#about" class="nav-link text-sm text-gray-300 hover:text-white transition">About</a>
+                <a href="#experience" class="nav-link text-sm text-gray-300 hover:text-white transition">Experience</a>
+                <a href="#projects" class="nav-link text-sm text-gray-300 hover:text-white transition">Projects</a>
+                <a href="#skills" class="nav-link text-sm text-gray-300 hover:text-white transition">Skills</a>
+            </nav>
+
+            <a href="mailto:shalin2010vachheta@gmail.com" class="px-5 py-2 rounded-full bg-gradient-to-r from-cyan-600 to-blue-600 hover:from-cyan-500 hover:to-blue-500 text-white text-sm font-medium shadow-lg shadow-cyan-500/20 transition-all transform hover:scale-105">
+                Contact Me
             </a>
-        </nav>
+        </div>
     </header>
 
-    <main>
-        <section id="introduction" class="section-min-height relative flex items-center justify-center p-4 overflow-hidden">
-            <div class="text-center relative z-10 reveal">
-                <img src="shalin-bridge.jpg" alt="Shalin Vachheta" class="w-40 h-40 rounded-full mx-auto mb-6 border-4 border-cyan-500/50 shadow-2xl object-cover">
-                <h1 class="text-5xl md:text-7xl font-black text-white leading-tight">
+    <main class="pt-20">
+        <section class="min-h-screen flex flex-col justify-center items-center text-center px-4 relative">
+            <div class="reveal z-10 max-w-4xl">
+                <div class="inline-block p-1 rounded-full bg-gradient-to-tr from-cyan-500 to-blue-500 mb-8 p-[2px]">
+                    <img src="shalin-bridge.jpg" alt="Shalin Vachheta" class="w-32 h-32 md:w-40 md:h-40 rounded-full border-4 border-[#050508] object-cover">
+                </div>
+                <h1 class="text-6xl md:text-8xl font-bold text-white mb-4 tracking-tight leading-tight">
                     Shalin Vachheta
                 </h1>
-                <p class="text-xl md:text-2xl text-cyan-300 mt-4 font-medium">
-                    AI • MLOps • Generative AI
+                <p class="text-xl md:text-2xl text-gray-400 mb-8 font-light">
+                    Engineering <span class="text-cyan-400 font-medium">Intelligence</span> into Scalable Systems
                 </p>
-                <p class="max-w-2xl mx-auto text-lg text-gray-400 mt-6">
-                    M.Sc. Mechatronics Student | Building scalable ML pipelines and intelligent GenAI systems.
-                </p>
-            </div>
-        </section>
-
-        <section id="summary" class="section-min-height relative flex items-center justify-center p-8">
-            <div class="max-w-4xl mx-auto reveal z-10">
-                <h2 class="text-4xl font-bold text-center text-white mb-12 section-heading">About Me</h2>
-                <div class="glass-effect rounded-2xl p-8 md:p-12 space-y-6 text-lg text-gray-300 leading-relaxed">
-                    <p>
-                        As a Master's student in Mechatronics at the University of Siegen, I have evolved from pure model development to mastering the entire AI lifecycle. My expertise now bridges the gap between **Data Science** and **Production Engineering**, focusing on **MLOps**, scalable data pipelines, and Generative AI.
-                    </p>
-                    <p>
-                        I specialize in building robust CI/CD workflows for Machine Learning, automating data ingestion with tools like **Docker** and **GitHub Actions**, and deploying complex models into real-world environments. Whether it's fine-tuning LLMs (like PEGASUS) or architecting end-to-end prediction systems for the insurance sector, I ensure my solutions are not just accurate, but reliable and scalable.
-                    </p>
-                    <p>
-                        Beyond the terminal, I am an avid photographer and traveler. I believe the discipline required to build a perfect pipeline mirrors the patience needed to capture the perfect shot. I am currently seeking opportunities to bring my blend of ML innovation and engineering rigor to a forward-thinking team.
-                    </p>
+                <div class="flex flex-wrap justify-center gap-4 text-sm font-medium">
+                    <span class="px-4 py-2 glass-card rounded-lg text-cyan-300">Generative AI</span>
+                    <span class="px-4 py-2 glass-card rounded-lg text-blue-300">MLOps</span>
+                    <span class="px-4 py-2 glass-card rounded-lg text-purple-300">Data Engineering</span>
                 </div>
             </div>
+            
+            <div class="absolute bottom-10 left-1/2 -translate-x-1/2 animate-bounce">
+                <svg class="w-6 h-6 text-gray-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 14l-7 7m0 0l-7-7m7 7V3"></path></svg>
+            </div>
         </section>
 
-        <section id="experience" class="section-min-height relative flex items-center justify-center p-8">
-            <div class="max-w-4xl mx-auto reveal w-full z-10">
-                <h2 class="text-4xl font-bold text-center text-white mb-16 section-heading">My Journey</h2>
-                <div class="md:flex gap-8">
-                    <div id="exp-tabs" class="md:w-1/3 flex md:flex-col gap-2 mb-8 md:mb-0">
-                        <div class="exp-tab active" onclick="switchExpTab(this, 'exp-uni-siegen')">
-                            <h3 class="font-bold">University of Siegen</h3>
-                            <p class="text-sm text-gray-400">Student Research Assistant</p>
+        <section id="about" class="py-24 px-6">
+            <div class="max-w-5xl mx-auto reveal">
+                <h2 class="text-3xl md:text-4xl font-bold mb-12 text-white border-l-4 border-cyan-500 pl-4">About Me</h2>
+                <div class="grid md:grid-cols-5 gap-12">
+                    <div class="md:col-span-3 space-y-6 text-lg text-gray-400 leading-relaxed">
+                        <p>
+                            I am a Master's student in <strong class="text-white">Mechatronics</strong> at the University of Siegen, bridging the gap between theoretical Data Science and production-grade Engineering.
+                        </p>
+                        <p>
+                            My passion lies in <strong class="text-white">MLOps and Generative AI</strong>. I don't just build models; I build the pipelines that feed them, the infrastructure that serves them, and the interfaces that make them usable. From fine-tuning LLMs like Llama 3.1 to orchestrating Dockerized pipelines for insurance data, I focus on reliability and scalability.
+                        </p>
+                        <p>
+                            When I'm not coding, I'm analyzing complex systems or exploring the world through photography—always looking for the perfect composition.
+                        </p>
+                    </div>
+                    <div class="md:col-span-2 space-y-4">
+                        <div class="glass-card p-6 rounded-xl">
+                            <h3 class="text-white font-bold mb-2">Education</h3>
+                            <p class="text-cyan-400">M.Sc. Mechatronics</p>
+                            <p class="text-sm text-gray-500">University of Siegen, Germany</p>
                         </div>
-                        </div>
-                    <div class="md:w-2/3">
-                        <div id="exp-uni-siegen" class="exp-content active glass-effect animated-grid-bg rounded-xl p-8">
-                           <div class="relative z-10">
-                                <p class="text-cyan-400 font-semibold text-sm mb-1">05/2024 - 05/2025</p>
-                                <h3 class="text-2xl font-bold text-white mb-4">Sequence-to-Sequence Event Forecasting (BiLSTM)</h3>
-                                <ul class="list-disc list-inside text-gray-300 space-y-3">
-                                    <li>Developing a bidirectional LSTM-based Seq2Seq model in PyTorch for event forecasting from CARLA Simulator data, improving accuracy by 25%.</li>
-                                    <li>Tuning hyperparameters with Optuna (Bayesian optimisation), achieving an additional 15% performance gain.</li>
-                                    <li>Building reproducible ML pipelines with comprehensive logging, checkpointing, and visualization support.</li>
-                                </ul>
-                           </div>
+                        <div class="glass-card p-6 rounded-xl">
+                            <h3 class="text-white font-bold mb-2">Focus</h3>
+                            <p class="text-gray-400 text-sm">LLM Applications, RAG Systems, End-to-End MLOps, Data Pipelines.</p>
                         </div>
                     </div>
                 </div>
             </div>
         </section>
-        
-        <section id="projects" class="py-24 p-8 relative">
-            <div class="max-w-7xl mx-auto reveal z-10">
-                <h2 class="text-4xl font-bold text-center text-white mb-16 section-heading">Projects</h2>
-                <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+
+        <section id="experience" class="py-24 px-6 bg-[#0a0a12]/50">
+            <div class="max-w-5xl mx-auto reveal">
+                <h2 class="text-3xl md:text-4xl font-bold mb-12 text-white border-l-4 border-blue-500 pl-4">Experience</h2>
+                
+                <div class="relative border-l border-gray-800 ml-4 space-y-12">
+                    <div class="relative pl-8">
+                        <div class="absolute -left-[9px] top-2 w-4 h-4 rounded-full bg-cyan-500 shadow-[0_0_10px_#06b6d4]"></div>
+                        <div class="glass-card p-8 rounded-2xl">
+                            <div class="flex flex-col md:flex-row md:justify-between md:items-center mb-4">
+                                <div>
+                                    <h3 class="text-2xl font-bold text-white">Student Research Assistant</h3>
+                                    <p class="text-cyan-400 font-medium">University of Siegen</p>
+                                </div>
+                                <span class="text-sm text-gray-500 mt-2 md:mt-0 px-3 py-1 border border-gray-700 rounded-full">05/2024 - Present</span>
+                            </div>
+                            <h4 class="text-lg text-gray-300 mb-3 font-medium">Seq2Seq Event Forecasting</h4>
+                            <ul class="list-disc list-outside ml-5 space-y-2 text-gray-400">
+                                <li>Engineered a <span class="text-white">BiLSTM Seq2Seq</span> model using PyTorch to forecast events from CARLA simulator data, boosting accuracy by <span class="text-white">25%</span>.</li>
+                                <li>Implemented <span class="text-white">Optuna</span> for Bayesian hyperparameter optimization, yielding an additional 15% performance gain.</li>
+                                <li>Developed a reproducible training pipeline with automated logging and checkpointing.</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="projects" class="py-24 px-6">
+            <div class="max-w-7xl mx-auto reveal">
+                <h2 class="text-3xl md:text-4xl font-bold mb-16 text-white border-l-4 border-purple-500 pl-4">Featured Projects</h2>
+                
+                <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
                     
-                    <a href="https://github.com/ShalinVachheta017/Vehicle-Insurance-DataPipeline-MLops-" target="_blank" class="glass-effect rounded-xl p-6 project-card relative group">
-                        <div class="absolute top-0 right-0 bg-cyan-600 text-white text-xs font-bold px-3 py-1 rounded-bl-lg rounded-tr-xl z-20">LATEST</div>
-                        <h3 class="text-xl font-bold text-white transition-colors">Vehicle Insurance MLOps Pipeline</h3>
-                        <p class="text-gray-400 mt-2 text-sm">End-to-end MLOps project to predict customer insurance interest. Features modular coding, automated CI/CD via GitHub Actions, Docker containerization, and MongoDB integration.</p>
-                        <div class="mt-4 flex flex-wrap gap-2">
+                    <a href="https://github.com/ShalinVachheta017/Vehicle-Insurance-DataPipeline-MLops-" target="_blank" class="glass-card p-6 rounded-2xl group relative overflow-hidden">
+                        <div class="absolute top-0 right-0 bg-cyan-600/80 text-white text-[10px] uppercase font-bold px-3 py-1 rounded-bl-lg backdrop-blur-sm">Ops Featured</div>
+                        <h3 class="text-xl font-bold text-white group-hover:text-cyan-400 transition-colors">Vehicle Insurance Pipeline</h3>
+                        <p class="text-gray-400 text-sm mt-3 leading-relaxed">End-to-end MLOps architecture. Automated data ingestion (MongoDB), validation, and prediction deployment via Flask and Docker.</p>
+                        <div class="mt-5 flex flex-wrap gap-2">
                             <span class="tech-badge">MLOps</span>
                             <span class="tech-badge">Docker</span>
-                            <span class="tech-badge">GitHub Actions</span>
-                            <span class="tech-badge">Flask</span>
+                            <span class="tech-badge">CI/CD</span>
                         </div>
                     </a>
 
-                    <a href="https://github.com/ShalinVachheta017/ShalinV_Portfolio" target="_blank" class="glass-effect rounded-xl p-6 project-card group">
-                        <h3 class="text-xl font-bold text-white transition-colors">Comprehensive AI/ML Portfolio</h3>
-                        <p class="text-gray-400 mt-2 text-sm">A centralized collection of Machine Learning and GenAI implementations showcasing versatility across domains from EDA to Deep Learning deployment.</p>
-                        <div class="mt-4 flex flex-wrap gap-2">
-                            <span class="tech-badge">GenAI</span>
-                            <span class="tech-badge">Deep Learning</span>
-                            <span class="tech-badge">Web Dev</span>
-                        </div>
-                    </a>
-
-                    <a href="https://github.com/ShalinVachheta017/RAG-Chatbot-Document-Analysis" target="_blank" class="glass-effect rounded-xl p-6 project-card group">
-                        <h3 class="text-xl font-bold text-white transition-colors">RAG Chatbot for Analysis</h3>
-                        <p class="text-gray-400 mt-2 text-sm">A local, privacy-first RAG chatbot with a Streamlit UI for analyzing multilingual tender documents securely.</p>
-                        <div class="mt-4 flex flex-wrap gap-2">
-                            <span class="tech-badge">RAG</span>
+                    <a href="https://github.com/ShalinVachheta017/Multilingual-RAG-System-" target="_blank" class="glass-card p-6 rounded-2xl group">
+                        <h3 class="text-xl font-bold text-white group-hover:text-cyan-400 transition-colors">Multilingual RAG Bot</h3>
+                        <p class="text-gray-400 text-sm mt-3 leading-relaxed">A local, privacy-first Retrieval Augmented Generation system capable of analyzing and querying documents in multiple languages.</p>
+                        <div class="mt-5 flex flex-wrap gap-2">
                             <span class="tech-badge">LangChain</span>
+                            <span class="tech-badge">ChromaDB</span>
+                            <span class="tech-badge">Ollama</span>
+                        </div>
+                    </a>
+
+                    <a href="https://github.com/ShalinVachheta017/GEN-AI-Llama-3.1-based-Cold-Email-Generator-" target="_blank" class="glass-card p-6 rounded-2xl group">
+                        <h3 class="text-xl font-bold text-white group-hover:text-cyan-400 transition-colors">Llama 3.1 Email Generator</h3>
+                        <p class="text-gray-400 text-sm mt-3 leading-relaxed">Generative AI tool leveraging Llama 3.1 (Groq API) to craft hyper-personalized cold emails for business outreach.</p>
+                        <div class="mt-5 flex flex-wrap gap-2">
+                            <span class="tech-badge">Llama 3.1</span>
+                            <span class="tech-badge">Groq</span>
                             <span class="tech-badge">Streamlit</span>
                         </div>
                     </a>
 
-                    <a href="https://github.com/ShalinVachheta017/Customer-Churn-Prediction" target="_blank" class="glass-effect rounded-xl p-6 project-card group">
-                        <h3 class="text-xl font-bold text-white transition-colors">Customer Churn Insights</h3>
-                        <p class="text-gray-400 mt-2 text-sm">Developed a Random Forest model with 89% accuracy to predict customer churn and provide actionable business insights.</p>
-                        <div class="mt-4 flex flex-wrap gap-2">
-                            <span class="tech-badge">Scikit-learn</span>
-                            <span class="tech-badge">EDA</span>
-                        </div>
-                    </a>
-
-                    <a href="https://github.com/ShalinVachheta017/Cold-Email-Generator-LLM" target="_blank" class="glass-effect rounded-xl p-6 project-card group">
-                        <h3 class="text-xl font-bold text-white transition-colors">AI Email Generator</h3>
-                        <p class="text-gray-400 mt-2 text-sm">LLM-powered tool using LangChain and RAG for automated, context-aware generation of professional outreach emails.</p>
-                        <div class="mt-4 flex flex-wrap gap-2">
-                            <span class="tech-badge">LLMs</span>
-                            <span class="tech-badge">Automation</span>
-                        </div>
-                    </a>
-
-                    <a href="https://github.com/ShalinVachheta017/Transformer-NMT-From-Scratch" target="_blank" class="glass-effect rounded-xl p-6 project-card group">
-                        <h3 class="text-xl font-bold text-white transition-colors">Transformer NMT</h3>
-                        <p class="text-gray-400 mt-2 text-sm">Implemented a Transformer model in PyTorch from scratch for Neural Machine Translation, improving BLEU score by 15%.</p>
-                        <div class="mt-4 flex flex-wrap gap-2">
+                    <a href="https://github.com/ShalinVachheta017/sequence-2-sequence-Event-Prediction" target="_blank" class="glass-card p-6 rounded-2xl group">
+                        <h3 class="text-xl font-bold text-white group-hover:text-cyan-400 transition-colors">Seq2Seq Event Prediction</h3>
+                        <p class="text-gray-400 text-sm mt-3 leading-relaxed">The codebase for my research work. BiLSTM Encoder-Decoder architecture predicting future events based on time-series data.</p>
+                        <div class="mt-5 flex flex-wrap gap-2">
                             <span class="tech-badge">PyTorch</span>
+                            <span class="tech-badge">LSTM</span>
+                            <span class="tech-badge">Time-Series</span>
+                        </div>
+                    </a>
+
+                    <a href="https://github.com/ShalinVachheta017/Text_Summarization_Project" target="_blank" class="glass-card p-6 rounded-2xl group">
+                        <h3 class="text-xl font-bold text-white group-hover:text-cyan-400 transition-colors">Text Summarization</h3>
+                        <p class="text-gray-400 text-sm mt-3 leading-relaxed">End-to-end NLP project fine-tuning the PEGASUS model for abstractive text summarization on the SAMSum dataset.</p>
+                        <div class="mt-5 flex flex-wrap gap-2">
+                            <span class="tech-badge">Hugging Face</span>
+                            <span class="tech-badge">PEGASUS</span>
                             <span class="tech-badge">NLP</span>
                         </div>
                     </a>
 
-                    <a href="https://github.com/ShalinVachheta017/Text-Summarization-PEGASUS" target="_blank" class="glass-effect rounded-xl p-6 project-card group">
-                        <h3 class="text-xl font-bold text-white transition-colors">Abstractive Summarization</h3>
-                        <p class="text-gray-400 mt-2 text-sm">Fine-tuned PEGASUS on the SAMSum dataset, achieving a 20% improvement in ROUGE-2 scores for dialogue summarization.</p>
-                        <div class="mt-4 flex flex-wrap gap-2">
-                            <span class="tech-badge">Hugging Face</span>
-                            <span class="tech-badge">PEGASUS</span>
+                    <a href="https://github.com/ShalinVachheta017/Student-Performance-Prediction" target="_blank" class="glass-card p-6 rounded-2xl group">
+                        <h3 class="text-xl font-bold text-white group-hover:text-cyan-400 transition-colors">Performance Prediction</h3>
+                        <p class="text-gray-400 text-sm mt-3 leading-relaxed">A full-stack ML project predicting student scores. Includes data ingestion, modular training pipeline, and web deployment.</p>
+                        <div class="mt-5 flex flex-wrap gap-2">
+                            <span class="tech-badge">Regression</span>
+                            <span class="tech-badge">Deployment</span>
+                            <span class="tech-badge">AWS Beanstalk</span>
                         </div>
                     </a>
 
-                    <a href="https://github.com/ShalinVachheta017/Microscopic-Image-Segmentation" target="_blank" class="glass-effect rounded-xl p-6 project-card group">
-                        <h3 class="text-xl font-bold text-white transition-colors">Microscopic Image Denoising</h3>
-                        <p class="text-gray-400 mt-2 text-sm">Implemented a dual-branch U-Net to jointly denoise and segment microscopy images, increasing IoU by 30%.</p>
-                        <div class="mt-4 flex flex-wrap gap-2">
+                    <a href="https://github.com/ShalinVachheta017/Translation-Transformer-Model" target="_blank" class="glass-card p-6 rounded-2xl group">
+                        <h3 class="text-xl font-bold text-white group-hover:text-cyan-400 transition-colors">NMT Transformer</h3>
+                        <p class="text-gray-400 text-sm mt-3 leading-relaxed">Implemented the "Attention Is All You Need" architecture from scratch for Neural Machine Translation tasks.</p>
+                        <div class="mt-5 flex flex-wrap gap-2">
+                            <span class="tech-badge">Deep Learning</span>
+                            <span class="tech-badge">Attention</span>
+                            <span class="tech-badge">Scratch</span>
+                        </div>
+                    </a>
+
+                    <a href="https://github.com/ShalinVachheta017/Sports-Analysis-" target="_blank" class="glass-card p-6 rounded-2xl group">
+                        <h3 class="text-xl font-bold text-white group-hover:text-cyan-400 transition-colors">Sports Analysis</h3>
+                        <p class="text-gray-400 text-sm mt-3 leading-relaxed">Data analysis project leveraging computer vision to track player movements and analyze game statistics automatically.</p>
+                        <div class="mt-5 flex flex-wrap gap-2">
                             <span class="tech-badge">Computer Vision</span>
-                            <span class="tech-badge">U-Net</span>
+                            <span class="tech-badge">OpenCV</span>
+                            <span class="tech-badge">YOLO</span>
                         </div>
                     </a>
 
-                    <a href="https://github.com/ShalinVachheta017/Real-Time-Prediction-Flask" target="_blank" class="glass-effect rounded-xl p-6 project-card group">
-                        <h3 class="text-xl font-bold text-white transition-colors">Real-Time Predictive App</h3>
-                        <p class="text-gray-400 mt-2 text-sm">Trained XGBoost models (R²=0.87) deployed via Flask for real-time predictions.</p>
-                        <div class="mt-4 flex flex-wrap gap-2">
-                            <span class="tech-badge">XGBoost</span>
-                            <span class="tech-badge">Flask</span>
-                        </div>
-                    </a>
                 </div>
             </div>
         </section>
 
-        <section id="skills" class="section-min-height relative flex items-center justify-center p-8 overflow-hidden">
-            <div id="skills-canvas-container"></div>
-            <div class="max-w-4xl mx-auto reveal w-full z-10">
-                <h2 class="text-4xl font-bold text-center text-white mb-16 section-heading">Core Competencies</h2>
-                <div class="space-y-10">
-                    <div>
-                        <h3 class="text-xl font-semibold text-cyan-300 mb-4">MLOps & Cloud (New Focus)</h3>
+        <section id="skills" class="py-24 px-6 bg-[#0a0a12]/50">
+            <div class="max-w-5xl mx-auto reveal">
+                <h2 class="text-3xl md:text-4xl font-bold mb-16 text-white border-l-4 border-green-500 pl-4">Technical Arsenal</h2>
+                
+                <div class="grid md:grid-cols-2 gap-8">
+                    <div class="space-y-6">
+                        <h3 class="text-xl font-semibold text-cyan-400">GenAI & NLP</h3>
                         <div class="flex flex-wrap gap-3">
-                            <span class="glass-effect text-sm px-4 py-2 rounded-lg border-l-4 border-cyan-500">Docker</span>
-                            <span class="glass-effect text-sm px-4 py-2 rounded-lg border-l-4 border-cyan-500">GitHub Actions (CI/CD)</span>
-                            <span class="glass-effect text-sm px-4 py-2 rounded-lg">DVC (Data Version Control)</span>
-                            <span class="glass-effect text-sm px-4 py-2 rounded-lg">MLflow</span>
-                            <span class="glass-effect text-sm px-4 py-2 rounded-lg">AWS (EC2/S3)</span>
-                            <span class="glass-effect text-sm px-4 py-2 rounded-lg">Flask</span>
+                            <span class="glass-card px-4 py-2 rounded-lg text-sm text-gray-300">RAG Systems</span>
+                            <span class="glass-card px-4 py-2 rounded-lg text-sm text-gray-300">LangChain</span>
+                            <span class="glass-card px-4 py-2 rounded-lg text-sm text-gray-300">Hugging Face</span>
+                            <span class="glass-card px-4 py-2 rounded-lg text-sm text-gray-300">Ollama</span>
+                            <span class="glass-card px-4 py-2 rounded-lg text-sm text-gray-300">Llama 3/GPT-4</span>
+                            <span class="glass-card px-4 py-2 rounded-lg text-sm text-gray-300">Vector DBs</span>
                         </div>
                     </div>
-                    <div>
-                        <h3 class="text-xl font-semibold text-cyan-300 mb-4">LLM & NLP</h3>
+                    
+                    <div class="space-y-6">
+                        <h3 class="text-xl font-semibold text-blue-400">MLOps & Cloud</h3>
                         <div class="flex flex-wrap gap-3">
-                            <span class="glass-effect text-sm px-4 py-2 rounded-lg">LangChain</span>
-                            <span class="glass-effect text-sm px-4 py-2 rounded-lg">RAG</span>
-                            <span class="glass-effect text-sm px-4 py-2 rounded-lg">Hugging Face</span>
-                            <span class="glass-effect text-sm px-4 py-2 rounded-lg">Ollama</span>
-                            <span class="glass-effect text-sm px-4 py-2 rounded-lg">Transformers</span>
-                            <span class="glass-effect text-sm px-4 py-2 rounded-lg">PEGASUS</span>
+                            <span class="glass-card px-4 py-2 rounded-lg text-sm text-gray-300">Docker</span>
+                            <span class="glass-card px-4 py-2 rounded-lg text-sm text-gray-300">GitHub Actions</span>
+                            <span class="glass-card px-4 py-2 rounded-lg text-sm text-gray-300">AWS (EC2/ECR)</span>
+                            <span class="glass-card px-4 py-2 rounded-lg text-sm text-gray-300">MLflow</span>
+                            <span class="glass-card px-4 py-2 rounded-lg text-sm text-gray-300">DVC</span>
                         </div>
                     </div>
-                    <div>
-                        <h3 class="text-xl font-semibold text-cyan-300 mb-4">ML / DL & Data Science</h3>
+
+                    <div class="space-y-6">
+                        <h3 class="text-xl font-semibold text-purple-400">Data Science & ML</h3>
                         <div class="flex flex-wrap gap-3">
-                            <span class="glass-effect text-sm px-4 py-2 rounded-lg">PyTorch</span>
-                            <span class="glass-effect text-sm px-4 py-2 rounded-lg">TensorFlow</span>
-                            <span class="glass-effect text-sm px-4 py-2 rounded-lg">Scikit-learn</span>
-                            <span class="glass-effect text-sm px-4 py-2 rounded-lg">XGBoost/CatBoost</span>
-                            <span class="glass-effect text-sm px-4 py-2 rounded-lg">Pandas/NumPy</span>
-                            <span class="glass-effect text-sm px-4 py-2 rounded-lg">Optuna</span>
+                            <span class="glass-card px-4 py-2 rounded-lg text-sm text-gray-300">PyTorch</span>
+                            <span class="glass-card px-4 py-2 rounded-lg text-sm text-gray-300">TensorFlow</span>
+                            <span class="glass-card px-4 py-2 rounded-lg text-sm text-gray-300">Scikit-learn</span>
+                            <span class="glass-card px-4 py-2 rounded-lg text-sm text-gray-300">XGBoost</span>
+                            <span class="glass-card px-4 py-2 rounded-lg text-sm text-gray-300">Pandas/NumPy</span>
                         </div>
                     </div>
-                    <div>
-                        <h3 class="text-xl font-semibold text-cyan-300 mb-4">Databases & Tools</h3>
+
+                    <div class="space-y-6">
+                        <h3 class="text-xl font-semibold text-pink-400">Languages & Tools</h3>
                         <div class="flex flex-wrap gap-3">
-                            <span class="glass-effect text-sm px-4 py-2 rounded-lg">MongoDB</span>
-                            <span class="glass-effect text-sm px-4 py-2 rounded-lg">SQL</span>
-                            <span class="glass-effect text-sm px-4 py-2 rounded-lg">Qdrant DB</span>
-                            <span class="glass-effect text-sm px-4 py-2 rounded-lg">ChromaDB</span>
-                            <span class="glass-effect text-sm px-4 py-2 rounded-lg">Git</span>
-                            <span class="glass-effect text-sm px-4 py-2 rounded-lg">Jupyter</span>
+                            <span class="glass-card px-4 py-2 rounded-lg text-sm text-gray-300">Python</span>
+                            <span class="glass-card px-4 py-2 rounded-lg text-sm text-gray-300">SQL</span>
+                            <span class="glass-card px-4 py-2 rounded-lg text-sm text-gray-300">MongoDB</span>
+                            <span class="glass-card px-4 py-2 rounded-lg text-sm text-gray-300">Git</span>
+                            <span class="glass-card px-4 py-2 rounded-lg text-sm text-gray-300">Linux</span>
                         </div>
                     </div>
                 </div>
             </div>
         </section>
 
-        <section id="contact" class="section-min-height relative flex flex-col items-center justify-center p-8 text-center">
-            <div class="max-w-2xl mx-auto reveal z-10">
-                <h2 class="text-4xl font-bold text-center text-white mb-4 section-heading">Get In Touch</h2>
-                <p class="text-lg text-gray-400 mb-8">
-                    I'm currently seeking new opportunities and am open to collaboration on AI, MLOps, and GenAI projects.
-                </p>
-                <a href="mailto:shalin2010vachheta@gmail.com" class="inline-block bg-cyan-600 hover:bg-cyan-500 text-white font-semibold text-lg px-8 py-4 rounded-lg transition duration-300 transform hover:scale-105 shadow-lg shadow-cyan-600/20">
-                    Say Hello
+        <footer class="py-12 text-center text-gray-500 border-t border-gray-800 bg-[#050508]">
+            <div class="flex justify-center gap-6 mb-6">
+                <a href="https://github.com/ShalinVachheta017" target="_blank" class="hover:text-cyan-400 transition transform hover:scale-110">
+                    <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24"><path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.108-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.91 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"></path></svg>
+                </a>
+                <a href="https://linkedin.com/in/shalin-vachheta/" target="_blank" class="hover:text-cyan-400 transition transform hover:scale-110">
+                    <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24"><path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z"></path></svg>
                 </a>
             </div>
-            
-            <footer class="mt-24 text-center text-gray-500 relative z-10">
-                <div class="flex justify-center space-x-6 mb-4">
-                    <a href="https://github.com/ShalinVachheta017" target="_blank" class="hover:text-cyan-400 transition"><svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24"><path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.108-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.91 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"></path></svg></a>
-                    <a href="https://linkedin.com/in/shalin-vachheta/" target="_blank" class="hover:text-cyan-400 transition"><svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24"><path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z"></path></svg></a>
-                </div>
-                <p>Designed & Built by Shalin Vachheta</p>
-            </footer>
-        </section>
+            <p class="text-sm">Built by Shalin Vachheta • 2025</p>
+        </footer>
     </main>
-    
+
     <script>
-        // --- Scroll Animations ---
+        // --- Scroll Reveal Animation ---
         const observer = new IntersectionObserver((entries) => {
             entries.forEach(entry => {
-                if (entry.isIntersecting) entry.target.classList.add('visible');
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                }
             });
         }, { threshold: 0.1 });
         document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
 
-        // --- Active Nav Link on Scroll ---
-        const sections = document.querySelectorAll('section');
-        const navLinks = document.querySelectorAll('.nav-link');
-        const navObserver = new IntersectionObserver((entries) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    navLinks.forEach(link => {
-                        link.classList.toggle('active', link.getAttribute('href').substring(1) === entry.target.id);
-                    });
-                }
-            });
-        }, { rootMargin: "-50% 0px -50% 0px" });
-        sections.forEach(section => navObserver.observe(section));
-        
-        // --- Experience Tab Switching ---
-        function switchExpTab(tabElement, contentId) {
-            // Deactivate all tabs and content
-            document.querySelectorAll('.exp-tab').forEach(tab => tab.classList.remove('active'));
-            document.querySelectorAll('.exp-content').forEach(content => content.classList.remove('active'));
-            
-            // Activate the clicked tab and corresponding content
-            tabElement.classList.add('active');
-            document.getElementById(contentId).classList.add('active');
-        }
+        // --- Three.js Unified "Network Wave" Background ---
+        const initBg = () => {
+            const container = document.getElementById('bg-canvas');
+            const scene = new THREE.Scene();
+            const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
+            camera.position.z = 50;
 
-        // --- Three.js Waveform Animation ---
-        let scene, camera, renderer, particles;
-        let mouseX = 0, mouseY = 0;
-        const PARTICLE_COUNT = 5000;
-
-        function init3D() {
-            const container = document.getElementById('hero-canvas');
-            if (!container) return;
-            scene = new THREE.Scene();
-            camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
-            camera.position.z = 300;
-
-            renderer = new THREE.WebGLRenderer({ alpha: true, antias: true });
+            const renderer = new THREE.WebGLRenderer({ alpha: true, antialias: true });
             renderer.setSize(window.innerWidth, window.innerHeight);
-            renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+            renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2)); // optimize performance
             container.appendChild(renderer.domElement);
 
-            const positions = new Float32Array(PARTICLE_COUNT * 3);
-            for (let i = 0; i < PARTICLE_COUNT; i++) {
-                let i3 = i * 3;
-                positions[i3] = (Math.random() - 0.5) * 800; // x
-                positions[i3 + 1] = (Math.random() - 0.5) * 400; // y
-                positions[i3 + 2] = (Math.random() - 0.5) * 400; // z
-            }
-            
-            const particlesGeometry = new THREE.BufferGeometry();
-            particlesGeometry.setAttribute('position', new THREE.BufferAttribute(positions, 3));
-            
-            const particlesMaterial = new THREE.PointsMaterial({
-                color: '#0891b2',
-                size: 0.8,
-                blending: THREE.AdditiveBlending,
-                transparent: true,
-                sizeAttenuation: true,
-            });
-            
-            particles = new THREE.Points(particlesGeometry, particlesMaterial);
-            scene.add(particles);
-
-            window.addEventListener('resize', onWindowResize, false);
-            document.addEventListener('mousemove', onMouseMove, false);
-            animate();
-        }
-
-        const clock = new THREE.Clock();
-        function animate() {
-            if (!renderer) return;
-            const elapsedTime = clock.getElapsedTime();
-            
-            // Animate particles
-            const positions = particles.geometry.attributes.position.array;
-            for (let i = 0; i < PARTICLE_COUNT; i++) {
-                let i3 = i * 3;
-                const x = particles.geometry.attributes.position.getX(i);
-                positions[i3 + 1] = Math.sin(x * 0.01 + elapsedTime) * 20;
-            }
-            particles.geometry.attributes.position.needsUpdate = true;
-
-            // Mouse movement effect
-            camera.position.x += (mouseX * 200 - camera.position.x) * 0.05;
-            camera.position.y += (-mouseY * 200 - camera.position.y) * 0.05;
-            camera.lookAt(scene.position);
-
-            renderer.render(scene, camera);
-            requestAnimationFrame(animate);
-        }
-
-        function onWindowResize() {
-            camera.aspect = window.innerWidth / window.innerHeight;
-            camera.updateProjectionMatrix();
-            renderer.setSize(window.innerWidth, window.innerHeight);
-        }
-        
-        function onMouseMove(event) {
-            mouseX = (event.clientX - window.innerWidth / 2) / (window.innerWidth / 2);
-            mouseY = (event.clientY - window.innerHeight / 2) / (window.innerHeight / 2);
-        }
-
-        // --- Skills Animation (Network Graph) ---
-        let skillsScene, skillsCamera, skillsRenderer, skillsPoints, skillsLines;
-        const skillsMouse = new THREE.Vector2();
-
-        function initSkillsAnimation() {
-            const container = document.getElementById('skills-canvas-container');
-            if (!container) return;
-
-            skillsScene = new THREE.Scene();
-            skillsCamera = new THREE.PerspectiveCamera(75, container.offsetWidth / container.offsetHeight, 1, 1000);
-            skillsCamera.position.z = 50;
-
-            skillsRenderer = new THREE.WebGLRenderer({ alpha: true, antias: true });
-            skillsRenderer.setSize(container.offsetWidth, container.offsetHeight);
-            skillsRenderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
-            container.appendChild(skillsRenderer.domElement);
-            
-            const NUM_POINTS = 100;
+            // Particles
+            const particleCount = 150;
             const positions = [];
-            const particlesData = [];
+            const velocities = [];
 
-            for (let i = 0; i < NUM_POINTS; i++) {
-                const x = Math.random() * 200 - 100;
-                const y = Math.random() * 200 - 100;
-                const z = Math.random() * 200 - 100;
-                positions.push(x, y, z);
-                particlesData.push({
-                    velocity: new THREE.Vector3(-1 + Math.random() * 2, -1 + Math.random() * 2, -1 + Math.random() * 2).multiplyScalar(0.1),
-                    numConnections: 0
+            for(let i=0; i<particleCount; i++) {
+                positions.push((Math.random() - 0.5) * 150); // x
+                positions.push((Math.random() - 0.5) * 150); // y
+                positions.push((Math.random() - 0.5) * 100); // z
+                velocities.push({
+                    x: (Math.random() - 0.5) * 0.05,
+                    y: (Math.random() - 0.5) * 0.05
                 });
             }
+
+            const geometry = new THREE.BufferGeometry();
+            geometry.setAttribute('position', new THREE.Float32BufferAttribute(positions, 3));
             
-            const pGeom = new THREE.BufferGeometry();
-            pGeom.setAttribute('position', new THREE.Float32BufferAttribute(positions, 3).setUsage(THREE.DynamicDrawUsage));
-            pGeom.userData.particlesData = particlesData;
+            const material = new THREE.PointsMaterial({
+                color: 0x22d3ee,
+                size: 0.8,
+                transparent: true,
+                opacity: 0.8
+            });
 
-            const pMat = new THREE.PointsMaterial({ color: '#22d3ee', size: 1.5, blending: THREE.AdditiveBlending, transparent: true });
-            skillsPoints = new THREE.Points(pGeom, pMat);
-            skillsScene.add(skillsPoints);
+            const particles = new THREE.Points(geometry, material);
+            scene.add(particles);
 
-            const lineGeom = new THREE.BufferGeometry();
-            const linePos = new Float32Array(NUM_POINTS * NUM_POINTS * 3);
-            lineGeom.setAttribute('position', new THREE.BufferAttribute(linePos, 3).setUsage(THREE.DynamicDrawUsage));
-            const lineMat = new THREE.LineBasicMaterial({ color: '#0e7490', transparent: true, opacity: 0.3, blending: THREE.AdditiveBlending });
-            skillsLines = new THREE.LineSegments(lineGeom, lineMat);
-            skillsScene.add(skillsLines);
+            // Lines
+            const lineMaterial = new THREE.LineBasicMaterial({
+                color: 0x3b82f6,
+                transparent: true,
+                opacity: 0.15
+            });
+            const lineGeometry = new THREE.BufferGeometry();
+            const lines = new THREE.LineSegments(lineGeometry, lineMaterial);
+            scene.add(lines);
 
-            container.addEventListener('mousemove', onSkillsMouseMove, false);
-            window.addEventListener('resize', onSkillsWindowResize, false);
-            animateSkills();
-        }
+            // Animation Loop
+            function animate() {
+                requestAnimationFrame(animate);
 
-        function onSkillsWindowResize() {
-            const container = document.getElementById('skills-canvas-container');
-            if (!container) return;
-            skillsCamera.aspect = container.offsetWidth / container.offsetHeight;
-            skillsCamera.updateProjectionMatrix();
-            skillsRenderer.setSize(container.offsetWidth, container.offsetHeight);
-        }
+                const positions = particles.geometry.attributes.position.array;
+                const linePositions = [];
 
-        function onSkillsMouseMove(event) {
-            const container = document.getElementById('skills-canvas-container');
-            if (!container) return;
-            const rect = container.getBoundingClientRect();
-            skillsMouse.x = ((event.clientX - rect.left) / container.offsetWidth) * 2 - 1;
-            skillsMouse.y = -((event.clientY - rect.top) / container.offsetHeight) * 2 + 1;
-        }
+                // Update particles
+                for(let i=0; i<particleCount; i++) {
+                    const i3 = i * 3;
+                    
+                    // Move
+                    positions[i3] += velocities[i].x;
+                    positions[i3+1] += velocities[i].y;
 
-        function animateSkills() {
-            if (!skillsRenderer) return;
+                    // Bounce off "walls" to keep them on screen
+                    if(positions[i3] > 75 || positions[i3] < -75) velocities[i].x *= -1;
+                    if(positions[i3+1] > 75 || positions[i3+1] < -75) velocities[i].y *= -1;
 
-            const pGeom = skillsPoints.geometry;
-            const positions = pGeom.attributes.position;
-            const particlesData = pGeom.userData.particlesData;
-            
-            // Mouse interaction
-            const mouseVector = new THREE.Vector3(skillsMouse.x, skillsMouse.y, 0.5);
-            mouseVector.unproject(skillsCamera);
-            const dir = mouseVector.sub(skillsCamera.position).normalize();
-            const distance = -skillsCamera.position.z / dir.z;
-            const pos = skillsCamera.position.clone().add(dir.multiplyScalar(distance));
+                    // Wave effect (Sine wave based on X pos + time)
+                    // positions[i3+2] = Math.sin(Date.now() * 0.001 + positions[i3] * 0.1) * 5; 
 
-            let vertexpos = 0;
-            let numConnected = 0;
+                    // Create connections
+                    for(let j=i+1; j<particleCount; j++) {
+                        const j3 = j*3;
+                        const dx = positions[i3] - positions[j3];
+                        const dy = positions[i3+1] - positions[j3+1];
+                        const dz = positions[i3+2] - positions[j3+2];
+                        const dist = Math.sqrt(dx*dx + dy*dy + dz*dz);
 
-            for (let i = 0; i < particlesData.length; i++) {
-                particlesData[i].numConnections = 0;
-                
-                const p = new THREE.Vector3(positions.getX(i), positions.getY(i), positions.getZ(i));
-                p.add(particlesData[i].velocity);
-
-                // Repel from mouse
-                const distToMouse = p.distanceTo(pos);
-                if (distToMouse < 20) {
-                    const repel = new THREE.Vector3().subVectors(p, pos).normalize();
-                    p.add(repel.multiplyScalar(0.5));
-                }
-
-                // Boundary check
-                if (p.x < -100 || p.x > 100) particlesData[i].velocity.x *= -1;
-                if (p.y < -100 || p.y > 100) particlesData[i].velocity.y *= -1;
-                if (p.z < -100 || p.z > 100) particlesData[i].velocity.z *= -1;
-
-                positions.setXYZ(i, p.x, p.y, p.z);
-            }
-
-            const linePositions = skillsLines.geometry.attributes.position;
-            for (let i = 0; i < particlesData.length; i++) {
-                for (let j = i + 1; j < particlesData.length; j++) {
-                    const p1 = new THREE.Vector3(positions.getX(i), positions.getY(i), positions.getZ(i));
-                    const p2 = new THREE.Vector3(positions.getX(j), positions.getY(j), positions.getZ(j));
-                    const dist = p1.distanceTo(p2);
-
-                    if (dist < 25 && numConnected < particlesData.length * 2) {
-                        linePositions.setXYZ(vertexpos++, p1.x, p1.y, p1.z);
-                        linePositions.setXYZ(vertexpos++, p2.x, p2.y, p2.z);
-                        numConnected++;
+                        if(dist < 20) {
+                            linePositions.push(
+                                positions[i3], positions[i3+1], positions[i3+2],
+                                positions[j3], positions[j3+1], positions[j3+2]
+                            );
+                        }
                     }
                 }
+
+                particles.geometry.attributes.position.needsUpdate = true;
+                lines.geometry.setAttribute('position', new THREE.Float32BufferAttribute(linePositions, 3));
+
+                // Slow rotation
+                scene.rotation.y += 0.0005;
+                scene.rotation.x += 0.0002;
+
+                renderer.render(scene, camera);
             }
+            animate();
 
-            positions.needsUpdate = true;
-            linePositions.needsUpdate = true;
-            skillsLines.geometry.setDrawRange(0, numConnected * 2);
+            // Resize Handler
+            window.addEventListener('resize', () => {
+                camera.aspect = window.innerWidth / window.innerHeight;
+                camera.updateProjectionMatrix();
+                renderer.setSize(window.innerWidth, window.innerHeight);
+            });
+        };
 
-            skillsRenderer.render(skillsScene, skillsCamera);
-            requestAnimationFrame(animateSkills);
-        }
-
-        init3D();
-        initSkillsAnimation();
+        initBg();
     </script>
 </body>
 </html>
