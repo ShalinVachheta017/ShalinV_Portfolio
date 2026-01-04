@@ -3,500 +3,365 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Shalin Vachheta — AI • MLOps • GenAI</title>
-
+    <title>Shalin Vachheta — MLOps & AI Architect</title>
     <script src="https://cdn.tailwindcss.com"></script>
-
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
-
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
 
     <style>
         :root {
-            --primary-glow: #06b6d4; /* Cyan-500 */
-            --secondary-glow: #3b82f6; /* Blue-500 */
+            --bg-color: #050505;
+            --card-bg: rgba(20, 20, 20, 0.6);
+            --accent: #22d3ee;
         }
 
         body {
-            font-family: 'Inter', sans-serif;
-            background-color: #050508;
-            color: #e2e8f0;
+            font-family: 'Outfit', sans-serif;
+            background-color: var(--bg-color);
+            color: #e5e5e5;
             overflow-x: hidden;
         }
 
-        h1, h2, h3, h4 {
-            font-family: 'Space Grotesk', sans-serif;
-        }
-
-        /* Fixed Background Canvas */
-        #bg-canvas {
+        /* --- 1. NOISE TEXTURE (The "Expensive" Look) --- */
+        .noise-overlay {
             position: fixed;
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
-            z-index: -1;
-            opacity: 0.6; /* Slight fade so text is readable */
+            pointer-events: none;
+            z-index: 50;
+            opacity: 0.05;
+            background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
         }
 
-        /* Modern Glassmorphism Card */
-        .glass-card {
-            background: rgba(20, 20, 35, 0.4);
-            backdrop-filter: blur(16px);
-            -webkit-backdrop-filter: blur(16px);
+        /* --- 2. SPOTLIGHT & BENTO GRID --- */
+        .spotlight-group:hover .spotlight-card::after { opacity: 1; }
+        .spotlight-card {
+            position: relative;
+            background-color: var(--card-bg);
             border: 1px solid rgba(255, 255, 255, 0.08);
-            box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
-            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            overflow: hidden;
+            transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275), border-color 0.3s ease;
         }
-
-        .glass-card:hover {
-            background: rgba(30, 30, 50, 0.6);
-            border-color: rgba(6, 182, 212, 0.4);
-            transform: translateY(-8px);
-            box-shadow: 0 20px 40px -10px rgba(6, 182, 212, 0.15);
+        .spotlight-card:hover {
+            border-color: rgba(34, 211, 238, 0.4);
+            transform: translateY(-4px);
+            box-shadow: 0 20px 40px -15px rgba(34, 211, 238, 0.1);
         }
-
-        /* Header Glass */
-        .header-glass {
-            background: rgba(5, 5, 8, 0.7);
-            backdrop-filter: blur(20px);
-            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+        .spotlight-card::before {
+            content: "";
+            position: absolute;
+            height: 100%; width: 100%; top: 0; left: 0;
+            background: radial-gradient(800px circle at var(--mouse-x) var(--mouse-y), rgba(255, 255, 255, 0.05), transparent 40%);
+            z-index: 1; opacity: 0; transition: opacity 0.5s; pointer-events: none;
         }
+        .spotlight-group:hover .spotlight-card::before { opacity: 1; }
+        .card-content { position: relative; z-index: 2; }
 
-        /* Text Gradient */
-        .text-gradient {
-            background: linear-gradient(135deg, #22d3ee 0%, #3b82f6 100%);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-        }
-
-        /* Scroll Animations */
+        /* --- 3. SCROLL REVEAL ANIMATION --- */
         .reveal {
             opacity: 0;
-            transform: translateY(30px);
-            transition: all 0.8s ease-out;
+            transform: translateY(40px);
+            transition: all 1s cubic-bezier(0.16, 1, 0.3, 1);
         }
-        .reveal.visible {
+        .reveal.active {
             opacity: 1;
             transform: translateY(0);
         }
 
-        /* Tech Badge */
-        .tech-badge {
-            font-size: 0.7rem;
-            padding: 4px 10px;
-            border-radius: 20px;
-            background: rgba(6, 182, 212, 0.1);
-            color: #67e8f9;
-            border: 1px solid rgba(6, 182, 212, 0.2);
-            font-weight: 500;
+        /* --- 4. INFINITE MARQUEE (Skills) --- */
+        .marquee-container {
+            overflow: hidden;
+            white-space: nowrap;
+            position: relative;
+        }
+        .marquee-content {
+            display: inline-block;
+            animation: marquee 30s linear infinite;
+        }
+        @keyframes marquee {
+            0% { transform: translateX(0); }
+            100% { transform: translateX(-50%); }
         }
 
-        /* Nav Link Active */
-        .nav-link { position: relative; }
-        .nav-link::after {
-            content: '';
-            position: absolute;
-            width: 0;
-            height: 2px;
-            bottom: -2px;
-            left: 0;
-            background-color: #22d3ee;
-            transition: width 0.3s;
+        /* Utilities */
+        .font-mono { font-family: 'JetBrains Mono', monospace; }
+        .bg-grid {
+            background-size: 50px 50px;
+            background-image: linear-gradient(to right, rgba(255, 255, 255, 0.03) 1px, transparent 1px),
+                              linear-gradient(to bottom, rgba(255, 255, 255, 0.03) 1px, transparent 1px);
+            mask-image: linear-gradient(to bottom, black 20%, transparent 90%);
         }
-        .nav-link:hover::after, .nav-link.active::after {
-            width: 100%;
-        }
-
-        /* Scrollbar */
-        ::-webkit-scrollbar { width: 8px; }
-        ::-webkit-scrollbar-track { background: #050508; }
-        ::-webkit-scrollbar-thumb { background: #1e293b; border-radius: 4px; }
-        ::-webkit-scrollbar-thumb:hover { background: #334155; }
+        
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar { width: 6px; }
+        ::-webkit-scrollbar-track { background: #050505; }
+        ::-webkit-scrollbar-thumb { background: #333; border-radius: 3px; }
+        ::-webkit-scrollbar-thumb:hover { background: #555; }
     </style>
 </head>
 
-<body class="antialiased selection:bg-cyan-500 selection:text-white">
+<body class="antialiased selection:bg-cyan-500 selection:text-black">
 
-    <div id="bg-canvas"></div>
+    <div class="noise-overlay"></div>
+    
+    <div class="fixed inset-0 z-0 bg-grid pointer-events-none"></div>
 
-    <header class="fixed w-full top-0 z-50 header-glass transition-all duration-300">
-        <div class="max-w-7xl mx-auto px-6 py-4 flex justify-between items-center">
-            <a href="#" class="text-2xl font-bold tracking-tighter text-white">SV<span class="text-cyan-500">.</span></a>
-            
-            <nav class="hidden md:flex space-x-8">
-                <a href="#about" class="nav-link text-sm text-gray-300 hover:text-white transition">About</a>
-                <a href="#experience" class="nav-link text-sm text-gray-300 hover:text-white transition">Experience</a>
-                <a href="#projects" class="nav-link text-sm text-gray-300 hover:text-white transition">Projects</a>
-                <a href="#skills" class="nav-link text-sm text-gray-300 hover:text-white transition">Skills</a>
-            </nav>
-
-            <a href="mailto:shalin2010vachheta@gmail.com" class="px-5 py-2 rounded-full bg-gradient-to-r from-cyan-600 to-blue-600 hover:from-cyan-500 hover:to-blue-500 text-white text-sm font-medium shadow-lg shadow-cyan-500/20 transition-all transform hover:scale-105">
-                Contact Me
+    <nav class="fixed top-0 w-full z-40 border-b border-white/5 bg-[#050505]/80 backdrop-blur-xl">
+        <div class="max-w-7xl mx-auto px-6 h-20 flex items-center justify-between">
+            <a href="#" class="text-xl font-bold tracking-tight text-white">SV<span class="text-cyan-400">.</span></a>
+            <div class="hidden md:flex space-x-10 text-sm font-medium text-gray-400">
+                <a href="#about" class="hover:text-white transition">About</a>
+                <a href="#experience" class="hover:text-white transition">Experience</a>
+                <a href="#projects" class="hover:text-white transition">Work</a>
+            </div>
+            <a href="mailto:shalin2010vachheta@gmail.com" class="text-xs font-bold bg-white hover:bg-cyan-400 hover:text-black transition text-black px-5 py-2.5 rounded-full">
+                HIRE ME
             </a>
         </div>
-    </header>
+    </nav>
 
-    <main class="pt-20">
-        <section class="min-h-screen flex flex-col justify-center items-center text-center px-4 relative">
-            <div class="reveal z-10 max-w-4xl">
-                <div class="inline-block p-1 rounded-full bg-gradient-to-tr from-cyan-500 to-blue-500 mb-8 p-[2px]">
-                    <img src="shalin-bridge.jpg" alt="Shalin Vachheta" class="w-32 h-32 md:w-40 md:h-40 rounded-full border-4 border-[#050508] object-cover">
+    <main class="relative z-10 pt-40 pb-20 px-6 max-w-6xl mx-auto space-y-40">
+        
+        <section id="about" class="reveal">
+            <div class="flex flex-col-reverse md:flex-row items-center gap-16">
+                <div class="flex-1 space-y-8">
+                    <div class="inline-flex items-center gap-3 px-4 py-1.5 rounded-full bg-cyan-500/5 border border-cyan-500/10 text-cyan-400 text-xs font-mono font-medium">
+                        <span class="relative flex h-2 w-2">
+                          <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-cyan-400 opacity-75"></span>
+                          <span class="relative inline-flex rounded-full h-2 w-2 bg-cyan-500"></span>
+                        </span>
+                        <span>JAN 2026 • OPEN TO WORK</span>
+                    </div>
+                    
+                    <h1 class="text-6xl md:text-8xl font-bold tracking-tighter leading-[0.95] text-white">
+                        MLOps <br>
+                        <span class="text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 to-blue-600">Architect.</span>
+                    </h1>
+                    
+                    <p class="text-lg text-gray-400 max-w-xl leading-relaxed font-light">
+                        I am <strong class="text-white">Shalin Vachheta</strong>. I don't just train models; I build the resilient arteries that allow AI to live in production. Specializing in End-to-End Pipelines, GenAI, and Real-time Biosignals.
+                    </p>
+                    
+                    <div class="flex items-center gap-6 pt-4">
+                        <a href="https://github.com/ShalinVachheta017" target="_blank" class="text-gray-400 hover:text-white transition transform hover:scale-110">
+                            <svg class="w-7 h-7" fill="currentColor" viewBox="0 0 24 24"><path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.108-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.91 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/></svg>
+                        </a>
+                        <a href="https://linkedin.com/in/shalin-vachheta/" target="_blank" class="text-gray-400 hover:text-white transition transform hover:scale-110">
+                            <svg class="w-7 h-7" fill="currentColor" viewBox="0 0 24 24"><path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z"/></svg>
+                        </a>
+                        <div class="h-px w-20 bg-gray-800"></div>
+                        <span class="text-xs text-gray-500 font-mono">SIEGEN, GERMANY</span>
+                    </div>
                 </div>
-                <h1 class="text-6xl md:text-8xl font-bold text-white mb-4 tracking-tight leading-tight">
-                    Shalin Vachheta
-                </h1>
-                <p class="text-xl md:text-2xl text-gray-400 mb-8 font-light">
-                    Engineering <span class="text-cyan-400 font-medium">Intelligence</span> into Scalable Systems
-                </p>
-                <div class="flex flex-wrap justify-center gap-4 text-sm font-medium">
-                    <span class="px-4 py-2 glass-card rounded-lg text-cyan-300">Generative AI</span>
-                    <span class="px-4 py-2 glass-card rounded-lg text-blue-300">MLOps</span>
-                    <span class="px-4 py-2 glass-card rounded-lg text-purple-300">Data Engineering</span>
+                
+                <div class="relative w-64 h-64 md:w-80 md:h-80 flex-shrink-0 group">
+                    <div class="absolute inset-0 bg-gradient-to-tr from-cyan-500 to-blue-600 rounded-full blur-[60px] opacity-20 group-hover:opacity-40 transition duration-700"></div>
+                    <img src="shalin-bridge.jpg" alt="Profile" class="relative w-full h-full object-cover rounded-2xl grayscale hover:grayscale-0 transition duration-700 shadow-2xl ring-1 ring-white/10">
                 </div>
             </div>
+        </section>
+
+        <section id="experience" class="reveal">
+            <h2 class="text-3xl font-bold mb-12 flex items-center gap-3"><span class="text-cyan-400">//</span> Career Timeline</h2>
             
-            <div class="absolute bottom-10 left-1/2 -translate-x-1/2 animate-bounce">
-                <svg class="w-6 h-6 text-gray-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 14l-7 7m0 0l-7-7m7 7V3"></path></svg>
-            </div>
-        </section>
-
-        <section id="about" class="py-24 px-6">
-            <div class="max-w-5xl mx-auto reveal">
-                <h2 class="text-3xl md:text-4xl font-bold mb-12 text-white border-l-4 border-cyan-500 pl-4">About Me</h2>
-                <div class="grid md:grid-cols-5 gap-12">
-                    <div class="md:col-span-3 space-y-6 text-lg text-gray-400 leading-relaxed">
-                        <p>
-                            I am a Master's student in <strong class="text-white">Mechatronics</strong> at the University of Siegen, bridging the gap between theoretical Data Science and production-grade Engineering.
-                        </p>
-                        <p>
-                            My passion lies in <strong class="text-white">MLOps and Generative AI</strong>. I don't just build models; I build the pipelines that feed them, the infrastructure that serves them, and the interfaces that make them usable. From fine-tuning LLMs like Llama 3.1 to orchestrating Dockerized pipelines for insurance data, I focus on reliability and scalability.
-                        </p>
-                        <p>
-                            When I'm not coding, I'm analyzing complex systems or exploring the world through photography—always looking for the perfect composition.
-                        </p>
-                    </div>
-                    <div class="md:col-span-2 space-y-4">
-                        <div class="glass-card p-6 rounded-xl">
-                            <h3 class="text-white font-bold mb-2">Education</h3>
-                            <p class="text-cyan-400">M.Sc. Mechatronics</p>
-                            <p class="text-sm text-gray-500">University of Siegen, Germany</p>
-                        </div>
-                        <div class="glass-card p-6 rounded-xl">
-                            <h3 class="text-white font-bold mb-2">Focus</h3>
-                            <p class="text-gray-400 text-sm">LLM Applications, RAG Systems, End-to-End MLOps, Data Pipelines.</p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <section id="experience" class="py-24 px-6 bg-[#0a0a12]/50">
-            <div class="max-w-5xl mx-auto reveal">
-                <h2 class="text-3xl md:text-4xl font-bold mb-12 text-white border-l-4 border-blue-500 pl-4">Experience</h2>
+            <div class="border-l border-gray-800 ml-4 space-y-16 spotlight-group">
                 
-                <div class="relative border-l border-gray-800 ml-4 space-y-12">
-                    <div class="relative pl-8">
-                        <div class="absolute -left-[9px] top-2 w-4 h-4 rounded-full bg-cyan-500 shadow-[0_0_10px_#06b6d4]"></div>
-                        <div class="glass-card p-8 rounded-2xl">
-                            <div class="flex flex-col md:flex-row md:justify-between md:items-center mb-4">
-                                <div>
-                                    <h3 class="text-2xl font-bold text-white">Student Research Assistant</h3>
-                                    <p class="text-cyan-400 font-medium">University of Siegen</p>
-                                </div>
-                                <span class="text-sm text-gray-500 mt-2 md:mt-0 px-3 py-1 border border-gray-700 rounded-full">05/2024 - Present</span>
+                <div class="relative pl-10">
+                    <span class="absolute -left-[6px] top-2 h-3 w-3 rounded-full bg-cyan-400 shadow-[0_0_15px_rgba(34,211,238,0.5)]"></span>
+                    <div class="spotlight-card rounded-2xl p-8">
+                        <div class="card-content grid md:grid-cols-4 gap-6">
+                            <div class="md:col-span-1">
+                                <span class="text-xs font-mono text-cyan-400 mb-1 block">JAN 2026 - PRESENT</span>
+                                <h3 class="text-xl font-bold text-white">Master Thesis</h3>
+                                <p class="text-gray-500 text-sm mt-1">University of Siegen</p>
                             </div>
-                            <h4 class="text-lg text-gray-300 mb-3 font-medium">Seq2Seq Event Forecasting</h4>
-                            <ul class="list-disc list-outside ml-5 space-y-2 text-gray-400">
-                                <li>Engineered a <span class="text-white">BiLSTM Seq2Seq</span> model using PyTorch to forecast events from CARLA simulator data, boosting accuracy by <span class="text-white">25%</span>.</li>
-                                <li>Implemented <span class="text-white">Optuna</span> for Bayesian hyperparameter optimization, yielding an additional 15% performance gain.</li>
-                                <li>Developed a reproducible training pipeline with automated logging and checkpointing.</li>
-                            </ul>
+                            <div class="md:col-span-3">
+                                <h4 class="text-lg font-bold text-gray-200 mb-3">MLOps Pipeline for Mental Health Monitoring</h4>
+                                <p class="text-gray-400 text-sm leading-relaxed mb-4">
+                                    Architecting an enterprise-grade MLOps system for real-time stress detection using multimodal biosignals.
+                                </p>
+                                <ul class="text-sm text-gray-400 space-y-2 list-disc list-inside marker:text-cyan-500">
+                                    <li>Automated data ingestion triggers and model drift detection.</li>
+                                    <li>Implemented <strong>DVC</strong> for data versioning and <strong>MLflow</strong> for experiment tracking.</li>
+                                    <li>Scalable deployment using Dockerized inference containers.</li>
+                                </ul>
+                            </div>
                         </div>
                     </div>
                 </div>
+
+                <div class="relative pl-10">
+                    <span class="absolute -left-[6px] top-2 h-3 w-3 rounded-full bg-gray-700 border border-gray-600"></span>
+                    <div class="spotlight-card rounded-2xl p-8">
+                        <div class="card-content grid md:grid-cols-4 gap-6">
+                            <div class="md:col-span-1">
+                                <span class="text-xs font-mono text-gray-500 mb-1 block">MAY 2024 - MAY 2025</span>
+                                <h3 class="text-lg font-bold text-gray-300">Research Assistant</h3>
+                                <p class="text-gray-500 text-sm mt-1">University of Siegen</p>
+                            </div>
+                            <div class="md:col-span-3">
+                                <h4 class="text-lg font-bold text-gray-300 mb-3">Seq2Seq Event Forecasting</h4>
+                                <p class="text-gray-400 text-sm leading-relaxed mb-4">
+                                    Developed Deep Learning models for autonomous driving simulators (CARLA).
+                                </p>
+                                <ul class="text-sm text-gray-400 space-y-2 list-disc list-inside marker:text-gray-600">
+                                    <li>Engineered <strong>BiLSTM Seq2Seq</strong> models in PyTorch.</li>
+                                    <li>Optimized hyperparameters using <strong>Optuna</strong>, increasing accuracy by 25%.</li>
+                                    <li>Built reproducible evaluation pipelines.</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
             </div>
         </section>
 
-        <section id="projects" class="py-24 px-6">
-            <div class="max-w-7xl mx-auto reveal">
-                <h2 class="text-3xl md:text-4xl font-bold mb-16 text-white border-l-4 border-purple-500 pl-4">Featured Projects</h2>
+        <section id="projects" class="reveal">
+            <h2 class="text-3xl font-bold mb-12 flex items-center gap-3"><span class="text-cyan-400">//</span> Selected Works</h2>
+            
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6 spotlight-group" onmousemove="handleMouseMove(event)">
                 
-                <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
-                    
-                    <a href="https://github.com/ShalinVachheta017/Vehicle-Insurance-DataPipeline-MLops-" target="_blank" class="glass-card p-6 rounded-2xl group relative overflow-hidden">
-                        <div class="absolute top-0 right-0 bg-cyan-600/80 text-white text-[10px] uppercase font-bold px-3 py-1 rounded-bl-lg backdrop-blur-sm">Ops Featured</div>
-                        <h3 class="text-xl font-bold text-white group-hover:text-cyan-400 transition-colors">Vehicle Insurance Pipeline</h3>
-                        <p class="text-gray-400 text-sm mt-3 leading-relaxed">End-to-end MLOps architecture. Automated data ingestion (MongoDB), validation, and prediction deployment via Flask and Docker.</p>
-                        <div class="mt-5 flex flex-wrap gap-2">
-                            <span class="tech-badge">MLOps</span>
-                            <span class="tech-badge">Docker</span>
-                            <span class="tech-badge">CI/CD</span>
+                <div class="md:col-span-2 spotlight-card rounded-2xl p-10 flex flex-col justify-between group cursor-default">
+                    <div class="card-content">
+                        <div class="flex justify-between items-start mb-8">
+                            <div class="p-3 bg-cyan-500/10 rounded-xl border border-cyan-500/20">
+                                <svg class="w-8 h-8 text-cyan-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M19.428 15.428a2 2 0 00-1.022-.547l-2.384-.477a6 6 0 00-3.86.517l-.318.158a6 6 0 01-3.86.517L6.05 15.21a2 2 0 00-1.806.547M8 4h8l-1 1v5.172a2 2 0 00.586 1.414l5 5c1.26 1.26.367 3.414-1.415 3.414H4.828c-1.782 0-2.674-2.154-1.414-3.414l5-5A2 2 0 009 10.172V5L8 4z"></path></svg>
+                            </div>
+                            <span class="px-3 py-1 rounded-full bg-cyan-500/10 text-cyan-400 text-[10px] font-bold uppercase tracking-widest border border-cyan-500/20">Featured Thesis</span>
                         </div>
-                    </a>
-
-                    <a href="https://github.com/ShalinVachheta017/Multilingual-RAG-System-" target="_blank" class="glass-card p-6 rounded-2xl group">
-                        <h3 class="text-xl font-bold text-white group-hover:text-cyan-400 transition-colors">Multilingual RAG Bot</h3>
-                        <p class="text-gray-400 text-sm mt-3 leading-relaxed">A local, privacy-first Retrieval Augmented Generation system capable of analyzing and querying documents in multiple languages.</p>
-                        <div class="mt-5 flex flex-wrap gap-2">
-                            <span class="tech-badge">LangChain</span>
-                            <span class="tech-badge">ChromaDB</span>
-                            <span class="tech-badge">Ollama</span>
+                        <div>
+                            <h3 class="text-3xl font-bold text-white mb-4">Mental Health MLOps Architecture</h3>
+                            <p class="text-gray-400 leading-relaxed text-base max-w-lg mb-6">
+                                A complete production system for stress detection. It moves beyond simple modeling to include <strong>data validation, automated retraining</strong>, and <strong>serving infrastructure</strong>. 
+                            </p>
+                            <div class="flex flex-wrap gap-2">
+                                <span class="px-3 py-1 bg-white/5 border border-white/10 rounded text-xs text-cyan-200">MLflow</span>
+                                <span class="px-3 py-1 bg-white/5 border border-white/10 rounded text-xs text-cyan-200">DVC</span>
+                                <span class="px-3 py-1 bg-white/5 border border-white/10 rounded text-xs text-cyan-200">Docker</span>
+                                <span class="px-3 py-1 bg-white/5 border border-white/10 rounded text-xs text-cyan-200">CI/CD</span>
+                            </div>
                         </div>
-                    </a>
+                    </div>
+                </div>
 
-                    <a href="https://github.com/ShalinVachheta017/GEN-AI-Llama-3.1-based-Cold-Email-Generator-" target="_blank" class="glass-card p-6 rounded-2xl group">
-                        <h3 class="text-xl font-bold text-white group-hover:text-cyan-400 transition-colors">Llama 3.1 Email Generator</h3>
-                        <p class="text-gray-400 text-sm mt-3 leading-relaxed">Generative AI tool leveraging Llama 3.1 (Groq API) to craft hyper-personalized cold emails for business outreach.</p>
-                        <div class="mt-5 flex flex-wrap gap-2">
-                            <span class="tech-badge">Llama 3.1</span>
-                            <span class="tech-badge">Groq</span>
-                            <span class="tech-badge">Streamlit</span>
+                <a href="https://github.com/ShalinVachheta017/Vehicle-Insurance-DataPipeline-MLops-" target="_blank" class="md:col-span-1 spotlight-card rounded-2xl p-8 flex flex-col justify-between group">
+                    <div class="card-content h-full flex flex-col justify-between">
+                        <div class="flex justify-between">
+                            <div class="p-2 bg-blue-500/10 rounded-lg"><svg class="w-6 h-6 text-blue-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10"></path></svg></div>
+                            <svg class="w-5 h-5 text-gray-600 group-hover:text-white transition" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"></path></svg>
                         </div>
-                    </a>
-
-                    <a href="https://github.com/ShalinVachheta017/sequence-2-sequence-Event-Prediction" target="_blank" class="glass-card p-6 rounded-2xl group">
-                        <h3 class="text-xl font-bold text-white group-hover:text-cyan-400 transition-colors">Seq2Seq Event Prediction</h3>
-                        <p class="text-gray-400 text-sm mt-3 leading-relaxed">The codebase for my research work. BiLSTM Encoder-Decoder architecture predicting future events based on time-series data.</p>
-                        <div class="mt-5 flex flex-wrap gap-2">
-                            <span class="tech-badge">PyTorch</span>
-                            <span class="tech-badge">LSTM</span>
-                            <span class="tech-badge">Time-Series</span>
+                        <div>
+                            <h3 class="text-xl font-bold text-white group-hover:text-blue-400 transition mb-2">Vehicle Insurance Pipeline</h3>
+                            <p class="text-sm text-gray-400">End-to-End MLOps with MongoDB, Flask, and Docker.</p>
                         </div>
-                    </a>
+                    </div>
+                </a>
 
-                    <a href="https://github.com/ShalinVachheta017/Text_Summarization_Project" target="_blank" class="glass-card p-6 rounded-2xl group">
-                        <h3 class="text-xl font-bold text-white group-hover:text-cyan-400 transition-colors">Text Summarization</h3>
-                        <p class="text-gray-400 text-sm mt-3 leading-relaxed">End-to-end NLP project fine-tuning the PEGASUS model for abstractive text summarization on the SAMSum dataset.</p>
-                        <div class="mt-5 flex flex-wrap gap-2">
-                            <span class="tech-badge">Hugging Face</span>
-                            <span class="tech-badge">PEGASUS</span>
-                            <span class="tech-badge">NLP</span>
+                <a href="https://github.com/ShalinVachheta017/GEN-AI-Llama-3.1-based-Cold-Email-Generator-" target="_blank" class="md:col-span-1 spotlight-card rounded-2xl p-8 flex flex-col justify-between group">
+                    <div class="card-content h-full flex flex-col justify-between">
+                        <div class="flex justify-between">
+                            <div class="p-2 bg-purple-500/10 rounded-lg"><svg class="w-6 h-6 text-purple-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"></path></svg></div>
+                            <svg class="w-5 h-5 text-gray-600 group-hover:text-white transition" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"></path></svg>
                         </div>
-                    </a>
-
-                    <a href="https://github.com/ShalinVachheta017/Student-Performance-Prediction" target="_blank" class="glass-card p-6 rounded-2xl group">
-                        <h3 class="text-xl font-bold text-white group-hover:text-cyan-400 transition-colors">Performance Prediction</h3>
-                        <p class="text-gray-400 text-sm mt-3 leading-relaxed">A full-stack ML project predicting student scores. Includes data ingestion, modular training pipeline, and web deployment.</p>
-                        <div class="mt-5 flex flex-wrap gap-2">
-                            <span class="tech-badge">Regression</span>
-                            <span class="tech-badge">Deployment</span>
-                            <span class="tech-badge">AWS Beanstalk</span>
+                        <div>
+                            <h3 class="text-xl font-bold text-white group-hover:text-purple-400 transition mb-2">Llama 3.1 Email Gen</h3>
+                            <p class="text-sm text-gray-400">Automated outreach using Groq API & LangChain.</p>
                         </div>
-                    </a>
+                    </div>
+                </a>
 
-                    <a href="https://github.com/ShalinVachheta017/Translation-Transformer-Model" target="_blank" class="glass-card p-6 rounded-2xl group">
-                        <h3 class="text-xl font-bold text-white group-hover:text-cyan-400 transition-colors">NMT Transformer</h3>
-                        <p class="text-gray-400 text-sm mt-3 leading-relaxed">Implemented the "Attention Is All You Need" architecture from scratch for Neural Machine Translation tasks.</p>
-                        <div class="mt-5 flex flex-wrap gap-2">
-                            <span class="tech-badge">Deep Learning</span>
-                            <span class="tech-badge">Attention</span>
-                            <span class="tech-badge">Scratch</span>
+                <a href="https://github.com/ShalinVachheta017/Microscopic-Image-Segmentation" target="_blank" class="md:col-span-1 spotlight-card rounded-2xl p-8 flex flex-col justify-between group">
+                    <div class="card-content h-full flex flex-col justify-between">
+                        <div class="flex justify-between">
+                            <div class="p-2 bg-green-500/10 rounded-lg"><svg class="w-6 h-6 text-green-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"></path></svg></div>
+                            <svg class="w-5 h-5 text-gray-600 group-hover:text-white transition" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"></path></svg>
                         </div>
-                    </a>
-
-                    <a href="https://github.com/ShalinVachheta017/Sports-Analysis-" target="_blank" class="glass-card p-6 rounded-2xl group">
-                        <h3 class="text-xl font-bold text-white group-hover:text-cyan-400 transition-colors">Sports Analysis</h3>
-                        <p class="text-gray-400 text-sm mt-3 leading-relaxed">Data analysis project leveraging computer vision to track player movements and analyze game statistics automatically.</p>
-                        <div class="mt-5 flex flex-wrap gap-2">
-                            <span class="tech-badge">Computer Vision</span>
-                            <span class="tech-badge">OpenCV</span>
-                            <span class="tech-badge">YOLO</span>
+                        <div>
+                            <h3 class="text-xl font-bold text-white group-hover:text-green-400 transition mb-2">Image Denoising</h3>
+                            <p class="text-sm text-gray-400">Computer Vision: Dual-branch U-Net architecture.</p>
                         </div>
-                    </a>
+                    </div>
+                </a>
 
+                <a href="https://github.com/ShalinVachheta017/Multilingual-RAG-System-" target="_blank" class="md:col-span-1 spotlight-card rounded-2xl p-8 flex flex-col justify-between group">
+                    <div class="card-content h-full flex flex-col justify-between">
+                        <div class="flex justify-between">
+                            <div class="p-2 bg-orange-500/10 rounded-lg"><svg class="w-6 h-6 text-orange-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M19 11a7 7 0 01-7 7m0 0a7 7 0 01-7-7m7 7v4m0 0H8m4 0h4m-4-8a3 3 0 01-3-3V5a3 3 0 116 0v6a3 3 0 01-3 3z"></path></svg></div>
+                            <svg class="w-5 h-5 text-gray-600 group-hover:text-white transition" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"></path></svg>
+                        </div>
+                        <div>
+                            <h3 class="text-xl font-bold text-white group-hover:text-orange-400 transition mb-2">Multilingual RAG</h3>
+                            <p class="text-sm text-gray-400">Local document analysis via ChromaDB & Ollama.</p>
+                        </div>
+                    </div>
+                </a>
+
+            </div>
+        </section>
+
+        <section class="reveal py-10">
+            <h2 class="text-sm font-mono text-gray-500 mb-8 uppercase tracking-widest text-center">My Tech Stack</h2>
+            <div class="marquee-container">
+                <div class="marquee-content">
+                    <span class="text-4xl font-bold text-gray-800 mx-8">Docker</span>
+                    <span class="text-4xl font-bold text-gray-800 mx-8">Kubernetes</span>
+                    <span class="text-4xl font-bold text-gray-800 mx-8">AWS</span>
+                    <span class="text-4xl font-bold text-gray-700 mx-8">MLflow</span>
+                    <span class="text-4xl font-bold text-gray-800 mx-8">DVC</span>
+                    <span class="text-4xl font-bold text-gray-800 mx-8">PyTorch</span>
+                    <span class="text-4xl font-bold text-gray-800 mx-8">TensorFlow</span>
+                    <span class="text-4xl font-bold text-gray-800 mx-8">LangChain</span>
+                    <span class="text-4xl font-bold text-gray-800 mx-8">HuggingFace</span>
+                    <span class="text-4xl font-bold text-gray-800 mx-8">MongoDB</span>
+                    <span class="text-4xl font-bold text-gray-800 mx-8">Flask</span>
+                    <span class="text-4xl font-bold text-gray-800 mx-8">Docker</span>
+                    <span class="text-4xl font-bold text-gray-800 mx-8">Kubernetes</span>
+                    <span class="text-4xl font-bold text-gray-800 mx-8">AWS</span>
+                    <span class="text-4xl font-bold text-gray-700 mx-8">MLflow</span>
+                    <span class="text-4xl font-bold text-gray-800 mx-8">DVC</span>
+                    <span class="text-4xl font-bold text-gray-800 mx-8">PyTorch</span>
+                    <span class="text-4xl font-bold text-gray-800 mx-8">TensorFlow</span>
+                    <span class="text-4xl font-bold text-gray-800 mx-8">LangChain</span>
+                    <span class="text-4xl font-bold text-gray-800 mx-8">HuggingFace</span>
+                    <span class="text-4xl font-bold text-gray-800 mx-8">MongoDB</span>
+                    <span class="text-4xl font-bold text-gray-800 mx-8">Flask</span>
                 </div>
             </div>
         </section>
 
-        <section id="skills" class="py-24 px-6 bg-[#0a0a12]/50">
-            <div class="max-w-5xl mx-auto reveal">
-                <h2 class="text-3xl md:text-4xl font-bold mb-16 text-white border-l-4 border-green-500 pl-4">Technical Arsenal</h2>
-                
-                <div class="grid md:grid-cols-2 gap-8">
-                    <div class="space-y-6">
-                        <h3 class="text-xl font-semibold text-cyan-400">GenAI & NLP</h3>
-                        <div class="flex flex-wrap gap-3">
-                            <span class="glass-card px-4 py-2 rounded-lg text-sm text-gray-300">RAG Systems</span>
-                            <span class="glass-card px-4 py-2 rounded-lg text-sm text-gray-300">LangChain</span>
-                            <span class="glass-card px-4 py-2 rounded-lg text-sm text-gray-300">Hugging Face</span>
-                            <span class="glass-card px-4 py-2 rounded-lg text-sm text-gray-300">Ollama</span>
-                            <span class="glass-card px-4 py-2 rounded-lg text-sm text-gray-300">Llama 3/GPT-4</span>
-                            <span class="glass-card px-4 py-2 rounded-lg text-sm text-gray-300">Vector DBs</span>
-                        </div>
-                    </div>
-                    
-                    <div class="space-y-6">
-                        <h3 class="text-xl font-semibold text-blue-400">MLOps & Cloud</h3>
-                        <div class="flex flex-wrap gap-3">
-                            <span class="glass-card px-4 py-2 rounded-lg text-sm text-gray-300">Docker</span>
-                            <span class="glass-card px-4 py-2 rounded-lg text-sm text-gray-300">GitHub Actions</span>
-                            <span class="glass-card px-4 py-2 rounded-lg text-sm text-gray-300">AWS (EC2/ECR)</span>
-                            <span class="glass-card px-4 py-2 rounded-lg text-sm text-gray-300">MLflow</span>
-                            <span class="glass-card px-4 py-2 rounded-lg text-sm text-gray-300">DVC</span>
-                        </div>
-                    </div>
-
-                    <div class="space-y-6">
-                        <h3 class="text-xl font-semibold text-purple-400">Data Science & ML</h3>
-                        <div class="flex flex-wrap gap-3">
-                            <span class="glass-card px-4 py-2 rounded-lg text-sm text-gray-300">PyTorch</span>
-                            <span class="glass-card px-4 py-2 rounded-lg text-sm text-gray-300">TensorFlow</span>
-                            <span class="glass-card px-4 py-2 rounded-lg text-sm text-gray-300">Scikit-learn</span>
-                            <span class="glass-card px-4 py-2 rounded-lg text-sm text-gray-300">XGBoost</span>
-                            <span class="glass-card px-4 py-2 rounded-lg text-sm text-gray-300">Pandas/NumPy</span>
-                        </div>
-                    </div>
-
-                    <div class="space-y-6">
-                        <h3 class="text-xl font-semibold text-pink-400">Languages & Tools</h3>
-                        <div class="flex flex-wrap gap-3">
-                            <span class="glass-card px-4 py-2 rounded-lg text-sm text-gray-300">Python</span>
-                            <span class="glass-card px-4 py-2 rounded-lg text-sm text-gray-300">SQL</span>
-                            <span class="glass-card px-4 py-2 rounded-lg text-sm text-gray-300">MongoDB</span>
-                            <span class="glass-card px-4 py-2 rounded-lg text-sm text-gray-300">Git</span>
-                            <span class="glass-card px-4 py-2 rounded-lg text-sm text-gray-300">Linux</span>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <footer class="py-12 text-center text-gray-500 border-t border-gray-800 bg-[#050508]">
-            <div class="flex justify-center gap-6 mb-6">
-                <a href="https://github.com/ShalinVachheta017" target="_blank" class="hover:text-cyan-400 transition transform hover:scale-110">
-                    <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24"><path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.108-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.91 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"></path></svg>
-                </a>
-                <a href="https://linkedin.com/in/shalin-vachheta/" target="_blank" class="hover:text-cyan-400 transition transform hover:scale-110">
-                    <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24"><path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z"></path></svg>
-                </a>
-            </div>
-            <p class="text-sm">Built by Shalin Vachheta • 2025</p>
+        <footer class="text-center text-gray-600 text-sm pb-10 border-t border-white/5 pt-10">
+            <p>&copy; 2026 Shalin Vachheta. Crafted with Intelligence.</p>
         </footer>
+
     </main>
 
     <script>
-        // --- Scroll Reveal Animation ---
+        // 1. SPOTLIGHT MOUSE TRACKING
+        function handleMouseMove(e) {
+            const cards = document.getElementsByClassName("spotlight-card");
+            for(const card of cards) {
+                const rect = card.getBoundingClientRect(),
+                      x = e.clientX - rect.left,
+                      y = e.clientY - rect.top;
+                card.style.setProperty("--mouse-x", `${x}px`);
+                card.style.setProperty("--mouse-y", `${y}px`);
+            }
+        }
+
+        // 2. SCROLL REVEAL OBSERVER
         const observer = new IntersectionObserver((entries) => {
             entries.forEach(entry => {
                 if (entry.isIntersecting) {
-                    entry.target.classList.add('visible');
+                    entry.target.classList.add('active');
                 }
             });
         }, { threshold: 0.1 });
+
         document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
-
-        // --- Three.js Unified "Network Wave" Background ---
-        const initBg = () => {
-            const container = document.getElementById('bg-canvas');
-            const scene = new THREE.Scene();
-            const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
-            camera.position.z = 50;
-
-            const renderer = new THREE.WebGLRenderer({ alpha: true, antialias: true });
-            renderer.setSize(window.innerWidth, window.innerHeight);
-            renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2)); // optimize performance
-            container.appendChild(renderer.domElement);
-
-            // Particles
-            const particleCount = 150;
-            const positions = [];
-            const velocities = [];
-
-            for(let i=0; i<particleCount; i++) {
-                positions.push((Math.random() - 0.5) * 150); // x
-                positions.push((Math.random() - 0.5) * 150); // y
-                positions.push((Math.random() - 0.5) * 100); // z
-                velocities.push({
-                    x: (Math.random() - 0.5) * 0.05,
-                    y: (Math.random() - 0.5) * 0.05
-                });
-            }
-
-            const geometry = new THREE.BufferGeometry();
-            geometry.setAttribute('position', new THREE.Float32BufferAttribute(positions, 3));
-            
-            const material = new THREE.PointsMaterial({
-                color: 0x22d3ee,
-                size: 0.8,
-                transparent: true,
-                opacity: 0.8
-            });
-
-            const particles = new THREE.Points(geometry, material);
-            scene.add(particles);
-
-            // Lines
-            const lineMaterial = new THREE.LineBasicMaterial({
-                color: 0x3b82f6,
-                transparent: true,
-                opacity: 0.15
-            });
-            const lineGeometry = new THREE.BufferGeometry();
-            const lines = new THREE.LineSegments(lineGeometry, lineMaterial);
-            scene.add(lines);
-
-            // Animation Loop
-            function animate() {
-                requestAnimationFrame(animate);
-
-                const positions = particles.geometry.attributes.position.array;
-                const linePositions = [];
-
-                // Update particles
-                for(let i=0; i<particleCount; i++) {
-                    const i3 = i * 3;
-                    
-                    // Move
-                    positions[i3] += velocities[i].x;
-                    positions[i3+1] += velocities[i].y;
-
-                    // Bounce off "walls" to keep them on screen
-                    if(positions[i3] > 75 || positions[i3] < -75) velocities[i].x *= -1;
-                    if(positions[i3+1] > 75 || positions[i3+1] < -75) velocities[i].y *= -1;
-
-                    // Wave effect (Sine wave based on X pos + time)
-                    // positions[i3+2] = Math.sin(Date.now() * 0.001 + positions[i3] * 0.1) * 5; 
-
-                    // Create connections
-                    for(let j=i+1; j<particleCount; j++) {
-                        const j3 = j*3;
-                        const dx = positions[i3] - positions[j3];
-                        const dy = positions[i3+1] - positions[j3+1];
-                        const dz = positions[i3+2] - positions[j3+2];
-                        const dist = Math.sqrt(dx*dx + dy*dy + dz*dz);
-
-                        if(dist < 20) {
-                            linePositions.push(
-                                positions[i3], positions[i3+1], positions[i3+2],
-                                positions[j3], positions[j3+1], positions[j3+2]
-                            );
-                        }
-                    }
-                }
-
-                particles.geometry.attributes.position.needsUpdate = true;
-                lines.geometry.setAttribute('position', new THREE.Float32BufferAttribute(linePositions, 3));
-
-                // Slow rotation
-                scene.rotation.y += 0.0005;
-                scene.rotation.x += 0.0002;
-
-                renderer.render(scene, camera);
-            }
-            animate();
-
-            // Resize Handler
-            window.addEventListener('resize', () => {
-                camera.aspect = window.innerWidth / window.innerHeight;
-                camera.updateProjectionMatrix();
-                renderer.setSize(window.innerWidth, window.innerHeight);
-            });
-        };
-
-        initBg();
     </script>
 </body>
 </html>
