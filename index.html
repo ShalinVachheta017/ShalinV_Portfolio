@@ -3,17 +3,14 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Shalin Vachheta — AI • ML • GenAI</title>
+    <title>Shalin Vachheta — AI • MLOps • GenAI</title>
 
-    <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
 
-    <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;900&display=swap" rel="stylesheet">
 
-    <!-- Three.js for 3D animation -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
 
     <style>
@@ -34,11 +31,11 @@
 
         /* Refined glassmorphism effect */
         .glass-effect {
-            background: rgba(16, 16, 32, 0.5);
+            background: rgba(16, 16, 32, 0.6);
             backdrop-filter: blur(12px);
             -webkit-backdrop-filter: blur(12px);
             border: 1px solid rgba(68, 204, 224, 0.1);
-            transition: border-color 0.3s ease;
+            transition: all 0.3s ease;
         }
 
         /* Nav link active state with a cyan glow */
@@ -67,21 +64,28 @@
         ::-webkit-scrollbar-thumb { background: #0e7490; border-radius: 4px; }
         ::-webkit-scrollbar-thumb:hover { background: #0891b2; }
         
-        /* Project card hover effect with a brighter border glow */
+        /* Project card hover effect */
+        .project-card {
+            display: block; /* Ensures anchor behaves like a block */
+            height: 100%;
+        }
         .project-card:hover {
             transform: translateY(-5px);
-            border-color: rgba(68, 204, 224, 0.4);
-            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+            border-color: rgba(68, 204, 224, 0.5);
+            box-shadow: 0 10px 30px rgba(8, 145, 178, 0.15);
+        }
+        .project-card:hover h3 {
+            color: #22d3ee; /* Light Cyan */
         }
         
         #hero-canvas {
-            position: fixed; /* Changed to fixed */
+            position: fixed;
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
             z-index: 0;
-            pointer-events: none; /* Ensures content is clickable */
+            pointer-events: none;
         }
         
         .section-heading {
@@ -101,7 +105,7 @@
             border-radius: 2px;
         }
 
-        /* --- New Experience Section Styles --- */
+        /* --- Experience Section Styles --- */
         .exp-tab {
             cursor: pointer;
             padding: 1rem;
@@ -153,7 +157,6 @@
             to { transform: translate(-50%, -50%); }
         }
         
-        /* --- New Neural Network Animation Styles --- */
         #skills-canvas-container {
             position: absolute;
             top: 0;
@@ -163,6 +166,16 @@
             z-index: 0;
             opacity: 0.3;
         }
+        
+        /* Badge Styles */
+        .tech-badge {
+            font-size: 0.75rem;
+            padding: 0.2rem 0.6rem;
+            border-radius: 9999px;
+            background-color: rgba(34, 211, 238, 0.1);
+            color: #22d3ee;
+            border: 1px solid rgba(34, 211, 238, 0.2);
+        }
     </style>
 </head>
 
@@ -170,7 +183,6 @@
 
     <div id="hero-canvas"></div>
 
-    <!-- Header & Navigation -->
     <header id="main-header" class="glass-effect fixed top-4 left-1/2 -translate-x-1/2 w-[95%] max-w-4xl z-50 rounded-full transition-all duration-300">
         <nav class="flex items-center justify-between p-2">
             <a href="#introduction" class="text-xl font-bold text-white pl-4 hover:text-cyan-300 transition">SV</a>
@@ -188,7 +200,6 @@
     </header>
 
     <main>
-        <!-- Section 1: Introduction -->
         <section id="introduction" class="section-min-height relative flex items-center justify-center p-4 overflow-hidden">
             <div class="text-center relative z-10 reveal">
                 <img src="shalin-bridge.jpg" alt="Shalin Vachheta" class="w-40 h-40 rounded-full mx-auto mb-6 border-4 border-cyan-500/50 shadow-2xl object-cover">
@@ -196,46 +207,41 @@
                     Shalin Vachheta
                 </h1>
                 <p class="text-xl md:text-2xl text-cyan-300 mt-4 font-medium">
-                    AI • Machine Learning • Generative AI
+                    AI • MLOps • Generative AI
                 </p>
                 <p class="max-w-2xl mx-auto text-lg text-gray-400 mt-6">
-                    A Mechatronics M.Sc. student crafting intelligent, data-driven systems to solve complex, real-world problems.
+                    M.Sc. Mechatronics Student | Building scalable ML pipelines and intelligent GenAI systems.
                 </p>
             </div>
         </section>
 
-        <!-- Section 2: Summary -->
         <section id="summary" class="section-min-height relative flex items-center justify-center p-8">
             <div class="max-w-4xl mx-auto reveal z-10">
                 <h2 class="text-4xl font-bold text-center text-white mb-12 section-heading">About Me</h2>
                 <div class="glass-effect rounded-2xl p-8 md:p-12 space-y-6 text-lg text-gray-300 leading-relaxed">
                     <p>
-                        As a Master's student in Mechatronics at the University of Siegen, I've cultivated a deep specialization at the intersection of machine learning and AI application development. My journey is driven by a passion for leveraging Large Language Models (LLMs) and Retrieval-Augmented Generation (RAG) to create efficient and privacy-conscious AI solutions.
+                        As a Master's student in Mechatronics at the University of Siegen, I have evolved from pure model development to mastering the entire AI lifecycle. My expertise now bridges the gap between **Data Science** and **Production Engineering**, focusing on **MLOps**, scalable data pipelines, and Generative AI.
                     </p>
                     <p>
-                        My hands-on experience includes developing local RAG chatbots, fine-tuning advanced models like PEGASUS to achieve significant performance gains (+20% ROUGE-2), and implementing Transformer architectures from the ground up. These projects showcase my ability to not only grasp complex theoretical concepts but also to apply them in practical, high-impact scenarios.
+                        I specialize in building robust CI/CD workflows for Machine Learning, automating data ingestion with tools like **Docker** and **GitHub Actions**, and deploying complex models into real-world environments. Whether it's fine-tuning LLMs (like PEGASUS) or architecting end-to-end prediction systems for the insurance sector, I ensure my solutions are not just accurate, but reliable and scalable.
                     </p>
                     <p>
-                        Beyond the code, I'm an avid photographer and traveler, always seeking new perspectives. This creative side, combined with my love for music and movies, balances my technical focus and fuels my problem-solving abilities. I am eager to contribute my unique blend of skills to a forward-thinking team.
+                        Beyond the terminal, I am an avid photographer and traveler. I believe the discipline required to build a perfect pipeline mirrors the patience needed to capture the perfect shot. I am currently seeking opportunities to bring my blend of ML innovation and engineering rigor to a forward-thinking team.
                     </p>
                 </div>
             </div>
         </section>
 
-        <!-- Section 3: Experience -->
         <section id="experience" class="section-min-height relative flex items-center justify-center p-8">
             <div class="max-w-4xl mx-auto reveal w-full z-10">
                 <h2 class="text-4xl font-bold text-center text-white mb-16 section-heading">My Journey</h2>
                 <div class="md:flex gap-8">
-                    <!-- Left: Tabs -->
                     <div id="exp-tabs" class="md:w-1/3 flex md:flex-col gap-2 mb-8 md:mb-0">
                         <div class="exp-tab active" onclick="switchExpTab(this, 'exp-uni-siegen')">
                             <h3 class="font-bold">University of Siegen</h3>
                             <p class="text-sm text-gray-400">Student Research Assistant</p>
                         </div>
-                        <!-- Add more tabs here for future roles -->
-                    </div>
-                    <!-- Right: Content -->
+                        </div>
                     <div class="md:w-2/3">
                         <div id="exp-uni-siegen" class="exp-content active glass-effect animated-grid-bg rounded-xl p-8">
                            <div class="relative z-10">
@@ -248,90 +254,163 @@
                                 </ul>
                            </div>
                         </div>
-                         <!-- Add more content blocks here corresponding to the tabs -->
                     </div>
                 </div>
             </div>
         </section>
         
-        <!-- Section 4: Projects -->
         <section id="projects" class="py-24 p-8 relative">
-            <div class="max-w-6xl mx-auto reveal z-10">
+            <div class="max-w-7xl mx-auto reveal z-10">
                 <h2 class="text-4xl font-bold text-center text-white mb-16 section-heading">Projects</h2>
                 <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-                    <!-- Cards for all 9 projects -->
-                    <div class="glass-effect rounded-xl p-6 project-card">
-                        <h3 class="text-xl font-bold text-white">RAG Chatbot for Document Analysis</h3>
-                        <p class="text-gray-400 mt-2 text-sm">A local, privacy-first RAG chatbot with a Streamlit UI for analyzing multilingual tender documents.</p>
-                    </div>
-                    <div class="glass-effect rounded-xl p-6 project-card">
-                        <h3 class="text-xl font-bold text-white">Customer Churn Insights</h3>
-                        <p class="text-gray-400 mt-2 text-sm">Developed a Random Forest model with 89% accuracy to predict customer churn and provide actionable insights.</p>
-                    </div>
-                    <div class="glass-effect rounded-xl p-6 project-card">
-                        <h3 class="text-xl font-bold text-white">AI Email Generator</h3>
-                        <p class="text-gray-400 mt-2 text-sm">LLM-powered tool using LangChain and RAG for automated, context-aware generation of outreach emails.</p>
-                    </div>
-                    <div class="glass-effect rounded-xl p-6 project-card">
-                        <h3 class="text-xl font-bold text-white">Transformer Architecture (NMT)</h3>
-                        <p class="text-gray-400 mt-2 text-sm">Implemented a Transformer model in PyTorch from scratch, improving BLEU score by 15% over baselines.</p>
-                    </div>
-                    <div class="glass-effect rounded-xl p-6 project-card">
-                        <h3 class="text-xl font-bold text-white">Abstractive Summarization (PEGASUS)</h3>
-                        <p class="text-gray-400 mt-2 text-sm">Fine-tuned PEGASUS on the SAMSum dataset, achieving a 20% improvement in ROUGE-2 scores.</p>
-                    </div>
-                    <div class="glass-effect rounded-xl p-6 project-card">
-                        <h3 class="text-xl font-bold text-white">Microscopic Image Denoising & Segmentation</h3>
+                    
+                    <a href="https://github.com/ShalinVachheta017/Vehicle-Insurance-DataPipeline-MLops-" target="_blank" class="glass-effect rounded-xl p-6 project-card relative group">
+                        <div class="absolute top-0 right-0 bg-cyan-600 text-white text-xs font-bold px-3 py-1 rounded-bl-lg rounded-tr-xl z-20">LATEST</div>
+                        <h3 class="text-xl font-bold text-white transition-colors">Vehicle Insurance MLOps Pipeline</h3>
+                        <p class="text-gray-400 mt-2 text-sm">End-to-end MLOps project to predict customer insurance interest. Features modular coding, automated CI/CD via GitHub Actions, Docker containerization, and MongoDB integration.</p>
+                        <div class="mt-4 flex flex-wrap gap-2">
+                            <span class="tech-badge">MLOps</span>
+                            <span class="tech-badge">Docker</span>
+                            <span class="tech-badge">GitHub Actions</span>
+                            <span class="tech-badge">Flask</span>
+                        </div>
+                    </a>
+
+                    <a href="https://github.com/ShalinVachheta017/ShalinV_Portfolio" target="_blank" class="glass-effect rounded-xl p-6 project-card group">
+                        <h3 class="text-xl font-bold text-white transition-colors">Comprehensive AI/ML Portfolio</h3>
+                        <p class="text-gray-400 mt-2 text-sm">A centralized collection of Machine Learning and GenAI implementations showcasing versatility across domains from EDA to Deep Learning deployment.</p>
+                        <div class="mt-4 flex flex-wrap gap-2">
+                            <span class="tech-badge">GenAI</span>
+                            <span class="tech-badge">Deep Learning</span>
+                            <span class="tech-badge">Web Dev</span>
+                        </div>
+                    </a>
+
+                    <a href="https://github.com/ShalinVachheta017/RAG-Chatbot-Document-Analysis" target="_blank" class="glass-effect rounded-xl p-6 project-card group">
+                        <h3 class="text-xl font-bold text-white transition-colors">RAG Chatbot for Analysis</h3>
+                        <p class="text-gray-400 mt-2 text-sm">A local, privacy-first RAG chatbot with a Streamlit UI for analyzing multilingual tender documents securely.</p>
+                        <div class="mt-4 flex flex-wrap gap-2">
+                            <span class="tech-badge">RAG</span>
+                            <span class="tech-badge">LangChain</span>
+                            <span class="tech-badge">Streamlit</span>
+                        </div>
+                    </a>
+
+                    <a href="https://github.com/ShalinVachheta017/Customer-Churn-Prediction" target="_blank" class="glass-effect rounded-xl p-6 project-card group">
+                        <h3 class="text-xl font-bold text-white transition-colors">Customer Churn Insights</h3>
+                        <p class="text-gray-400 mt-2 text-sm">Developed a Random Forest model with 89% accuracy to predict customer churn and provide actionable business insights.</p>
+                        <div class="mt-4 flex flex-wrap gap-2">
+                            <span class="tech-badge">Scikit-learn</span>
+                            <span class="tech-badge">EDA</span>
+                        </div>
+                    </a>
+
+                    <a href="https://github.com/ShalinVachheta017/Cold-Email-Generator-LLM" target="_blank" class="glass-effect rounded-xl p-6 project-card group">
+                        <h3 class="text-xl font-bold text-white transition-colors">AI Email Generator</h3>
+                        <p class="text-gray-400 mt-2 text-sm">LLM-powered tool using LangChain and RAG for automated, context-aware generation of professional outreach emails.</p>
+                        <div class="mt-4 flex flex-wrap gap-2">
+                            <span class="tech-badge">LLMs</span>
+                            <span class="tech-badge">Automation</span>
+                        </div>
+                    </a>
+
+                    <a href="https://github.com/ShalinVachheta017/Transformer-NMT-From-Scratch" target="_blank" class="glass-effect rounded-xl p-6 project-card group">
+                        <h3 class="text-xl font-bold text-white transition-colors">Transformer NMT</h3>
+                        <p class="text-gray-400 mt-2 text-sm">Implemented a Transformer model in PyTorch from scratch for Neural Machine Translation, improving BLEU score by 15%.</p>
+                        <div class="mt-4 flex flex-wrap gap-2">
+                            <span class="tech-badge">PyTorch</span>
+                            <span class="tech-badge">NLP</span>
+                        </div>
+                    </a>
+
+                    <a href="https://github.com/ShalinVachheta017/Text-Summarization-PEGASUS" target="_blank" class="glass-effect rounded-xl p-6 project-card group">
+                        <h3 class="text-xl font-bold text-white transition-colors">Abstractive Summarization</h3>
+                        <p class="text-gray-400 mt-2 text-sm">Fine-tuned PEGASUS on the SAMSum dataset, achieving a 20% improvement in ROUGE-2 scores for dialogue summarization.</p>
+                        <div class="mt-4 flex flex-wrap gap-2">
+                            <span class="tech-badge">Hugging Face</span>
+                            <span class="tech-badge">PEGASUS</span>
+                        </div>
+                    </a>
+
+                    <a href="https://github.com/ShalinVachheta017/Microscopic-Image-Segmentation" target="_blank" class="glass-effect rounded-xl p-6 project-card group">
+                        <h3 class="text-xl font-bold text-white transition-colors">Microscopic Image Denoising</h3>
                         <p class="text-gray-400 mt-2 text-sm">Implemented a dual-branch U-Net to jointly denoise and segment microscopy images, increasing IoU by 30%.</p>
-                    </div>
-                    <div class="glass-effect rounded-xl p-6 project-card">
-                        <h3 class="text-xl font-bold text-white">Predictive Modelling & Real-Time Decisions</h3>
-                        <p class="text-gray-400 mt-2 text-sm">Trained XGBoost and Ridge Regression models (R²=0.87) and deployed via a Flask app for real-time predictions.</p>
-                    </div>
-                    <div class="glass-effect rounded-xl p-6 project-card">
-                        <h3 class="text-xl font-bold text-white">US Vehicle Sales Forecasting</h3>
-                        <p class="text-gray-400 mt-2 text-sm">Analyzed 500,000+ sales records to uncover trends and build visual dashboards with Matplotlib/Seaborn.</p>
-                    </div>
-                    <div class="glass-effect rounded-xl p-6 project-card">
-                        <h3 class="text-xl font-bold text-white">IPL Match Outcome Analysis</h3>
-                        <p class="text-gray-400 mt-2 text-sm">Analyzed 700+ IPL match records to increase win probability predictions by 15% through feature engineering.</p>
-                    </div>
+                        <div class="mt-4 flex flex-wrap gap-2">
+                            <span class="tech-badge">Computer Vision</span>
+                            <span class="tech-badge">U-Net</span>
+                        </div>
+                    </a>
+
+                    <a href="https://github.com/ShalinVachheta017/Real-Time-Prediction-Flask" target="_blank" class="glass-effect rounded-xl p-6 project-card group">
+                        <h3 class="text-xl font-bold text-white transition-colors">Real-Time Predictive App</h3>
+                        <p class="text-gray-400 mt-2 text-sm">Trained XGBoost models (R²=0.87) deployed via Flask for real-time predictions.</p>
+                        <div class="mt-4 flex flex-wrap gap-2">
+                            <span class="tech-badge">XGBoost</span>
+                            <span class="tech-badge">Flask</span>
+                        </div>
+                    </a>
                 </div>
             </div>
         </section>
 
-        <!-- Section 5: Skills -->
         <section id="skills" class="section-min-height relative flex items-center justify-center p-8 overflow-hidden">
             <div id="skills-canvas-container"></div>
             <div class="max-w-4xl mx-auto reveal w-full z-10">
                 <h2 class="text-4xl font-bold text-center text-white mb-16 section-heading">Core Competencies</h2>
                 <div class="space-y-10">
                     <div>
-                        <h3 class="text-xl font-semibold text-cyan-300 mb-4">Programming & Core Languages</h3>
-                        <div class="flex flex-wrap gap-3"><span class="glass-effect text-sm px-4 py-2 rounded-lg">Python</span><span class="glass-effect text-sm px-4 py-2 rounded-lg">SQL</span><span class="glass-effect text-sm px-4 py-2 rounded-lg">C++</span><span class="glass-effect text-sm px-4 py-2 rounded-lg">MATLAB</span></div>
+                        <h3 class="text-xl font-semibold text-cyan-300 mb-4">MLOps & Cloud (New Focus)</h3>
+                        <div class="flex flex-wrap gap-3">
+                            <span class="glass-effect text-sm px-4 py-2 rounded-lg border-l-4 border-cyan-500">Docker</span>
+                            <span class="glass-effect text-sm px-4 py-2 rounded-lg border-l-4 border-cyan-500">GitHub Actions (CI/CD)</span>
+                            <span class="glass-effect text-sm px-4 py-2 rounded-lg">DVC (Data Version Control)</span>
+                            <span class="glass-effect text-sm px-4 py-2 rounded-lg">MLflow</span>
+                            <span class="glass-effect text-sm px-4 py-2 rounded-lg">AWS (EC2/S3)</span>
+                            <span class="glass-effect text-sm px-4 py-2 rounded-lg">Flask</span>
+                        </div>
                     </div>
                     <div>
                         <h3 class="text-xl font-semibold text-cyan-300 mb-4">LLM & NLP</h3>
-                        <div class="flex flex-wrap gap-3"><span class="glass-effect text-sm px-4 py-2 rounded-lg">LangChain</span><span class="glass-effect text-sm px-4 py-2 rounded-lg">RAG</span><span class="glass-effect text-sm px-4 py-2 rounded-lg">Hugging Face</span><span class="glass-effect text-sm px-4 py-2 rounded-lg">Ollama</span><span class="glass-effect text-sm px-4 py-2 rounded-lg">Transformers</span><span class="glass-effect text-sm px-4 py-2 rounded-lg">PEGASUS</span><span class="glass-effect text-sm px-4 py-2 rounded-lg">Sentence Transformers</span></div>
+                        <div class="flex flex-wrap gap-3">
+                            <span class="glass-effect text-sm px-4 py-2 rounded-lg">LangChain</span>
+                            <span class="glass-effect text-sm px-4 py-2 rounded-lg">RAG</span>
+                            <span class="glass-effect text-sm px-4 py-2 rounded-lg">Hugging Face</span>
+                            <span class="glass-effect text-sm px-4 py-2 rounded-lg">Ollama</span>
+                            <span class="glass-effect text-sm px-4 py-2 rounded-lg">Transformers</span>
+                            <span class="glass-effect text-sm px-4 py-2 rounded-lg">PEGASUS</span>
+                        </div>
                     </div>
                     <div>
                         <h3 class="text-xl font-semibold text-cyan-300 mb-4">ML / DL & Data Science</h3>
-                        <div class="flex flex-wrap gap-3"><span class="glass-effect text-sm px-4 py-2 rounded-lg">PyTorch</span><span class="glass-effect text-sm px-4 py-2 rounded-lg">TensorFlow</span><span class="glass-effect text-sm px-4 py-2 rounded-lg">Scikit-learn</span><span class="glass-effect text-sm px-4 py-2 rounded-lg">XGBoost</span><span class="glass-effect text-sm px-4 py-2 rounded-lg">Pandas</span><span class="glass-effect text-sm px-4 py-2 rounded-lg">NumPy</span><span class="glass-effect text-sm px-4 py-2 rounded-lg">OpenCV</span><span class="glass-effect text-sm px-4 py-2 rounded-lg">Tableau</span></div>
+                        <div class="flex flex-wrap gap-3">
+                            <span class="glass-effect text-sm px-4 py-2 rounded-lg">PyTorch</span>
+                            <span class="glass-effect text-sm px-4 py-2 rounded-lg">TensorFlow</span>
+                            <span class="glass-effect text-sm px-4 py-2 rounded-lg">Scikit-learn</span>
+                            <span class="glass-effect text-sm px-4 py-2 rounded-lg">XGBoost/CatBoost</span>
+                            <span class="glass-effect text-sm px-4 py-2 rounded-lg">Pandas/NumPy</span>
+                            <span class="glass-effect text-sm px-4 py-2 rounded-lg">Optuna</span>
+                        </div>
                     </div>
                     <div>
-                        <h3 class="text-xl font-semibold text-cyan-300 mb-4">Tools, Frameworks & Databases</h3>
-                        <div class="flex flex-wrap gap-3"><span class="glass-effect text-sm px-4 py-2 rounded-lg">Docker</span><span class="glass-effect text-sm px-4 py-2 rounded-lg">Git/GitHub</span><span class="glass-effect text-sm px-4 py-2 rounded-lg">Qdrant DB</span><span class="glass-effect text-sm px-4 py-2 rounded-lg">ChromaDB</span><span class="glass-effect text-sm px-4 py-2 rounded-lg">MySQL</span><span class="glass-effect text-sm px-4 py-2 rounded-lg">Streamlit</span><span class="glass-effect text-sm px-4 py-2 rounded-lg">FastAPI</span><span class="glass-effect text-sm px-4 py-2 rounded-lg">Jupyter</span></div>
+                        <h3 class="text-xl font-semibold text-cyan-300 mb-4">Databases & Tools</h3>
+                        <div class="flex flex-wrap gap-3">
+                            <span class="glass-effect text-sm px-4 py-2 rounded-lg">MongoDB</span>
+                            <span class="glass-effect text-sm px-4 py-2 rounded-lg">SQL</span>
+                            <span class="glass-effect text-sm px-4 py-2 rounded-lg">Qdrant DB</span>
+                            <span class="glass-effect text-sm px-4 py-2 rounded-lg">ChromaDB</span>
+                            <span class="glass-effect text-sm px-4 py-2 rounded-lg">Git</span>
+                            <span class="glass-effect text-sm px-4 py-2 rounded-lg">Jupyter</span>
+                        </div>
                     </div>
                 </div>
             </div>
         </section>
 
-        <!-- Section 6: Contact -->
         <section id="contact" class="section-min-height relative flex flex-col items-center justify-center p-8 text-center">
             <div class="max-w-2xl mx-auto reveal z-10">
                 <h2 class="text-4xl font-bold text-center text-white mb-4 section-heading">Get In Touch</h2>
                 <p class="text-lg text-gray-400 mb-8">
-                    I'm currently seeking new opportunities and am open to collaboration. Whether you have a question or just want to connect, my inbox is always open.
+                    I'm currently seeking new opportunities and am open to collaboration on AI, MLOps, and GenAI projects.
                 </p>
                 <a href="mailto:shalin2010vachheta@gmail.com" class="inline-block bg-cyan-600 hover:bg-cyan-500 text-white font-semibold text-lg px-8 py-4 rounded-lg transition duration-300 transform hover:scale-105 shadow-lg shadow-cyan-600/20">
                     Say Hello
@@ -460,7 +539,7 @@
             mouseY = (event.clientY - window.innerHeight / 2) / (window.innerHeight / 2);
         }
 
-        // --- New Skills Animation ---
+        // --- Skills Animation (Network Graph) ---
         let skillsScene, skillsCamera, skillsRenderer, skillsPoints, skillsLines;
         const skillsMouse = new THREE.Vector2();
 
@@ -494,7 +573,7 @@
             
             const pGeom = new THREE.BufferGeometry();
             pGeom.setAttribute('position', new THREE.Float32BufferAttribute(positions, 3).setUsage(THREE.DynamicDrawUsage));
-            pGeom.userData.particlesData = particlesData; // Attach custom data
+            pGeom.userData.particlesData = particlesData;
 
             const pMat = new THREE.PointsMaterial({ color: '#22d3ee', size: 1.5, blending: THREE.AdditiveBlending, transparent: true });
             skillsPoints = new THREE.Points(pGeom, pMat);
@@ -594,4 +673,3 @@
     </script>
 </body>
 </html>
-
