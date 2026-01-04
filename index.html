@@ -25,8 +25,7 @@
 
         /* --- NOISE TEXTURE --- */
         .noise-overlay {
-            position: fixed;
-            top: 0; left: 0; width: 100%; height: 100%;
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
             pointer-events: none; z-index: 50; opacity: 0.05;
             background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
         }
@@ -72,9 +71,10 @@
         ::-webkit-scrollbar { width: 6px; }
         ::-webkit-scrollbar-track { background: #050505; }
         ::-webkit-scrollbar-thumb { background: #333; border-radius: 3px; }
-        
-        /* Category Header Line */
         .cat-line { flex-grow: 1; height: 1px; background: linear-gradient(90deg, #22d3ee, transparent); opacity: 0.3; }
+        
+        .lang-btn { cursor: pointer; opacity: 0.5; transition: 0.3s; }
+        .lang-btn.active { opacity: 1; color: #22d3ee; font-weight: bold; }
     </style>
 </head>
 
@@ -88,17 +88,18 @@
             <a href="#" class="text-xl font-bold tracking-tight text-white">SV<span class="text-cyan-400">.</span></a>
             
             <div class="hidden md:flex items-center space-x-10 text-sm font-medium text-gray-400">
-                <a href="#about" class="hover:text-white transition">About</a>
-                <a href="#experience" class="hover:text-white transition">Journey</a>
-                <a href="#projects" class="hover:text-white transition">Projects</a>
+                <a href="#about" class="hover:text-white transition" id="nav-about">About</a>
+                <a href="#experience" class="hover:text-white transition" id="nav-exp">Journey</a>
+                <a href="#projects" class="hover:text-white transition" id="nav-work">Projects</a>
+                
                 <div class="flex items-center gap-2 border-l border-white/10 pl-6">
-                    <span class="text-white cursor-default">EN</span>
+                    <span onclick="setLanguage('en')" id="btn-en" class="lang-btn active">EN</span>
                     <span class="text-gray-600">/</span>
-                    <a href="de.html" class="hover:text-cyan-400 transition" title="German Version">DE</a>
+                    <span onclick="setLanguage('de')" id="btn-de" class="lang-btn">DE</span>
                 </div>
             </div>
 
-            <a href="mailto:shalin2010vachheta@gmail.com" class="text-xs font-bold bg-white hover:bg-cyan-400 hover:text-black transition text-black px-5 py-2.5 rounded-full">
+            <a href="mailto:shalin2010vachheta@gmail.com" class="text-xs font-bold bg-white hover:bg-cyan-400 hover:text-black transition text-black px-5 py-2.5 rounded-full" id="nav-contact">
                 CONTACT
             </a>
         </div>
@@ -114,7 +115,7 @@
                           <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-cyan-400 opacity-75"></span>
                           <span class="relative inline-flex rounded-full h-2 w-2 bg-cyan-500"></span>
                         </span>
-                        <span>OPEN TO WORK • JAN 2026</span>
+                        <span id="hero-badge">OPEN TO WORK • JAN 2026</span>
                     </div>
                     
                     <h1 class="text-6xl md:text-8xl font-bold tracking-tighter leading-[0.95] text-white">
@@ -122,7 +123,7 @@
                         <span class="text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 to-blue-600">Engineer.</span>
                     </h1>
                     
-                    <p class="text-lg text-gray-400 max-w-xl leading-relaxed font-light">
+                    <p class="text-lg text-gray-400 max-w-xl leading-relaxed font-light" id="hero-text">
                         I am <strong class="text-white">Shalin Vachheta</strong>. I specialize in bridging the gap between Data Science and Production. From training Deep Learning models to architecting scalable Cloud Pipelines.
                     </p>
                     
@@ -142,7 +143,7 @@
         </section>
 
         <section id="experience" class="reveal">
-            <h2 class="text-3xl font-bold mb-12 flex items-center gap-3"><span class="text-cyan-400">//</span> Career Journey</h2>
+            <h2 class="text-3xl font-bold mb-12 flex items-center gap-3" id="exp-title"><span class="text-cyan-400">//</span> Career Journey</h2>
             <div class="border-l border-gray-800 ml-4 space-y-12 spotlight-group">
                 
                 <div class="relative pl-10">
@@ -151,12 +152,12 @@
                         <div class="card-content grid md:grid-cols-4 gap-6">
                             <div class="md:col-span-1">
                                 <span class="text-xs font-mono text-cyan-400 mb-1 block">JAN 2026 - PRESENT</span>
-                                <h3 class="text-xl font-bold text-white">Master Thesis</h3>
+                                <h3 class="text-xl font-bold text-white" id="job-title-1">Master Thesis</h3>
                                 <p class="text-gray-500 text-sm mt-1">University of Siegen</p>
                             </div>
                             <div class="md:col-span-3">
                                 <h4 class="text-lg font-bold text-gray-200 mb-2">MLOps Pipeline for Mental Health Monitoring</h4>
-                                <p class="text-gray-400 text-sm leading-relaxed">
+                                <p class="text-gray-400 text-sm leading-relaxed" id="job-desc-1">
                                     Architecting an enterprise-grade MLOps system for real-time stress detection using multimodal biosignals. Focusing on Data Drift, Automated Retraining, and Scalable Inference.
                                 </p>
                             </div>
@@ -170,12 +171,12 @@
                         <div class="card-content grid md:grid-cols-4 gap-6">
                             <div class="md:col-span-1">
                                 <span class="text-xs font-mono text-gray-500 mb-1 block">MAY 2024 - MAY 2025</span>
-                                <h3 class="text-lg font-bold text-gray-300">Research Assistant</h3>
+                                <h3 class="text-lg font-bold text-gray-300" id="job-title-2">Research Assistant</h3>
                                 <p class="text-gray-500 text-sm mt-1">University of Siegen</p>
                             </div>
                             <div class="md:col-span-3">
                                 <h4 class="text-lg font-bold text-gray-300 mb-2">Seq2Seq Event Forecasting</h4>
-                                <p class="text-gray-400 text-sm leading-relaxed">
+                                <p class="text-gray-400 text-sm leading-relaxed" id="job-desc-2">
                                     Engineered BiLSTM models for CARLA autonomous driving simulations. Achieved 25% accuracy boost via Optuna hyperparameter tuning.
                                 </p>
                             </div>
@@ -190,7 +191,7 @@
             
             <div class="spotlight-group" onmousemove="handleMouseMove(event)">
                 <div class="flex items-center gap-4 mb-8">
-                    <h2 class="text-2xl font-bold text-white whitespace-nowrap">MLOps & Production</h2>
+                    <h2 class="text-2xl font-bold text-white whitespace-nowrap" id="cat-1">MLOps & Production</h2>
                     <div class="cat-line"></div>
                 </div>
                 
@@ -209,9 +210,6 @@
                                     <span>#MLflow</span> <span>#DVC</span> <span>#Docker</span> <span>#CI/CD</span>
                                 </div>
                             </div>
-                            <div class="w-full md:w-1/3 h-32 bg-gradient-to-br from-cyan-900/20 to-blue-900/20 rounded-lg border border-white/5 flex items-center justify-center">
-                                <svg class="w-10 h-10 text-cyan-500/50" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"></path></svg>
-                            </div>
                         </div>
                     </div>
 
@@ -221,19 +219,8 @@
                                 <h3 class="text-lg font-bold text-white group-hover:text-cyan-400 transition">Vehicle Insurance Pipeline</h3>
                                 <svg class="w-4 h-4 text-gray-600 group-hover:text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"></path></svg>
                             </div>
-                            <p class="text-sm text-gray-400 mb-4">End-to-end pipeline predicting customer interest. Modular coding standards, MongoDB ingestion, and Flask deployment.</p>
-                            <div class="flex gap-2"><span class="text-xs border border-white/10 px-2 py-0.5 rounded text-gray-500">MongoDB</span><span class="text-xs border border-white/10 px-2 py-0.5 rounded text-gray-500">Flask</span></div>
-                        </div>
-                    </a>
-
-                    <a href="https://github.com/ShalinVachheta017/Student-Performance-Prediction" target="_blank" class="spotlight-card rounded-2xl p-6 group">
-                        <div class="card-content">
-                            <div class="flex justify-between items-start mb-4">
-                                <h3 class="text-lg font-bold text-white group-hover:text-cyan-400 transition">Performance Prediction</h3>
-                                <svg class="w-4 h-4 text-gray-600 group-hover:text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"></path></svg>
-                            </div>
-                            <p class="text-sm text-gray-400 mb-4">Full-stack regression project. From EDA to AWS Elastic Beanstalk deployment.</p>
-                            <div class="flex gap-2"><span class="text-xs border border-white/10 px-2 py-0.5 rounded text-gray-500">AWS</span><span class="text-xs border border-white/10 px-2 py-0.5 rounded text-gray-500">Regression</span></div>
+                            <p class="text-sm text-gray-400 mb-4">End-to-end pipeline predicting customer interest. Modular coding standards, MongoDB ingestion, and FastAPI deployment.</p>
+                            <div class="flex gap-2"><span class="text-xs border border-white/10 px-2 py-0.5 rounded text-gray-500">MongoDB</span><span class="text-xs border border-white/10 px-2 py-0.5 rounded text-gray-500">FastAPI</span></div>
                         </div>
                     </a>
                 </div>
@@ -241,7 +228,7 @@
 
             <div class="spotlight-group" onmousemove="handleMouseMove(event)">
                 <div class="flex items-center gap-4 mb-8">
-                    <h2 class="text-2xl font-bold text-white whitespace-nowrap">GenAI & Transformers</h2>
+                    <h2 class="text-2xl font-bold text-white whitespace-nowrap" id="cat-2">GenAI & Transformers</h2>
                     <div class="cat-line"></div>
                 </div>
 
@@ -253,7 +240,6 @@
                             <span class="text-xs text-purple-400/80 font-mono">PyTorch • Deep Learning</span>
                         </div>
                     </a>
-
                     <a href="https://github.com/ShalinVachheta017/sequence-2-sequence-Event-Prediction" target="_blank" class="spotlight-card rounded-2xl p-6 group">
                         <div class="card-content">
                             <h3 class="text-lg font-bold text-white group-hover:text-purple-400 transition mb-2">Seq2Seq Event Prediction</h3>
@@ -261,7 +247,6 @@
                             <span class="text-xs text-purple-400/80 font-mono">LSTM • Time-Series</span>
                         </div>
                     </a>
-
                     <a href="https://github.com/ShalinVachheta017/Text_Summarization_Project" target="_blank" class="spotlight-card rounded-2xl p-6 group">
                         <div class="card-content">
                             <h3 class="text-lg font-bold text-white group-hover:text-purple-400 transition mb-2">Text Summarization</h3>
@@ -269,7 +254,6 @@
                             <span class="text-xs text-purple-400/80 font-mono">HuggingFace • NLP</span>
                         </div>
                     </a>
-
                     <a href="https://github.com/ShalinVachheta017/GEN-AI-Llama-3.1-based-Cold-Email-Generator-" target="_blank" class="spotlight-card rounded-2xl p-6 group">
                         <div class="card-content">
                             <h3 class="text-lg font-bold text-white group-hover:text-purple-400 transition mb-2">Llama 3.1 Email Gen</h3>
@@ -277,7 +261,6 @@
                             <span class="text-xs text-purple-400/80 font-mono">GenAI • Groq</span>
                         </div>
                     </a>
-
                     <a href="https://github.com/ShalinVachheta017/Multilingual-RAG-System-" target="_blank" class="spotlight-card rounded-2xl p-6 group">
                         <div class="card-content">
                             <h3 class="text-lg font-bold text-white group-hover:text-purple-400 transition mb-2">Multilingual RAG</h3>
@@ -290,19 +273,18 @@
 
             <div class="spotlight-group" onmousemove="handleMouseMove(event)">
                 <div class="flex items-center gap-4 mb-8">
-                    <h2 class="text-2xl font-bold text-white whitespace-nowrap">Vision & Analytics</h2>
+                    <h2 class="text-2xl font-bold text-white whitespace-nowrap" id="cat-3">Computer Vision</h2>
                     <div class="cat-line"></div>
                 </div>
 
-                <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
                     <a href="https://github.com/ShalinVachheta017/Microscopic-Image-Segmentation" target="_blank" class="spotlight-card rounded-2xl p-6 group">
                         <div class="card-content">
                             <h3 class="text-lg font-bold text-white group-hover:text-green-400 transition mb-2">Image Denoising</h3>
                             <p class="text-sm text-gray-400 mb-4">Dual-branch U-Net for joint denoising and segmentation.</p>
-                            <span class="text-xs text-green-400/80 font-mono">Computer Vision</span>
+                            <span class="text-xs text-green-400/80 font-mono">U-Net • Segmentation</span>
                         </div>
                     </a>
-
                     <a href="https://github.com/ShalinVachheta017/Sports-Analysis-" target="_blank" class="spotlight-card rounded-2xl p-6 group">
                         <div class="card-content">
                             <h3 class="text-lg font-bold text-white group-hover:text-green-400 transition mb-2">Sports Analysis</h3>
@@ -310,12 +292,28 @@
                             <span class="text-xs text-green-400/80 font-mono">YOLO • OpenCV</span>
                         </div>
                     </a>
+                </div>
+            </div>
 
+            <div class="spotlight-group" onmousemove="handleMouseMove(event)">
+                <div class="flex items-center gap-4 mb-8">
+                    <h2 class="text-2xl font-bold text-white whitespace-nowrap" id="cat-4">Classic ML & Analytics</h2>
+                    <div class="cat-line"></div>
+                </div>
+
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                     <a href="https://github.com/ShalinVachheta017/Student-Performance-Prediction" target="_blank" class="spotlight-card rounded-2xl p-6 group">
+                        <div class="card-content">
+                            <h3 class="text-lg font-bold text-white group-hover:text-green-400 transition mb-2">Performance Prediction</h3>
+                            <p class="text-sm text-gray-400 mb-4">Full-stack regression project. From EDA to Deployment.</p>
+                            <span class="text-xs text-green-400/80 font-mono">Flask • Regression</span>
+                        </div>
+                    </a>
                     <a href="https://github.com/ShalinVachheta017/Customer-Churn-Prediction" target="_blank" class="spotlight-card rounded-2xl p-6 group">
                         <div class="card-content">
                             <h3 class="text-lg font-bold text-white group-hover:text-green-400 transition mb-2">Customer Churn</h3>
                             <p class="text-sm text-gray-400 mb-4">Data analysis and Random Forest modeling to predict attrition.</p>
-                            <span class="text-xs text-green-400/80 font-mono">Data Science</span>
+                            <span class="text-xs text-green-400/80 font-mono">Random Forest • EDA</span>
                         </div>
                     </a>
                 </div>
@@ -324,7 +322,7 @@
         </section>
 
         <section class="reveal py-10">
-            <h2 class="text-sm font-mono text-gray-500 mb-8 uppercase tracking-widest text-center">Technical Arsenal</h2>
+            <h2 class="text-sm font-mono text-gray-500 mb-8 uppercase tracking-widest text-center" id="tech-title">Technical Arsenal</h2>
             <div class="marquee-container">
                 <div class="marquee-content">
                     <span class="text-4xl font-bold text-gray-800 mx-8">Docker</span>
@@ -337,7 +335,7 @@
                     <span class="text-4xl font-bold text-gray-800 mx-8">LangChain</span>
                     <span class="text-4xl font-bold text-gray-800 mx-8">HuggingFace</span>
                     <span class="text-4xl font-bold text-gray-800 mx-8">MongoDB</span>
-                    <span class="text-4xl font-bold text-gray-800 mx-8">Flask</span>
+                    <span class="text-4xl font-bold text-gray-800 mx-8">FastAPI</span>
                     <span class="text-4xl font-bold text-gray-800 mx-8">Docker</span>
                     <span class="text-4xl font-bold text-gray-800 mx-8">Kubernetes</span>
                     <span class="text-4xl font-bold text-gray-800 mx-8">AWS</span>
@@ -348,7 +346,7 @@
                     <span class="text-4xl font-bold text-gray-800 mx-8">LangChain</span>
                     <span class="text-4xl font-bold text-gray-800 mx-8">HuggingFace</span>
                     <span class="text-4xl font-bold text-gray-800 mx-8">MongoDB</span>
-                    <span class="text-4xl font-bold text-gray-800 mx-8">Flask</span>
+                    <span class="text-4xl font-bold text-gray-800 mx-8">FastAPI</span>
                 </div>
             </div>
         </section>
@@ -360,19 +358,78 @@
     </main>
 
     <script>
-        // Spotlight Mouse Tracking
+        // 1. LANGUAGE SWITCHER LOGIC
+        const translations = {
+            en: {
+                navAbout: "About", navExp: "Journey", navWork: "Projects", navContact: "CONTACT",
+                heroBadge: "OPEN TO WORK • JAN 2026",
+                heroText: "I am <strong class='text-white'>Shalin Vachheta</strong>. I specialize in bridging the gap between Data Science and Production. From training Deep Learning models to architecting scalable Cloud Pipelines.",
+                expTitle: "<span class='text-cyan-400'>//</span> Career Journey",
+                jobTitle1: "Master Thesis",
+                jobDesc1: "Architecting an enterprise-grade MLOps system for real-time stress detection using multimodal biosignals. Focusing on Data Drift, Automated Retraining, and Scalable Inference.",
+                jobTitle2: "Research Assistant",
+                jobDesc2: "Engineered BiLSTM models for CARLA autonomous driving simulations. Achieved 25% accuracy boost via Optuna hyperparameter tuning.",
+                cat1: "MLOps & Production",
+                cat2: "GenAI & Transformers",
+                cat3: "Computer Vision",
+                cat4: "Classic ML & Analytics",
+                techTitle: "Technical Arsenal"
+            },
+            de: {
+                navAbout: "Über mich", navExp: "Werdegang", navWork: "Projekte", navContact: "KONTAKT",
+                heroBadge: "OFFEN FÜR ANGEBOTE • JAN 2026",
+                heroText: "Ich bin <strong class='text-white'>Shalin Vachheta</strong>. Ich schlage die Brücke zwischen Data Science und Produktion. Vom Training von Deep-Learning-Modellen bis zur Architektur skalierbarer Cloud-Pipelines.",
+                expTitle: "<span class='text-cyan-400'>//</span> Werdegang",
+                jobTitle1: "Masterarbeit",
+                jobDesc1: "Entwicklung eines Enterprise-MLOps-Systems zur Echtzeit-Stresserkennung mittels multimodaler Biosignale. Fokus auf Data Drift, automatisiertes Retraining und skalierbare Inferenz.",
+                jobTitle2: "Wiss. Hilfskraft",
+                jobDesc2: "Entwicklung von BiLSTM-Modellen für CARLA-Simulationen (Autonomes Fahren). 25% Genauigkeitssteigerung durch Optuna-Hyperparameter-Tuning.",
+                cat1: "MLOps & Produktion",
+                cat2: "GenAI & Transformers",
+                cat3: "Computer Vision",
+                cat4: "Klassisches ML & Analytics",
+                techTitle: "Technologisches Arsenal"
+            }
+        };
+
+        function setLanguage(lang) {
+            const t = translations[lang];
+            
+            // Toggle Button Styles
+            document.getElementById('btn-en').classList.toggle('active', lang === 'en');
+            document.getElementById('btn-de').classList.toggle('active', lang === 'de');
+
+            // Replace Text
+            document.getElementById('nav-about').innerText = t.navAbout;
+            document.getElementById('nav-exp').innerText = t.navExp;
+            document.getElementById('nav-work').innerText = t.navWork;
+            document.getElementById('nav-contact').innerText = t.navContact;
+            document.getElementById('hero-badge').innerText = t.heroBadge;
+            document.getElementById('hero-text').innerHTML = t.heroText;
+            document.getElementById('exp-title').innerHTML = t.expTitle;
+            
+            document.getElementById('job-title-1').innerText = t.jobTitle1;
+            document.getElementById('job-desc-1').innerText = t.jobDesc1;
+            document.getElementById('job-title-2').innerText = t.jobTitle2;
+            document.getElementById('job-desc-2').innerText = t.jobDesc2;
+
+            document.getElementById('cat-1').innerText = t.cat1;
+            document.getElementById('cat-2').innerText = t.cat2;
+            document.getElementById('cat-3').innerText = t.cat3;
+            document.getElementById('cat-4').innerText = t.cat4;
+            document.getElementById('tech-title').innerText = t.techTitle;
+        }
+
+        // 2. MOUSE TRACKING & SCROLL REVEAL
         function handleMouseMove(e) {
             const cards = document.getElementsByClassName("spotlight-card");
             for(const card of cards) {
-                const rect = card.getBoundingClientRect(),
-                      x = e.clientX - rect.left,
-                      y = e.clientY - rect.top;
-                card.style.setProperty("--mouse-x", `${x}px`);
-                card.style.setProperty("--mouse-y", `${y}px`);
+                const rect = card.getBoundingClientRect();
+                card.style.setProperty("--mouse-x", `${e.clientX - rect.left}px`);
+                card.style.setProperty("--mouse-y", `${e.clientY - rect.top}px`);
             }
         }
         
-        // Scroll Reveal
         const observer = new IntersectionObserver((entries) => {
             entries.forEach(entry => {
                 if (entry.isIntersecting) entry.target.classList.add('active');
