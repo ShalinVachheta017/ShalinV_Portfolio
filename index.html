@@ -38,7 +38,7 @@
             border: 1px solid rgba(255, 255, 255, 0.08);
             overflow: hidden;
             transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275), border-color 0.3s ease;
-            height: 100%; /* Ensure full height in grid */
+            height: 100%; /* Ensures all cards in a grid row are same height */
             display: flex;
             flex-direction: column;
         }
@@ -53,13 +53,13 @@
             z-index: 1; opacity: 0; transition: opacity 0.5s; pointer-events: none;
         }
         .spotlight-group:hover .spotlight-card::before { opacity: 1; }
-        .card-content { position: relative; z-index: 2; flex-grow: 1; display: flex; flex-direction: column; justify-content: space-between;}
+        .card-content { position: relative; z-index: 2; flex-grow: 1; display: flex; flex-direction: column; justify-content: space-between; }
 
         /* --- ANIMATIONS --- */
-        .reveal { opacity: 0; transform: translateY(40px); transition: all 1s cubic-bezier(0.16, 1, 0.3, 1); }
+        .reveal { opacity: 0; transform: translateY(30px); transition: all 0.8s cubic-bezier(0.16, 1, 0.3, 1); }
         .reveal.active { opacity: 1; transform: translateY(0); }
 
-        .marquee-container { overflow: hidden; white-space: nowrap; position: relative; }
+        .marquee-container { overflow: hidden; white-space: nowrap; position: relative; mask-image: linear-gradient(to right, transparent, black 10%, black 90%, transparent); }
         .marquee-content { display: inline-block; animation: marquee 50s linear infinite; }
         @keyframes marquee { 0% { transform: translateX(0); } 100% { transform: translateX(-50%); } }
 
@@ -79,7 +79,7 @@
         .lang-btn { cursor: pointer; opacity: 0.5; transition: 0.3s; }
         .lang-btn.active { opacity: 1; color: #22d3ee; font-weight: bold; }
 
-        .git-icon { transition: fill 0.3s; fill: #9ca3af; } /* gray-400 */
+        .git-icon { transition: fill 0.3s; fill: #9ca3af; } 
         .spotlight-card:hover .git-icon { fill: #fff; }
     </style>
 </head>
@@ -111,11 +111,11 @@
         </div>
     </nav>
 
-    <main class="relative z-10 pt-40 pb-20 px-6 max-w-7xl mx-auto space-y-32">
+    <main class="relative z-10 pt-32 pb-20 px-6 max-w-7xl mx-auto space-y-24">
         
         <section id="about" class="reveal">
-            <div class="flex flex-col-reverse lg:flex-row items-center gap-16 lg:gap-24">
-                <div class="flex-1 space-y-8">
+            <div class="flex flex-col-reverse lg:flex-row items-center gap-12 lg:gap-20">
+                <div class="flex-1 space-y-6">
                     <div class="inline-flex items-center gap-3 px-4 py-1.5 rounded-full bg-cyan-500/5 border border-cyan-500/10 text-cyan-400 text-xs font-mono font-medium">
                         <span class="relative flex h-2 w-2">
                           <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-cyan-400 opacity-75"></span>
@@ -124,50 +124,50 @@
                         <span id="hero-badge">OPEN TO WORK • JAN 2026</span>
                     </div>
                     
-                    <h1 class="text-6xl md:text-8xl font-bold tracking-tighter leading-[0.95] text-white">
+                    <h1 class="text-5xl md:text-7xl lg:text-8xl font-bold tracking-tighter leading-[0.95] text-white">
                         AI & MLOps <br>
                         <span class="text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 to-blue-600">Engineer.</span>
                     </h1>
                     
-                    <p class="text-xl text-gray-400 max-w-2xl leading-relaxed font-light" id="hero-text">
+                    <p class="text-lg md:text-xl text-gray-400 max-w-2xl leading-relaxed font-light" id="hero-text">
                         I am <strong class="text-white">Shalin Vachheta</strong>. I specialize in bridging the gap between Data Science and Production. From training Deep Learning models to architecting scalable Cloud Pipelines.
                     </p>
                     
-                    <div class="flex items-center gap-6 pt-4">
+                    <div class="flex items-center gap-6 pt-2">
                         <a href="https://github.com/ShalinVachheta017" target="_blank" class="text-gray-400 hover:text-white transition transform hover:scale-110">
-                            <svg class="w-8 h-8" fill="currentColor" viewBox="0 0 24 24"><path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.108-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.91 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/></svg>
+                            <svg class="w-7 h-7" fill="currentColor" viewBox="0 0 24 24"><path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.108-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.91 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/></svg>
                         </a>
                         <a href="https://linkedin.com/in/shalin-vachheta/" target="_blank" class="text-gray-400 hover:text-white transition transform hover:scale-110">
-                            <svg class="w-8 h-8" fill="currentColor" viewBox="0 0 24 24"><path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z"/></svg>
+                            <svg class="w-7 h-7" fill="currentColor" viewBox="0 0 24 24"><path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z"/></svg>
                         </a>
-                        <div class="h-px w-20 bg-gray-800"></div>
-                        <span class="text-sm text-gray-500 font-mono">SIEGEN, DE</span>
+                        <div class="h-px w-16 bg-gray-800"></div>
+                        <span class="text-xs text-gray-500 font-mono">SIEGEN, DE</span>
                     </div>
                 </div>
                 
-                <div class="relative w-72 h-72 md:w-96 md:h-96 flex-shrink-0 group">
-                    <div class="absolute inset-0 bg-gradient-to-tr from-cyan-500 to-blue-600 rounded-full blur-[80px] opacity-20 group-hover:opacity-40 transition duration-700"></div>
+                <div class="relative w-64 h-64 md:w-80 md:h-80 lg:w-[400px] lg:h-[400px] flex-shrink-0 group">
+                    <div class="absolute inset-0 bg-gradient-to-tr from-cyan-500 to-blue-600 rounded-full blur-[60px] opacity-20 group-hover:opacity-40 transition duration-700"></div>
                     <img src="shalin-bridge.jpg" alt="Profile" class="relative w-full h-full object-cover rounded-2xl grayscale hover:grayscale-0 transition duration-700 shadow-2xl ring-1 ring-white/10">
                 </div>
             </div>
         </section>
 
         <section id="experience" class="reveal">
-            <h2 class="text-3xl font-bold mb-12 flex items-center gap-3" id="exp-title"><span class="text-cyan-400">//</span> Career Journey</h2>
-            <div class="border-l border-gray-800 ml-4 space-y-12 spotlight-group" onmousemove="handleMouseMove(event)">
+            <h2 class="text-2xl font-bold mb-8 flex items-center gap-3" id="exp-title"><span class="text-cyan-400">//</span> Career Journey</h2>
+            <div class="border-l border-gray-800 ml-3 space-y-8 spotlight-group" onmousemove="handleMouseMove(event)">
                 
-                <div class="relative pl-10">
-                    <span class="absolute -left-[6px] top-2 h-3 w-3 rounded-full bg-cyan-400 shadow-[0_0_15px_rgba(34,211,238,0.5)]"></span>
-                    <div class="spotlight-card rounded-2xl p-10 w-full">
-                        <div class="card-content grid md:grid-cols-4 gap-8">
+                <div class="relative pl-8">
+                    <span class="absolute -left-[5px] top-2 h-2.5 w-2.5 rounded-full bg-cyan-400 shadow-[0_0_15px_rgba(34,211,238,0.5)]"></span>
+                    <div class="spotlight-card rounded-2xl p-8 w-full">
+                        <div class="card-content grid md:grid-cols-4 gap-6">
                             <div class="md:col-span-1 border-r border-white/5 pr-4">
-                                <span class="text-xs font-mono text-cyan-400 mb-2 block">NOV 2025 - PRESENT</span>
-                                <h3 class="text-2xl font-bold text-white" id="job-title-1">Master Thesis</h3>
+                                <span class="text-xs font-mono text-cyan-400 mb-1 block">NOV 2025 - PRESENT</span>
+                                <h3 class="text-xl font-bold text-white" id="job-title-1">Master Thesis</h3>
                                 <p class="text-gray-500 text-sm mt-1">University of Siegen</p>
                             </div>
                             <div class="md:col-span-3">
-                                <h4 class="text-xl font-bold text-gray-200 mb-3">MLOps Pipeline for Mental Health Monitoring</h4>
-                                <p class="text-gray-400 text-base leading-relaxed" id="job-desc-1">
+                                <h4 class="text-lg font-bold text-gray-200 mb-2">MLOps Pipeline for Mental Health Monitoring</h4>
+                                <p class="text-gray-400 text-sm leading-relaxed" id="job-desc-1">
                                     Architecting an enterprise-grade MLOps system for real-time stress detection using multimodal biosignals. Focusing on Data Drift, Automated Retraining, and Scalable Inference.
                                 </p>
                             </div>
@@ -175,18 +175,18 @@
                     </div>
                 </div>
 
-                <div class="relative pl-10">
-                    <span class="absolute -left-[6px] top-2 h-3 w-3 rounded-full bg-gray-700 border border-gray-600"></span>
-                    <div class="spotlight-card rounded-2xl p-10 w-full">
-                        <div class="card-content grid md:grid-cols-4 gap-8">
+                <div class="relative pl-8">
+                    <span class="absolute -left-[5px] top-2 h-2.5 w-2.5 rounded-full bg-gray-700 border border-gray-600"></span>
+                    <div class="spotlight-card rounded-2xl p-8 w-full">
+                        <div class="card-content grid md:grid-cols-4 gap-6">
                             <div class="md:col-span-1 border-r border-white/5 pr-4">
-                                <span class="text-xs font-mono text-gray-500 mb-2 block">MAY 2024 - MAY 2025</span>
-                                <h3 class="text-2xl font-bold text-gray-300" id="job-title-2">Research Assistant</h3>
+                                <span class="text-xs font-mono text-gray-500 mb-1 block">MAY 2024 - MAY 2025</span>
+                                <h3 class="text-xl font-bold text-gray-300" id="job-title-2">Research Assistant</h3>
                                 <p class="text-gray-500 text-sm mt-1">University of Siegen</p>
                             </div>
                             <div class="md:col-span-3">
-                                <h4 class="text-xl font-bold text-gray-300 mb-3">Seq2Seq Event Forecasting</h4>
-                                <p class="text-gray-400 text-base leading-relaxed" id="job-desc-2">
+                                <h4 class="text-lg font-bold text-gray-300 mb-2">Seq2Seq Event Forecasting</h4>
+                                <p class="text-gray-400 text-sm leading-relaxed" id="job-desc-2">
                                     Engineered BiLSTM models for CARLA autonomous driving simulations. Achieved 25% accuracy boost via Optuna hyperparameter tuning.
                                 </p>
                             </div>
@@ -197,41 +197,41 @@
             </div>
         </section>
 
-        <section id="projects" class="reveal space-y-24">
+        <section id="projects" class="reveal space-y-20">
             
             <div class="spotlight-group" onmousemove="handleMouseMove(event)">
-                <div class="flex items-center gap-4 mb-8">
-                    <h2 class="text-2xl font-bold text-white whitespace-nowrap" id="cat-1">MLOps & Production</h2>
+                <div class="flex items-center gap-4 mb-6">
+                    <h2 class="text-xl font-bold text-white whitespace-nowrap" id="cat-1">MLOps & Production</h2>
                     <div class="cat-line"></div>
                 </div>
                 
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-                    <div class="spotlight-card rounded-2xl p-8 cursor-default h-full">
+                    <div class="spotlight-card rounded-2xl p-6 cursor-default">
                         <div class="card-content">
-                            <div class="flex items-center gap-3 mb-4">
-                                <span class="px-2 py-1 rounded bg-cyan-900/30 text-cyan-400 text-[10px] font-bold uppercase tracking-wider border border-cyan-500/20">Featured Thesis</span>
+                            <div class="flex items-center gap-3 mb-3">
+                                <span class="px-2 py-0.5 rounded bg-cyan-900/30 text-cyan-400 text-[10px] font-bold uppercase tracking-wider border border-cyan-500/20">Featured Thesis</span>
                             </div>
-                            <h3 class="text-2xl font-bold text-white mb-2">Mental Health Pipeline</h3>
-                            <p class="text-gray-400 text-sm leading-relaxed mb-6 flex-grow">
-                                A complete production lifecycle system. Features automated data validation, experiment tracking with MLflow, data versioning with DVC, and deployment of Biosignal processing models.
+                            <h3 class="text-xl font-bold text-white mb-2">Mental Health Pipeline</h3>
+                            <p class="text-gray-400 text-sm leading-relaxed mb-4 flex-grow">
+                                A complete production lifecycle system. Features automated data validation, experiment tracking with MLflow, and data versioning with DVC.
                             </p>
-                            <div class="flex flex-wrap gap-2 text-xs font-mono text-cyan-300/80 mt-auto">
-                                <span>#MLflow</span> <span>#DVC</span> <span>#Docker</span> <span>#CI/CD</span>
+                            <div class="flex flex-wrap gap-2 text-[10px] font-mono text-cyan-300/80 mt-auto">
+                                <span>#MLflow</span> <span>#DVC</span> <span>#Docker</span>
                             </div>
                         </div>
                     </div>
 
-                    <a href="https://github.com/ShalinVachheta017/Vehicle-Insurance-DataPipeline-MLops-" target="_blank" class="spotlight-card rounded-2xl p-8 group h-full">
+                    <a href="https://github.com/ShalinVachheta017/Vehicle-Insurance-DataPipeline-MLops-" target="_blank" class="spotlight-card rounded-2xl p-6 group">
                         <div class="card-content">
-                            <div class="flex items-center justify-between mb-4">
-                                <h3 class="text-2xl font-bold text-white group-hover:text-cyan-400 transition">Vehicle Insurance Pipeline</h3>
-                                <svg class="w-6 h-6 git-icon" fill="currentColor" viewBox="0 0 24 24"><path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.108-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.91 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/></svg>
+                            <div class="flex items-center justify-between mb-3">
+                                <h3 class="text-xl font-bold text-white group-hover:text-cyan-400 transition">Vehicle Insurance Pipeline</h3>
+                                <svg class="w-5 h-5 git-icon" fill="currentColor" viewBox="0 0 24 24"><path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.108-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.91 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/></svg>
                             </div>
-                            <p class="text-gray-400 text-sm leading-relaxed mb-6 flex-grow">
-                                End-to-end pipeline predicting customer interest. Features modular coding standards, MongoDB ingestion, data validation, and scalable deployment via FastAPI.
+                            <p class="text-gray-400 text-sm leading-relaxed mb-4 flex-grow">
+                                End-to-end pipeline predicting customer interest. Features modular coding standards, MongoDB ingestion, and scalable deployment via FastAPI.
                             </p>
-                            <div class="flex flex-wrap gap-2 text-xs font-mono text-cyan-300/80 mt-auto">
-                                <span>#MongoDB</span> <span>#FastAPI</span> <span>#Docker</span> <span>#Production</span>
+                            <div class="flex flex-wrap gap-2 text-[10px] font-mono text-cyan-300/80 mt-auto">
+                                <span>#MongoDB</span> <span>#FastAPI</span> <span>#Docker</span>
                             </div>
                         </div>
                     </a>
@@ -239,126 +239,126 @@
             </div>
 
             <div class="spotlight-group" onmousemove="handleMouseMove(event)">
-                <div class="flex items-center gap-4 mb-8">
-                    <h2 class="text-2xl font-bold text-white whitespace-nowrap" id="cat-2">GenAI & Transformers</h2>
+                <div class="flex items-center gap-4 mb-6">
+                    <h2 class="text-xl font-bold text-white whitespace-nowrap" id="cat-2">GenAI & Transformers</h2>
                     <div class="cat-line"></div>
                 </div>
 
                 <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-                    <a href="https://github.com/ShalinVachheta017/Translation-Transformer-Model" target="_blank" class="spotlight-card rounded-2xl p-6 group h-full">
+                    <a href="https://github.com/ShalinVachheta017/Translation-Transformer-Model" target="_blank" class="spotlight-card rounded-2xl p-6 group">
                         <div class="card-content">
-                             <div class="flex justify-between items-start mb-4">
-                                <h3 class="text-lg font-bold text-white group-hover:text-purple-400 transition">Transformer from Scratch</h3>
-                                <svg class="w-6 h-6 git-icon" fill="currentColor" viewBox="0 0 24 24"><path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.108-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.91 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/></svg>
+                             <div class="flex justify-between items-start mb-3">
+                                <h3 class="text-lg font-bold text-white group-hover:text-purple-400 transition">Transformer Scratch</h3>
+                                <svg class="w-5 h-5 git-icon" fill="currentColor" viewBox="0 0 24 24"><path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.108-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.91 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/></svg>
                             </div>
-                            <p class="text-sm text-gray-400 mb-4 flex-grow">"Attention Is All You Need" implementation for Neural Machine Translation.</p>
-                            <span class="text-xs text-purple-400/80 font-mono mt-auto block">PyTorch • Deep Learning</span>
+                            <p class="text-xs text-gray-400 mb-3 flex-grow">"Attention Is All You Need" implementation for Neural Machine Translation.</p>
+                            <span class="text-[10px] text-purple-400/80 font-mono mt-auto block">PyTorch • Deep Learning</span>
                         </div>
                     </a>
                     
-                    <a href="https://github.com/ShalinVachheta017/Text_Summarization-Project" target="_blank" class="spotlight-card rounded-2xl p-6 group h-full">
+                    <a href="https://github.com/ShalinVachheta017/Text_Summarization-Project" target="_blank" class="spotlight-card rounded-2xl p-6 group">
                         <div class="card-content">
-                             <div class="flex justify-between items-start mb-4">
-                                <h3 class="text-lg font-bold text-white group-hover:text-purple-400 transition">Transformer Fine-Tuning</h3>
-                                <svg class="w-6 h-6 git-icon" fill="currentColor" viewBox="0 0 24 24"><path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.108-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.91 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/></svg>
+                             <div class="flex justify-between items-start mb-3">
+                                <h3 class="text-lg font-bold text-white group-hover:text-purple-400 transition">Transformer Fine-Tune</h3>
+                                <svg class="w-5 h-5 git-icon" fill="currentColor" viewBox="0 0 24 24"><path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.108-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.91 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/></svg>
                             </div>
-                            <p class="text-sm text-gray-400 mb-4 flex-grow">Fine-tuned PEGASUS model on SAMSum dataset for abstractive summaries.</p>
-                            <span class="text-xs text-purple-400/80 font-mono mt-auto block">HuggingFace • NLP</span>
+                            <p class="text-xs text-gray-400 mb-3 flex-grow">Fine-tuned PEGASUS model on SAMSum dataset for abstractive summaries.</p>
+                            <span class="text-[10px] text-purple-400/80 font-mono mt-auto block">HuggingFace • NLP</span>
                         </div>
                     </a>
 
-                    <a href="https://github.com/ShalinVachheta017/GEN-AI-Llama-3.1-based-Cold-Email-Generator-" target="_blank" class="spotlight-card rounded-2xl p-6 group h-full">
+                    <a href="https://github.com/ShalinVachheta017/GEN-AI-Llama-3.1-based-Cold-Email-Generator-" target="_blank" class="spotlight-card rounded-2xl p-6 group">
                         <div class="card-content">
-                             <div class="flex justify-between items-start mb-4">
+                             <div class="flex justify-between items-start mb-3">
                                 <h3 class="text-lg font-bold text-white group-hover:text-purple-400 transition">Llama 3.1 Email Gen</h3>
-                                <svg class="w-6 h-6 git-icon" fill="currentColor" viewBox="0 0 24 24"><path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.108-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.91 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/></svg>
+                                <svg class="w-5 h-5 git-icon" fill="currentColor" viewBox="0 0 24 24"><path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.108-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.91 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/></svg>
                             </div>
-                            <p class="text-sm text-gray-400 mb-4 flex-grow">Automated outreach tool using Groq API and LangChain.</p>
-                            <span class="text-xs text-purple-400/80 font-mono mt-auto block">GenAI • Groq</span>
+                            <p class="text-xs text-gray-400 mb-3 flex-grow">Automated outreach tool using Groq API and LangChain.</p>
+                            <span class="text-[10px] text-purple-400/80 font-mono mt-auto block">GenAI • Groq</span>
                         </div>
                     </a>
 
-                    <a href="https://github.com/ShalinVachheta017/Multilingual-RAG-System-" target="_blank" class="spotlight-card rounded-2xl p-6 group h-full">
+                    <a href="https://github.com/ShalinVachheta017/Multilingual-RAG-System-" target="_blank" class="spotlight-card rounded-2xl p-6 group">
                         <div class="card-content">
-                             <div class="flex justify-between items-start mb-4">
+                             <div class="flex justify-between items-start mb-3">
                                 <h3 class="text-lg font-bold text-white group-hover:text-purple-400 transition">Multilingual RAG</h3>
-                                <svg class="w-6 h-6 git-icon" fill="currentColor" viewBox="0 0 24 24"><path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.108-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.91 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/></svg>
+                                <svg class="w-5 h-5 git-icon" fill="currentColor" viewBox="0 0 24 24"><path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.108-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.91 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/></svg>
                             </div>
-                            <p class="text-sm text-gray-400 mb-4 flex-grow">Local document Q&A system using ChromaDB and Ollama.</p>
-                            <span class="text-xs text-purple-400/80 font-mono mt-auto block">LangChain • VectorDB</span>
+                            <p class="text-xs text-gray-400 mb-3 flex-grow">Local document Q&A system using ChromaDB and Ollama.</p>
+                            <span class="text-[10px] text-purple-400/80 font-mono mt-auto block">LangChain • VectorDB</span>
                         </div>
                     </a>
                 </div>
             </div>
 
             <div class="spotlight-group" onmousemove="handleMouseMove(event)">
-                <div class="flex items-center gap-4 mb-8">
-                    <h2 class="text-2xl font-bold text-white whitespace-nowrap" id="cat-3">Deep Learning & CV</h2>
+                <div class="flex items-center gap-4 mb-6">
+                    <h2 class="text-xl font-bold text-white whitespace-nowrap" id="cat-3">Deep Learning & CV</h2>
                     <div class="cat-line"></div>
                 </div>
 
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-                      <a href="https://github.com/ShalinVachheta017/sequence-2-sequence-Event-Prediction" target="_blank" class="spotlight-card rounded-2xl p-6 group h-full">
+                    <a href="https://github.com/ShalinVachheta017/sequence-2-sequence-Event-Prediction" target="_blank" class="spotlight-card rounded-2xl p-6 group">
                         <div class="card-content">
-                             <div class="flex justify-between items-start mb-4">
+                             <div class="flex justify-between items-start mb-3">
                                 <h3 class="text-lg font-bold text-white group-hover:text-green-400 transition">Seq2Seq Event Prediction</h3>
-                                <svg class="w-6 h-6 git-icon" fill="currentColor" viewBox="0 0 24 24"><path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.108-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.91 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/></svg>
+                                <svg class="w-5 h-5 git-icon" fill="currentColor" viewBox="0 0 24 24"><path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.108-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.91 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/></svg>
                             </div>
-                            <p class="text-sm text-gray-400 mb-4 flex-grow">Research codebase. BiLSTM Encoder-Decoder for time-series forecasting.</p>
-                            <span class="text-xs text-green-400/80 font-mono mt-auto block">LSTM • Time-Series</span>
+                            <p class="text-xs text-gray-400 mb-3 flex-grow">Research codebase. BiLSTM Encoder-Decoder for time-series forecasting.</p>
+                            <span class="text-[10px] text-green-400/80 font-mono mt-auto block">LSTM • Time-Series</span>
                         </div>
                     </a>
 
-                    <a href="https://github.com/ShalinVachheta017/Microscopic-Image-Segmentation" target="_blank" class="spotlight-card rounded-2xl p-6 group h-full">
+                    <a href="https://github.com/ShalinVachheta017/Microscopic-Image-Segmentation" target="_blank" class="spotlight-card rounded-2xl p-6 group">
                         <div class="card-content">
-                             <div class="flex justify-between items-start mb-4">
+                             <div class="flex justify-between items-start mb-3">
                                 <h3 class="text-lg font-bold text-white group-hover:text-green-400 transition">Image Denoising</h3>
-                                <svg class="w-6 h-6 git-icon" fill="currentColor" viewBox="0 0 24 24"><path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.108-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.91 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/></svg>
+                                <svg class="w-5 h-5 git-icon" fill="currentColor" viewBox="0 0 24 24"><path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.108-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.91 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/></svg>
                             </div>
-                            <p class="text-sm text-gray-400 mb-4 flex-grow">Dual-branch U-Net for joint denoising and segmentation.</p>
-                            <span class="text-xs text-green-400/80 font-mono mt-auto block">U-Net • Segmentation</span>
+                            <p class="text-xs text-gray-400 mb-3 flex-grow">Dual-branch U-Net for joint denoising and segmentation.</p>
+                            <span class="text-[10px] text-green-400/80 font-mono mt-auto block">U-Net • Segmentation</span>
                         </div>
                     </a>
                 </div>
             </div>
 
             <div class="spotlight-group" onmousemove="handleMouseMove(event)">
-                <div class="flex items-center gap-4 mb-8">
-                    <h2 class="text-2xl font-bold text-white whitespace-nowrap" id="cat-4">Classic ML & Data Analysis</h2>
+                <div class="flex items-center gap-4 mb-6">
+                    <h2 class="text-xl font-bold text-white whitespace-nowrap" id="cat-4">Classic ML & Data Analysis</h2>
                     <div class="cat-line"></div>
                 </div>
 
                 <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-                    <a href="https://github.com/ShalinVachheta017/Vehicle-Sales-Data-Analysis" target="_blank" class="spotlight-card rounded-2xl p-6 group h-full">
+                    <a href="https://github.com/ShalinVachheta017/Vehicle-Sales-Data-Analysis" target="_blank" class="spotlight-card rounded-2xl p-6 group">
                         <div class="card-content">
-                             <div class="flex justify-between items-start mb-4">
+                             <div class="flex justify-between items-start mb-3">
                                 <h3 class="text-lg font-bold text-white group-hover:text-blue-400 transition">Vehicle Sales Analysis</h3>
-                                <svg class="w-6 h-6 git-icon" fill="currentColor" viewBox="0 0 24 24"><path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.108-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.91 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/></svg>
+                                <svg class="w-5 h-5 git-icon" fill="currentColor" viewBox="0 0 24 24"><path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.108-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.91 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/></svg>
                             </div>
-                            <p class="text-sm text-gray-400 mb-4 flex-grow">Analyzing USA vehicle sales trends, pricing patterns, and seasonal demand.</p>
-                            <span class="text-xs text-blue-400/80 font-mono mt-auto block">Pandas • Seaborn</span>
+                            <p class="text-xs text-gray-400 mb-3 flex-grow">Analyzing USA vehicle sales trends using Pandas and Seaborn.</p>
+                            <span class="text-[10px] text-blue-400/80 font-mono mt-auto block">Pandas • Seaborn</span>
                         </div>
                     </a>
 
-                    <a href="https://github.com/ShalinVachheta017/Sports-Analysis-" target="_blank" class="spotlight-card rounded-2xl p-6 group h-full">
+                    <a href="https://github.com/ShalinVachheta017/Sports-Analysis-" target="_blank" class="spotlight-card rounded-2xl p-6 group">
                         <div class="card-content">
-                             <div class="flex justify-between items-start mb-4">
+                             <div class="flex justify-between items-start mb-3">
                                 <h3 class="text-lg font-bold text-white group-hover:text-blue-400 transition">Sports Analysis</h3>
-                                <svg class="w-6 h-6 git-icon" fill="currentColor" viewBox="0 0 24 24"><path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.108-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.91 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/></svg>
+                                <svg class="w-5 h-5 git-icon" fill="currentColor" viewBox="0 0 24 24"><path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.108-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.91 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/></svg>
                             </div>
-                            <p class="text-sm text-gray-400 mb-4 flex-grow">Data analysis of sports metrics using NumPy and Pandas.</p>
-                            <span class="text-xs text-blue-400/80 font-mono mt-auto block">NumPy • Pandas</span>
+                            <p class="text-xs text-gray-400 mb-3 flex-grow">Data analysis of sports metrics using NumPy.</p>
+                            <span class="text-[10px] text-blue-400/80 font-mono mt-auto block">NumPy • Pandas</span>
                         </div>
                     </a>
 
-                     <a href="https://github.com/ShalinVachheta017/Student-Performance-Prediction" target="_blank" class="spotlight-card rounded-2xl p-6 group h-full">
+                     <a href="https://github.com/ShalinVachheta017/Student-Performance-Prediction" target="_blank" class="spotlight-card rounded-2xl p-6 group">
                         <div class="card-content">
-                             <div class="flex justify-between items-start mb-4">
+                             <div class="flex justify-between items-start mb-3">
                                 <h3 class="text-lg font-bold text-white group-hover:text-blue-400 transition">Performance Prediction</h3>
-                                <svg class="w-6 h-6 git-icon" fill="currentColor" viewBox="0 0 24 24"><path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.108-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.91 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/></svg>
+                                <svg class="w-5 h-5 git-icon" fill="currentColor" viewBox="0 0 24 24"><path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.108-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.91 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/></svg>
                             </div>
-                            <p class="text-sm text-gray-400 mb-4 flex-grow">Full-stack regression project. From EDA to Flask Deployment.</p>
-                            <span class="text-xs text-blue-400/80 font-mono mt-auto block">Flask • Regression</span>
+                            <p class="text-xs text-gray-400 mb-3 flex-grow">Full-stack regression project. From EDA to Flask Deployment.</p>
+                            <span class="text-[10px] text-blue-400/80 font-mono mt-auto block">Flask • Regression</span>
                         </div>
                     </a>
                 </div>
