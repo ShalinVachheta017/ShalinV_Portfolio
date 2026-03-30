@@ -38,7 +38,7 @@
             border: 1px solid rgba(255, 255, 255, 0.08);
             overflow: hidden;
             transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275), border-color 0.3s ease;
-            height: 100%; /* Ensures all cards in a grid row are same height */
+            height: 100%;
             display: flex;
             flex-direction: column;
         }
@@ -166,10 +166,15 @@
                                 <p class="text-gray-500 text-sm mt-1">University of Siegen</p>
                             </div>
                             <div class="md:col-span-3">
-                                <h4 class="text-lg font-bold text-gray-200 mb-2">MLOps Pipeline for Mental Health Monitoring</h4>
-                                <p class="text-gray-400 text-sm leading-relaxed" id="job-desc-1">
-                                    Architecting an enterprise-grade MLOps system for real-time stress detection using multimodal biosignals. Focusing on Data Drift, Automated Retraining, and Scalable Inference.
-                                </p>
+                                <h4 class="text-lg font-bold text-gray-200 mb-3">Offline-First MLOps for Wearable Health AI</h4>
+                                <div class="text-gray-400 text-sm leading-relaxed space-y-2" id="job-desc-1">
+                                    <p>Architecting an end-to-end, offline-first MLOps pipeline for Human Activity Recognition (HAR) to detect anxiety-related behaviors using IMU sensor data.</p>
+                                    <ul class="list-disc list-inside space-y-1 ml-1">
+                                        <li>Designed the full lifecycle: DVC versioning &rarr; 1D CNN + Bi-LSTM training &rarr; MLflow tracking &rarr; FastAPI + Docker deployment.</li>
+                                        <li>Implemented automated drift detection using Wasserstein distance on sensor channels, coupled with a principled trigger policy to prevent unnecessary retraining.</li>
+                                        <li>Integrated Domain Adaptation (AdaBN) and active learning/pseudo-labeling to handle limited labeled data and sensor placement variability.</li>
+                                    </ul>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -211,12 +216,12 @@
                             <div class="flex items-center gap-3 mb-3">
                                 <span class="px-2 py-0.5 rounded bg-cyan-900/30 text-cyan-400 text-[10px] font-bold uppercase tracking-wider border border-cyan-500/20">Featured Thesis</span>
                             </div>
-                            <h3 class="text-xl font-bold text-white mb-2">Mental Health Pipeline</h3>
-                            <p class="text-gray-400 text-sm leading-relaxed mb-4 flex-grow">
-                                A complete production lifecycle system. Features automated data validation, experiment tracking with MLflow, and data versioning with DVC.
+                            <h3 class="text-xl font-bold text-white mb-2" id="proj-title-1">Wearable IMU MLOps Pipeline</h3>
+                            <p class="text-gray-400 text-sm leading-relaxed mb-4 flex-grow" id="proj-desc-1">
+                                Full offline-first MLOps architecture for anxiety detection. Features DVC data versioning, MLflow tracking, automated Wasserstein drift monitoring, and an evidence-backed retraining decision engine. Deployed via FastAPI and Docker with GitHub Actions CI/CD.
                             </p>
                             <div class="flex flex-wrap gap-2 text-[10px] font-mono text-cyan-300/80 mt-auto">
-                                <span>#MLflow</span> <span>#DVC</span> <span>#Docker</span>
+                                <span>#PyTorch</span> <span>#MLflow</span> <span>#DVC</span> <span>#FastAPI</span> <span>#Docker</span>
                             </div>
                         </div>
                     </div>
@@ -403,14 +408,16 @@
                 heroText: "I am <strong class='text-white'>Shalin Vachheta</strong>. I specialize in bridging the gap between Data Science and Production. From training Deep Learning models to architecting scalable Cloud Pipelines.",
                 expTitle: "<span class='text-cyan-400'>//</span> Career Journey",
                 jobTitle1: "Master Thesis",
-                jobDesc1: "Architecting an enterprise-grade MLOps system for real-time stress detection using multimodal biosignals. Focusing on Data Drift, Automated Retraining, and Scalable Inference.",
+                jobDesc1: "<p>Architecting an end-to-end, offline-first MLOps pipeline for Human Activity Recognition (HAR) to detect anxiety-related behaviors using IMU sensor data.</p><ul class='list-disc list-inside space-y-1 ml-1 mt-2'><li>Designed the full lifecycle: DVC versioning &rarr; 1D CNN + Bi-LSTM training &rarr; MLflow tracking &rarr; FastAPI + Docker deployment.</li><li>Implemented automated drift detection using Wasserstein distance on sensor channels, coupled with a principled trigger policy to prevent unnecessary retraining.</li><li>Integrated Domain Adaptation (AdaBN) and active learning/pseudo-labeling to handle limited labeled data and sensor placement variability.</li></ul>",
                 jobTitle2: "Research Assistant",
                 jobDesc2: "Engineered BiLSTM models for CARLA autonomous driving simulations. Achieved 25% accuracy boost via Optuna hyperparameter tuning.",
                 cat1: "MLOps & Production",
                 cat2: "GenAI & Transformers",
                 cat3: "Deep Learning & CV",
                 cat4: "Classic ML & Data Analysis",
-                techTitle: "Technical Arsenal"
+                techTitle: "Technical Arsenal",
+                projTitle1: "Wearable IMU MLOps Pipeline",
+                projDesc1: "Full offline-first MLOps architecture for anxiety detection. Features DVC data versioning, MLflow tracking, automated Wasserstein drift monitoring, and an evidence-backed retraining decision engine. Deployed via FastAPI and Docker with GitHub Actions CI/CD."
             },
             de: {
                 navAbout: "Über mich", navExp: "Werdegang", navWork: "Projekte", navContact: "KONTAKT",
@@ -418,14 +425,16 @@
                 heroText: "Ich bin <strong class='text-white'>Shalin Vachheta</strong>. Ich schlage die Brücke zwischen Data Science und Produktion. Vom Training von Deep-Learning-Modellen bis zur Architektur skalierbarer Cloud-Pipelines.",
                 expTitle: "<span class='text-cyan-400'>//</span> Werdegang",
                 jobTitle1: "Masterarbeit",
-                jobDesc1: "Entwicklung eines Enterprise-MLOps-Systems zur Echtzeit-Stresserkennung mittels multimodaler Biosignale. Fokus auf Data Drift, automatisiertes Retraining und skalierbare Inferenz.",
+                jobDesc1: "<p>Entwicklung einer Offline-First-MLOps-Pipeline zur Erkennung von angstbezogenen Verhaltensweisen mittels IMU-Sensordaten.</p><ul class='list-disc list-inside space-y-1 ml-1 mt-2'><li>Vollständiger Lebenszyklus: DVC-Versionierung &rarr; 1D CNN + Bi-LSTM &rarr; MLflow &rarr; FastAPI + Docker.</li><li>Automatisierte Drift-Erkennung mittels Wasserstein-Distanz und regelbasierten Triggern zur Vermeidung unnötigen Retrainings.</li><li>Integration von Domain Adaptation (AdaBN) und Active Learning für begrenzte gelabelte Daten.</li></ul>",
                 jobTitle2: "Wiss. Hilfskraft",
                 jobDesc2: "Entwicklung von BiLSTM-Modellen für CARLA-Simulationen (Autonomes Fahren). 25% Genauigkeitssteigerung durch Optuna-Hyperparameter-Tuning.",
                 cat1: "MLOps & Produktion",
                 cat2: "GenAI & Transformers",
                 cat3: "Deep Learning & CV",
                 cat4: "Klassisches ML & Data Analysis",
-                techTitle: "Technologisches Arsenal"
+                techTitle: "Technologisches Arsenal",
+                projTitle1: "Wearable IMU MLOps Pipeline",
+                projDesc1: "Vollständige Offline-First MLOps-Architektur zur Angsterkennung. Umfasst DVC-Datenversionierung, MLflow-Tracking, Wasserstein-Drift-Überwachung und Docker-Bereitstellung via FastAPI."
             }
         };
 
@@ -446,7 +455,7 @@
             document.getElementById('exp-title').innerHTML = t.expTitle;
             
             document.getElementById('job-title-1').innerText = t.jobTitle1;
-            document.getElementById('job-desc-1').innerText = t.jobDesc1;
+            document.getElementById('job-desc-1').innerHTML = t.jobDesc1; // Changed to innerHTML for lists
             document.getElementById('job-title-2').innerText = t.jobTitle2;
             document.getElementById('job-desc-2').innerText = t.jobDesc2;
 
@@ -455,6 +464,9 @@
             document.getElementById('cat-3').innerText = t.cat3;
             document.getElementById('cat-4').innerText = t.cat4;
             document.getElementById('tech-title').innerText = t.techTitle;
+            
+            document.getElementById('proj-title-1').innerText = t.projTitle1;
+            document.getElementById('proj-desc-1').innerText = t.projDesc1;
         }
 
         // 2. MOUSE TRACKING & SCROLL REVEAL
