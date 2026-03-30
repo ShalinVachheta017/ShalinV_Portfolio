@@ -482,4 +482,10 @@
       });
     }, { threshold: 0.1 });
 
-    document.querySelectorAll('.reveal').forEach(el => observer.observe
+    document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+    
+    // Initialize default language on load
+    setLanguage('en');
+  </script>
+</body>
+</html>
