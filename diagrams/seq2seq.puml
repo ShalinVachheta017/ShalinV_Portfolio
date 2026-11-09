@@ -1,0 +1,29 @@
+@startuml
+title Event Seq2Seq — research training workflow
+left to right direction
+skinparam componentStyle rectangle
+skinparam shadowing false
+skinparam monochrome true
+folder "Simulator event cycles" as Data
+[Cycle-level train / test split] as Split
+[Encoder: BiLSTM] as Encoder
+[Final hidden + cell states] as States
+[Decoder: LSTM] as Decoder
+[Dense output head] as Head
+[Masked training & validation] as Evaluate
+[Hyperparameter comparison] as Tune
+database "Saved checkpoints / loss plots" as Results
+Data --> Split
+Split --> Encoder
+Encoder --> States
+States --> Decoder
+Decoder --> Head
+Head --> Evaluate
+Evaluate --> Tune
+Tune --> Results
+note bottom of Decoder
+Teacher forcing during training.
+This is research model code,
+not a live inference service.
+end note
+@enduml
