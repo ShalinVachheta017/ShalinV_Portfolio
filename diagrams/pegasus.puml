@@ -1,0 +1,32 @@
+@startuml
+title PEGASUS dialogue summarizer — modular pipeline and inference
+left to right direction
+skinparam componentStyle rectangle
+skinparam shadowing false
+skinparam monochrome true
+folder "SAMSum dialogues + summaries" as Dataset
+[Data ingestion] as Ingest
+[Validation] as Validate
+[Tokenization / transformation] as Transform
+[PEGASUS fine-tuning] as Train
+[Model evaluation] as Eval
+database "Saved model + tokenizer" as Model
+actor "Local API caller" as Client
+[FastAPI /predict] as API
+[PredictionPipeline] as Predict
+[Generated text summary] as Summary
+Dataset --> Ingest
+Ingest --> Validate
+Validate --> Transform
+Transform --> Train
+Train --> Eval
+Train --> Model
+Client --> API : dialogue
+API --> Predict
+Model --> Predict
+Predict --> Summary
+note bottom of Summary
+A generated summary needs human review.
+Dockerfile exists; no cloud service claimed.
+end note
+@enduml
