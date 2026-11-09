@@ -1,0 +1,41 @@
+@startuml
+title Wearable HAR MLOps — runtime and review (research prototype)
+left to right direction
+skinparam componentStyle rectangle
+skinparam shadowing false
+skinparam monochrome true
+actor "Research operator" as Operator
+rectangle "Offline-first runtime" {
+  [Sensor ingestion] as Ingest
+  [Validation] as Validate
+  [Transformation\n50 Hz; 200×6; stride 100] as Transform
+  [Model D1 inference\n1D-CNN + BiLSTM] as Infer
+  [Evaluation] as Evaluate
+  [3-layer monitoring] as Monitor
+  [Trigger evaluation] as Trigger
+}
+database "Garmin train scaler\nModel D1 baseline" as Artifacts
+rectangle "Conditional / governed" {
+  [Review and label QA] as QA
+  [Candidate retraining] as Retrain
+  [Model registration] as Register
+  [Baseline update] as Baseline
+}
+Operator --> Ingest : new sensor session
+Ingest --> Validate
+Validate --> Transform
+Artifacts --> Transform : frozen scaler
+Transform --> Infer
+Artifacts --> Infer : frozen weights
+Infer --> Evaluate
+Evaluate --> Monitor
+Monitor --> Trigger
+Trigger --> QA : review signal
+QA ..> Retrain : only with approval
+Retrain --> Register : candidate accepted
+Register --> Baseline : controlled update
+note bottom of Trigger
+No unattended model promotion.
+Research system; not medical diagnosis.
+end note
+@enduml
