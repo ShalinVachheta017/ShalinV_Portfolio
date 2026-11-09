@@ -8,7 +8,7 @@ This website focuses on what I built, which engineering challenges I encountered
 
 ## Pages
 
-- `index.html` — homepage, project overview, interactive thesis evaluation and current learning focus.
+- `index.html` — homepage, project overview, interactive thesis evaluation and featured case studies.
 - `cases/thesis.html` — smartwatch activity recognition, honest evaluation and the ten-stage MLOps workflow.
 - `cases/rag.html` — multilingual document retrieval and evidence-grounded answer generation.
 - `cases/insurance.html` — ML pipeline, packaging and AWS deployment workflow.
@@ -41,8 +41,6 @@ You can also host the files as static assets on GitHub Pages.
 - Diagram styles are **UML/C4-inspired explanatory views**, not formal UML generated from source code.
 - The RAG question walkthrough and Kubernetes pod-recovery demo are **illustrative simulations**, not live production workloads.
 - The insurance model's old performance claims are deliberately omitted pending leakage-free reevaluation.
-- AWS Certified Cloud Practitioner is **in preparation through Udemy coursework**, not a certification already earned.
-- Advanced Kubernetes autoscaling and Agentic AI capabilities are labeled as work in progress.
 
 ## Accessibility and design
 
@@ -65,3 +63,7 @@ Diagrams use semantic HTML buttons over SVG arrow connectors, keyboard-operable 
 ## QA
 
 `node scripts/check-site.mjs` validates local references and JavaScript syntax. `npm install` followed by `npm test` starts a local static server and runs the Playwright browser regression suite on desktop, mobile and small mobile breakpoints. GitHub Actions runs both suites on updates to main or the active architecture branch.
+
+## Languages and privacy
+
+The default English portfolio is served from `/`. The German version is served from `/de/`, with German-language project narratives at `/de/cases/`. The German case studies explain the architecture in German and link to the more detailed interactive technical diagrams in English. No private study plan or future project roadmap is published.
