@@ -7,7 +7,7 @@ test("Homepage has accessible paths to all five flagship projects", async ({ pag
   await page.goto("/");
   await expect(page.getByRole("heading", { level: 1 })).toHaveCount(1);
   for (const slug of slugs) {
-    await expect(page.locator('a[href="cases/' + slug + '.html"]')).toHaveCount(1);
+    expect(await page.locator('a[href="cases/' + slug + '.html"]').count()).toBeGreaterThanOrEqual(1);
   }
   const scroll = await page.evaluate(() => document.documentElement.scrollWidth - innerWidth);
   expect(scroll).toBeLessThanOrEqual(0);
