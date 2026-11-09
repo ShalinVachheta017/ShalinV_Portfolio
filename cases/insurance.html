@@ -6,7 +6,7 @@
 <title>Getting a model out of a notebook changes the problem. — Shalin Vachheta</title>
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Instrument+Serif:ital@0;1&display=swap" rel="stylesheet">
-<script>try{document.documentElement.dataset.theme=localStorage.getItem("sv-portfolio-theme")||(matchMedia("(prefers-color-scheme: dark)").matches?"dark":"light")}catch(_){}</script><link rel="stylesheet" href="../assets/base.css"><link rel="stylesheet" href="../assets/studio.css"><script defer src="../assets/studio.js"></script>
+<script>try{document.documentElement.dataset.theme=localStorage.getItem("sv-portfolio-theme")||(matchMedia("(prefers-color-scheme: dark)").matches?"dark":"light")}catch(_){}</script><link rel="stylesheet" href="../assets/base.css"><link rel="stylesheet" href="../assets/studio.css"><script defer src="../assets/studio.js"></script><script defer src="../assets/architecture.js"></script>
 </head><body><div class="scroll-progress" aria-hidden="true"></div>
 <a class="skip" href="#main">Skip to content</a>
 <header class="topbar"><div class="wrap topbar-inner"><a class="monogram" href="../index.html" aria-label="Portfolio homepage">SV.</a>
@@ -21,16 +21,30 @@
 <section class="case-section reveal-on-scroll" id="evidence"><span class="section-kicker">02 / What the evidence showed</span><h2>What was difficult—and what I learned.</h2>
 <p class="prose">A pipeline that runs is not automatically a reliable model. The original reported performance values need leakage-free reevaluation, so I have removed them rather than present unsupported precision. The work still taught me how application code, datasets, artifacts, CI/CD and cloud infrastructure depend on one another.</p><div class="demo"><span class="section-kicker">Engineering workflow</span><div class="diagram-flow"><span class="flow-box">Data</span><span class="flow-arrow" aria-hidden="true">→</span><span class="flow-box">Training</span><span class="flow-arrow" aria-hidden="true">→</span><span class="flow-box">Evaluation</span><span class="flow-arrow" aria-hidden="true">→</span><span class="flow-box">FastAPI</span><span class="flow-arrow" aria-hidden="true">→</span><span class="flow-box">Docker</span><span class="flow-arrow" aria-hidden="true">→</span><span class="flow-box">AWS workflow</span></div><p class="eval-caption">Illustrative flow based on documented components. This does not demonstrate a currently running production deployment.</p></div></section>
 <section class="case-section reveal-on-scroll" id="architecture">
-   <span class="section-kicker">03 / Architecture explorer</span><h2>How the system fits together.</h2>
-   <p class="prose">Select a stage. Each step describes its input, purpose, and why it matters. The diagram is an educational view of the documented pipeline, not a remote execution.</p>
-   <div class="stage-layout" data-stage-explorer="mlops">
-     <div class="stage-groups" data-stages></div>
-     <aside class="stage-detail" aria-live="polite">
-       <div class="step-number" data-stage-number>01</div>
-       <h3 data-stage-title>Explore a stage</h3><p data-stage-description>Choose a step to read about it.</p><div class="note" data-stage-foot>Designed for understanding the flow.</div>
-     </aside>
-   </div><noscript><p class="note">JavaScript enables the architecture explorer. For a static version, see the linked technical README.</p></noscript>
- </section>
+<span class="section-kicker">03 / Architecture studio</span>
+<h2>Follow the system, not just the model.</h2>
+<p class="prose">Why this view exists: turning a model into software involves more than training. Explore distinct training, serving and AWS workflow components, without assuming production readiness.</p>
+<div class="arch-studio" data-architecture-project="insurance">
+  <span class="section-kicker">UML / C4 inspired · clickable components</span>
+  <p class="arch-intro">Modular model pipeline · FastAPI · Docker · configured GitHub Actions/AWS delivery. Choose a view, then a component to read its role and open its actual source file. These are explanatory architecture diagrams, not running services.</p>
+  <div class="arch-tabs" role="tablist" aria-label="Architecture views for this project" data-architecture-tabs></div>
+  <span class="arch-caption" data-architecture-subtitle></span>
+  <div class="arch-board-scroll" role="region" aria-label="Interactive architecture diagram; scroll horizontally on small screens" tabindex="0">
+    <div data-architecture-board id="arch-panel-insurance" role="tabpanel" aria-live="polite"></div>
+  </div>
+  <div class="arch-bottom"><div class="arch-detail" data-architecture-detail aria-live="polite">
+     <span class="arch-detail-eyebrow">Select a component</span><h3>Source-linked design</h3>
+     <p>Choose a diagram block to inspect the implemented module and its role.</p>
+  </div><div class="arch-legend"><strong>Notation</strong>
+    <span class="arch-key"><i></i> Implemented component</span>
+    <span class="arch-key"><i></i> External input / optional path</span>
+    <span class="arch-key"><i></i> Decision or gate</span>
+    <span class="arch-key"><i></i> Conditional / governed stage</span>
+  </div></div>
+  <p class="arch-note">Diagram notation is intentionally lightweight: a system/component view with UML-style arrows and workflow gates. Use the source links for precise implementation details. No claimed deployment unless documented.</p>
+  <noscript><p class="arch-noscript">Interactive architecture requires JavaScript. Read the source-linked technical README for a static description of the pipeline.</p></noscript>
+</div>
+</section>
 <section class="case-section reveal-on-scroll" id="project-visuals"><span class="section-kicker">Real project material</span><h2>From the repository.</h2><p class="prose">These are source images already committed to the project repository—not generated mock results. Open each source to inspect its context.</p><div class="evidence-visuals"><figure><img src="https://raw.githubusercontent.com/ShalinVachheta017/vehicle-insurance-mlops-pipeline/main/docs/project-anatomy.png" loading="lazy" decoding="async" alt="Project organization diagram from the insurance MLOps repository"><figcaption>Project organization diagram from the insurance MLOps repository. <a href="https://github.com/ShalinVachheta017/vehicle-insurance-mlops-pipeline/blob/main/docs/project-anatomy.png" target="_blank" rel="noopener noreferrer">View original ↗</a></figcaption></figure><figure><img src="https://raw.githubusercontent.com/ShalinVachheta017/vehicle-insurance-mlops-pipeline/main/docs/mlops-tech-stack.png" loading="lazy" decoding="async" alt="Documented MLOps technology stack"><figcaption>Documented MLOps technology stack. <a href="https://github.com/ShalinVachheta017/vehicle-insurance-mlops-pipeline/blob/main/docs/mlops-tech-stack.png" target="_blank" rel="noopener noreferrer">View original ↗</a></figcaption></figure></div></section>
 <section class="case-section reveal-on-scroll" id="references"><span class="section-kicker">04 / Read the actual work</span><h2>Evidence & documentation.</h2>
 <div class="evidence-list"><div class="evidence"><h3>Read the technical README</h3><p>Pipeline structure and engineering scope.</p><a href="https://github.com/ShalinVachheta017/vehicle-insurance-mlops-pipeline/blob/main/README.md" target="_blank" rel="noopener noreferrer">Open on GitHub ↗</a></div><div class="evidence"><h3>Review the AWS workflow</h3><p>Docker image building and EC2 deployment automation.</p><a href="https://github.com/ShalinVachheta017/vehicle-insurance-mlops-pipeline/blob/main/.github/workflows/aws.yaml" target="_blank" rel="noopener noreferrer">Open on GitHub ↗</a></div><div class="evidence"><h3>Inspect the application</h3><p>Application entry point and inference flow, if present.</p><a href="https://github.com/ShalinVachheta017/vehicle-insurance-mlops-pipeline/blob/main/app.py" target="_blank" rel="noopener noreferrer">Open on GitHub ↗</a></div></div>
