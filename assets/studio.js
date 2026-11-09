@@ -45,8 +45,8 @@
     $$(".reveal-on-scroll").forEach(el=>observer.observe(el));
   }else $$(".reveal-on-scroll").forEach(el=>el.classList.add("is-visible"));
   const evalData={
-    cv:{accuracy:93.61,label:"Within-distribution five-fold cross-validation",detail:"The model was evaluated across five folds using familiar data distributions. This is a useful internal result, not a guarantee of performance on new people.",f1:"Macro F1 0.952"},
-    louo:{accuracy:44.42,label:"Leave-one-user-out: average of users 1–6",detail:"Each test holds out an entire person. The sharp drop shows the model has trouble generalizing to new individuals. It motivated better monitoring and clearer limits.",f1:"Macro F1 0.397"},
+    cv:{accuracy:93.61,label:"Within-distribution five-fold cross-validation",detail:"The model was evaluated across five folds using familiar data distributions. This is a useful internal result, not a guarantee of performance on new people.",f1:"Macro F1 0.937"},
+    louo:{accuracy:44.42,label:"Leave-one-user-out: average of users 1–6",detail:"Each test holds out an entire person. The sharp drop shows the model has trouble generalizing to new individuals. It motivated better monitoring and clearer limits.",f1:"Macro F1 0.419"},
     user7:{accuracy:36.96,label:"External labeled session: User 7",detail:"A separate 989-window labeled session provided another difficult check. Mean confidence was 0.858 even though accuracy was 36.96%; confident predictions can still be wrong.",f1:"Macro F1 0.350"}
   };
   const evaluation=$("[data-evaluation]");
