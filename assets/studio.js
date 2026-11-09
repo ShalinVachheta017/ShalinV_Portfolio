@@ -4,6 +4,7 @@
   const $$=(s,root=document)=>Array.from(root.querySelectorAll(s));
   const motionReduced=window.matchMedia("(prefers-reduced-motion: reduce)");
   const root=document.documentElement;
+  const german=root.lang==="de";
   const toggle=$("[data-theme-toggle]");
   const systemDark=window.matchMedia("(prefers-color-scheme: dark)");
   function themeFromStorage(){try{return localStorage.getItem("sv-portfolio-theme")}catch(_){return null}}
@@ -11,7 +12,7 @@
     root.dataset.theme=theme;
     const themeMeta=document.querySelector('meta[name="theme-color"]');
     if(themeMeta)themeMeta.content=theme==="dark"?"#101411":"#f6f5f0";
-    if(toggle){toggle.setAttribute("aria-label",theme==="dark"?"Theme — Light mode":"Theme — Dark mode");toggle.setAttribute("aria-pressed",String(theme==="dark"))}
+    if(toggle){toggle.setAttribute("aria-label",german?(theme==="dark"?"Theme — Hell":"Theme — Dunkel"):(theme==="dark"?"Theme — Light mode":"Theme — Dark mode"));toggle.setAttribute("aria-pressed",String(theme==="dark"))}
     if(persist){try{localStorage.setItem("sv-portfolio-theme",theme)}catch(_){}}
   }
   setTheme(themeFromStorage()||(systemDark.matches?"dark":"light"),false);
@@ -24,7 +25,7 @@
     function setMobile(open){
       mobilePanel.hidden=!open;
       mobileTrigger.setAttribute("aria-expanded",String(open));
-      mobileTrigger.setAttribute("aria-label",open?"Close navigation menu":"Open navigation menu");
+      mobileTrigger.setAttribute("aria-label",german?(open?"Menü schließen":"Menü öffnen"):(open?"Close navigation menu":"Open navigation menu"));
     }
     setMobile(false);
     mobileTrigger.addEventListener("click",()=>setMobile(mobilePanel.hidden));
