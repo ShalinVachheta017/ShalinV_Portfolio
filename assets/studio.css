@@ -274,3 +274,9 @@ html{scroll-padding-top:125px}
 @media(max-width:960px){.arch-bottom{grid-template-columns:1fr}.arch-legend{display:flex;flex-wrap:wrap;gap:12px}.arch-legend strong{width:100%;margin-bottom:0}.arch-home-teaser{grid-template-columns:1fr}.arch-home-teaser a{justify-self:start}}
 @media(max-width:620px){.arch-studio{padding:15px}.arch-board-scroll{padding:12px 8px}.arch-tabs [role="tab"]{flex:1 1 auto}.arch-home-teaser{padding:20px}.arch-home-teaser h3{font-size:27px}}
 @media(prefers-reduced-motion:reduce){.arch-node{transition:none}}
+
+/* Accessibility: contrast and visible-name alignment */
+html:not([data-theme="dark"]) .project-index{color:#82452f}
+.language-route{display:inline-flex;align-items:center;border:1px solid var(--line);padding:5px 9px;color:var(--ink);font-weight:800;letter-spacing:.04em}
+.language-route:hover{border-color:var(--accent)}
+@media(max-width:850px){.nav .language-route{display:inline-flex!important;font-size:12px}}
