@@ -11,7 +11,7 @@
     root.dataset.theme=theme;
     const themeMeta=document.querySelector('meta[name="theme-color"]');
     if(themeMeta)themeMeta.content=theme==="dark"?"#101411":"#f6f5f0";
-    if(toggle){toggle.setAttribute("aria-label",theme==="dark"?"Switch to light mode":"Switch to dark mode");toggle.setAttribute("aria-pressed",String(theme==="dark"))}
+    if(toggle){toggle.setAttribute("aria-label",theme==="dark"?"Theme — Light mode":"Theme — Dark mode");toggle.setAttribute("aria-pressed",String(theme==="dark"))}
     if(persist){try{localStorage.setItem("sv-portfolio-theme",theme)}catch(_){}}
   }
   setTheme(themeFromStorage()||(systemDark.matches?"dark":"light"),false);
@@ -65,18 +65,6 @@
       if(bar)bar.style.width=d.accuracy+"%";
     }
     btns.forEach(b=>b.addEventListener("click",()=>pick(b.dataset.evalMode)));pick(evaluation.dataset.default||"cv");
-  }
-  const learning=$("[data-learning]");
-  if(learning){
-    const tabs=$$("[data-learn-tab]",learning),title=$("[data-learn-title]",learning),intro=$("[data-learn-desc]",learning),chips=$("[data-learn-chips]",learning),status=$("[data-learn-status]",learning),link=$("[data-learn-link]",learning);
-    const tracks={
-      agents:{title:"Building reliable AI agents",desc:"I am studying how to connect models to tools, structure multi-step tasks, and make workflows safer when tools fail or outputs are uncertain. LangGraph, MCP, evaluation and human approval are key areas of current practice.",chips:["LangGraph","MCP","Agent evaluation","Guardrails","Human review"],status:"Currently studying and experimenting",url:"https://github.com/ShalinVachheta017/multilingual-tender-rag",link:"Related foundation: multilingual RAG ↗"},
-      infra:{title:"From a container to a resilient system",desc:"My Kubernetes mini project already tested two running pods, service load balancing and recovery after one pod was removed. I am now learning autoscaling, readiness checks, observability and cloud operation; those next steps are not finished claims.",chips:["Docker","Kubernetes","Autoscaling (next)","Prometheus (next)","OpenTelemetry (next)"],status:"Hands-on foundation; advanced work in progress",url:"cases/kubernetes.html",link:"Explore the Kubernetes case study ↗"},
-      aws:{title:"Building on practical AWS experience",desc:"I have worked with S3, ECR, EC2 and GitHub Actions while building an insurance MLOps workflow. I am also preparing for AWS Certified Cloud Practitioner through Udemy coursework. Certification has not been earned yet.",chips:["Amazon S3","Amazon ECR","Amazon EC2","Cloud fundamentals","Exam preparation"],status:"AWS exam preparation — not yet certified",url:"https://github.com/ShalinVachheta017/vehicle-insurance-mlops-pipeline",link:"See the AWS deployment workflow ↗"}
-    };
-    function pick(key){const d=tracks[key];if(!d)return;tabs.forEach(t=>t.setAttribute("aria-selected",String(t.dataset.learnTab===key)));if(title)title.textContent=d.title;if(intro)intro.textContent=d.desc;if(status)status.textContent=d.status;if(chips){chips.replaceChildren(...d.chips.map(x=>{const el=document.createElement("span");el.className="chip";el.textContent=x;return el}))}if(link){link.href=d.url;link.textContent=d.link}}
-    tabs.forEach(t=>t.addEventListener("click",()=>pick(t.dataset.learnTab)));pick("infra");
-    $$(".lab-tabs [role=tab]",learning).forEach((b,i,arr)=>b.addEventListener("keydown",e=>{let j;if(e.key==="ArrowRight")j=(i+1)%arr.length;else if(e.key==="ArrowLeft")j=(i-1+arr.length)%arr.length;else return;e.preventDefault();arr[j].focus();pick(arr[j].dataset.learnTab)}));
   }
   const stageInfo={
     thesis:[
