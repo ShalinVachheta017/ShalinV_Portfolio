@@ -146,3 +146,15 @@ html[data-theme="dark"] .text-link{color:var(--accent);border-color:var(--accent
 html[data-theme="dark"] .photo-frame figcaption{background:var(--panel);color:var(--muted)}
 html[data-theme="dark"] .project-index{color:var(--accent-2)}
 html[data-theme="dark"] .chip{color:var(--muted)}
+
+/* Small cross-page transitions in browsers that support document view transitions */
+@view-transition{navigation:auto}
+@keyframes page-fade-out{to{opacity:0;transform:translateY(-7px)}}
+@keyframes page-fade-in{from{opacity:0;transform:translateY(9px)}}
+@media(prefers-reduced-motion:no-preference){
+  ::view-transition-old(root){animation:140ms ease-in both page-fade-out}
+  ::view-transition-new(root){animation:240ms ease-out both page-fade-in}
+}
+@media(prefers-reduced-motion:reduce){
+  ::view-transition-old(root),::view-transition-new(root){animation-duration:0.01ms!important}
+}
