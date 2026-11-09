@@ -1,7 +1,7 @@
 import { test, expect } from "@playwright/test";
 import AxeBuilder from "@axe-core/playwright";
 
-for (const path of ["/", "/cases/thesis.html", "/cases/pegasus.html"]) {
+for (const path of ["/", "/cases/thesis.html", "/cases/pegasus.html", "/de/index.html", "/de/cases/thesis.html"]) {
   test("WCAG AA checks: " + path, async ({ page }) => {
     await page.goto(path);
     const report = await new AxeBuilder({ page })
