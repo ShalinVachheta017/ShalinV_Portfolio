@@ -280,3 +280,6 @@ html:not([data-theme="dark"]) .project-index{color:#82452f}
 .language-route{display:inline-flex;align-items:center;border:1px solid var(--line);padding:5px 9px;color:var(--ink);font-weight:800;letter-spacing:.04em}
 .language-route:hover{border-color:var(--accent)}
 @media(max-width:850px){.nav .language-route{display:inline-flex!important;font-size:12px}}
+
+/* WCAG contrast refinement for the architecture teaser on light surfaces */
+html:not([data-theme="dark"]) .arch-home-teaser p{color:#43534a}
