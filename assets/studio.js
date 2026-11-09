@@ -9,6 +9,8 @@
   function themeFromStorage(){try{return localStorage.getItem("sv-portfolio-theme")}catch(_){return null}}
   function setTheme(theme,persist=true){
     root.dataset.theme=theme;
+    const themeMeta=document.querySelector('meta[name="theme-color"]');
+    if(themeMeta)themeMeta.content=theme==="dark"?"#101411":"#f6f5f0";
     if(toggle){toggle.setAttribute("aria-label",theme==="dark"?"Switch to light mode":"Switch to dark mode");toggle.setAttribute("aria-pressed",String(theme==="dark"))}
     if(persist){try{localStorage.setItem("sv-portfolio-theme",theme)}catch(_){}}
   }
