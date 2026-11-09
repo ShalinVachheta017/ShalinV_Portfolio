@@ -4,6 +4,9 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="theme-color" content="#f6f5f0">
+  <meta property="og:image" content="https://shalinvachheta017.github.io/ShalinV_Portfolio/shalin-bridge.jpg">
+  <meta property="og:type" content="website">
+  <link rel="icon" type="image/svg+xml" href="assets/favicon.svg">
   <meta name="description" content="Portfolio of Shalin Vachheta — machine learning engineering, MLOps, research and applied AI projects.">
   <meta property="og:title" content="Shalin Vachheta — Machine Learning & MLOps">
   <meta property="og:description" content="Selected engineering projects, research, and experience.">
@@ -11,92 +14,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Instrument+Serif:ital@0;1&display=swap" rel="stylesheet">
-  <style>
-    :root{--paper:#f6f5f0;--ink:#202c27;--muted:#626c66;--green:#245047;--line:#d7dcd4;--white:#fffefa;--sage:#e4eae1;--rust:#aa6144;--max:1180px}
-    *{box-sizing:border-box}
-    html{scroll-behavior:smooth;scroll-padding-top:94px}
-    body{margin:0;color:var(--ink);background:var(--paper);font:16px/1.65 "DM Sans",system-ui,sans-serif;-webkit-font-smoothing:antialiased}
-    a{color:inherit;text-decoration:none}
-    a:hover{color:var(--green)}
-    button{font:inherit}
-    :focus-visible{outline:3px solid var(--rust);outline-offset:4px}
-    .skip{position:absolute;top:-80px;left:12px;padding:10px 16px;background:var(--white);z-index:50}
-    .skip:focus{top:10px}
-    .wrap{width:min(var(--max),calc(100% - 64px));margin-inline:auto}
-    .topbar{background:var(--paper);border-bottom:1px solid var(--line);position:sticky;top:0;z-index:20}
-    .topbar-inner{min-height:74px;display:flex;align-items:center;justify-content:space-between;gap:22px}
-    .monogram{font-family:"Instrument Serif",Georgia,serif;font-size:32px;line-height:1;letter-spacing:-1px;color:var(--green)}
-    .nav{display:flex;gap:26px;align-items:center;font-size:13px;font-weight:600}
-    .nav a{color:#45514a}.nav a:hover{color:var(--rust)}
-    .nav .contact-link{border:1px solid var(--ink);padding:8px 15px;color:var(--ink)}
-    .nav .contact-link:hover{background:var(--ink);color:white}
-    .lang{display:flex;gap:4px;align-items:center;border-left:1px solid var(--line);padding-left:20px}
-    .lang button{cursor:pointer;background:none;border:0;padding:5px 6px;color:#7a817c;font-size:12px;font-weight:700}
-    .lang button[aria-pressed="true"]{color:var(--green);text-decoration:underline;text-underline-offset:5px}
-    .hero{padding:90px 0 94px;display:grid;grid-template-columns:1.32fr .68fr;align-items:center;gap:8%}
-    .eyebrow{font-size:12px;letter-spacing:.14em;text-transform:uppercase;font-weight:700;color:var(--green);display:block}
-    h1,h2,h3,p{margin-top:0}
-    h1,h2,.serif{font-family:"Instrument Serif",Georgia,serif;font-weight:400}
-    h1{font-size:clamp(76px,10vw,142px);line-height:.87;letter-spacing:-.055em;margin:25px 0 30px}
-    h1 em{color:var(--green);font-weight:400}
-    .lead{font-size:clamp(17px,2.1vw,21px);max-width:670px;line-height:1.62;color:#46534c}
-    .hero-actions{display:flex;gap:25px;flex-wrap:wrap;align-items:center;margin-top:35px}
-    .btn{display:inline-flex;align-items:center;gap:12px;background:var(--green);color:white;padding:13px 20px;font-size:13px;font-weight:700}
-    .btn:hover{background:var(--ink);color:white}
-    .text-link{border-bottom:1px solid var(--green);padding-bottom:3px;color:var(--green);font-size:13px;font-weight:700}
-    .photo-frame{position:relative;margin:0;align-self:stretch;min-height:390px;max-height:520px}
-    .photo-frame:before{content:"";position:absolute;inset:15px -16px -16px 15px;border:1px solid #a2b6a7}
-    .photo-frame img{position:relative;width:100%;height:100%;object-fit:cover;object-position:center center;filter:saturate(.76);border-radius:0}
-    .photo-frame figcaption{position:absolute;bottom:17px;left:17px;background:var(--white);padding:6px 11px;color:#57645d;font-size:11px}
-    .thin-rule{border:0;border-top:1px solid var(--line);margin:0}
-    .section{padding:88px 0}
-    .section-heading{display:flex;align-items:end;justify-content:space-between;gap:28px;margin-bottom:38px}
-    h2{font-size:clamp(43px,5.5vw,74px);line-height:1;letter-spacing:-.035em;margin:10px 0 0}
-    .section-intro{max-width:410px;color:var(--muted);font-size:14px;margin:0}
-    .featured{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:18px}
-    .project{border:1px solid var(--line);background:var(--white);min-height:330px;padding:34px;display:flex;flex-direction:column}
-    .project:first-child{grid-column:1/-1;display:grid;grid-template-columns:1fr 1fr;gap:55px;min-height:330px;background:var(--sage)}
-    .project-index{display:block;color:var(--rust);font-size:11px;letter-spacing:.12em;font-weight:700;margin-bottom:25px}
-    h3{font-size:clamp(28px,3vw,39px);line-height:1.1;margin:0 0 17px;letter-spacing:-.02em}
-    .project p{color:#5e6c64;font-size:14px;line-height:1.7;margin:0 0 20px}
-    .project .lesson{color:#34443b}
-    .project-foot{display:flex;align-items:end;justify-content:space-between;gap:16px;margin-top:auto;padding-top:20px;border-top:1px solid #c9d0c7}
-    .tags{font-size:11px;color:#52625b;font-weight:600}
-    .open{font-size:12px;font-weight:700;white-space:nowrap;color:var(--green)}
-    .feature-summary{display:flex;flex-direction:column}
-    .feature-insight{border-left:2px solid var(--rust);align-self:center;padding:0 0 0 24px}
-    .feature-insight .figure{font-family:"Instrument Serif",Georgia,serif;font-size:64px;line-height:1;color:var(--green)}
-    .feature-insight p{font-size:13px;line-height:1.65;color:#55655b}
-    .disclaimer{font-size:11px;color:var(--muted);margin:19px 0 0}
-    .background{background:#eaece5}
-    .about-grid{display:grid;grid-template-columns:1fr 1fr;gap:9%}
-    .about-grid p{color:#505e54}
-    .timeline{display:grid;grid-template-columns:1fr 1fr;gap:25px;margin-top:48px}
-    .timeline-item{border-top:1px solid #b8c5b9;padding-top:20px}
-    .date{font-size:11px;font-weight:700;letter-spacing:.1em;color:var(--green);text-transform:uppercase}
-    .timeline-item h3{font-size:27px;margin:14px 0 6px}
-    .timeline-item p{color:#5b685d;font-size:14px}
-    .selected-list{border-top:1px solid var(--line)}
-    .small-project{display:grid;grid-template-columns:1fr 2fr auto;align-items:center;gap:20px;padding:23px 0;border-bottom:1px solid var(--line)}
-    .small-project span{font-size:12px;font-weight:700;color:var(--green)}
-    .small-project p{font-size:13px;color:var(--muted);margin:0}
-    .small-project a{font-size:22px;font-family:"Instrument Serif",Georgia,serif;color:var(--ink)}
-    .small-project a:hover{color:var(--green)}
-    .skills{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:30px;padding-top:18px}
-    .skills h3{font-size:26px;margin:0 0 12px}
-    .skills p{font-size:14px;color:#66736a}
-    .contact-band{background:var(--green);color:#f7f7ef;padding:78px 0}
-    .contact-band h2{font-size:clamp(50px,6vw,90px);max-width:750px}
-    .contact-band p{color:#cdded5;max-width:630px;margin:20px 0 32px}
-    .contact-actions{display:flex;gap:30px;flex-wrap:wrap;font-size:14px;font-weight:700}
-    .contact-actions a{border-bottom:1px solid #b9d4c7;padding-bottom:5px;color:white}
-    .contact-actions a:hover{color:#f2d4ae}
-    footer{padding:30px 0;color:#657269;font-size:12px}
-    footer .wrap{display:flex;align-items:center;justify-content:space-between;gap:18px;flex-wrap:wrap}
-    @media(max-width:850px){.hero{grid-template-columns:1fr;gap:50px;padding:64px 0 70px}.hero h1{font-size:clamp(74px,16vw,115px)}.photo-frame{height:410px;min-height:0;max-width:420px}.project:first-child{grid-template-columns:1fr}.feature-insight{align-self:stretch}.about-grid{gap:35px}.nav{gap:12px}.section{padding:64px 0}}
-    @media(max-width:620px){.wrap{width:min(var(--max),calc(100% - 36px))}.topbar-inner{min-height:69px}.nav a:not(.contact-link){display:none}.lang{padding-left:7px}.nav .contact-link{padding:7px 10px}.hero h1{font-size:75px}.hero{padding-top:55px}.lead{font-size:17px}.photo-frame{height:350px;width:min(100% - 15px,390px)}.section-heading{display:block}.section-intro{margin-top:19px}.featured,.about-grid,.timeline,.skills{grid-template-columns:1fr}.project,.project:first-child{grid-column:auto;min-height:0;padding:25px}.feature-insight .figure{font-size:55px}.small-project{grid-template-columns:1fr auto;gap:8px}.small-project p{grid-column:1/-1;grid-row:2}.contact-band{padding:60px 0}}
-    @media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}*,*:before,*:after{transition:none!important;animation:none!important}}
-  </style>
+  <link rel="stylesheet" href="assets/base.css">
   <script>try{document.documentElement.dataset.theme=localStorage.getItem("sv-portfolio-theme")||(matchMedia("(prefers-color-scheme: dark)").matches?"dark":"light")}catch(_){}</script>
   <link rel="stylesheet" href="assets/studio.css">
   <script defer src="assets/studio.js"></script>
