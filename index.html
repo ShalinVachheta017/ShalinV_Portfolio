@@ -97,6 +97,7 @@
     @media(max-width:620px){.wrap{width:min(var(--max),calc(100% - 36px))}.topbar-inner{min-height:69px}.nav a:not(.contact-link){display:none}.lang{padding-left:7px}.nav .contact-link{padding:7px 10px}.hero h1{font-size:75px}.hero{padding-top:55px}.lead{font-size:17px}.photo-frame{height:350px;width:min(100% - 15px,390px)}.section-heading{display:block}.section-intro{margin-top:19px}.featured,.about-grid,.timeline,.skills{grid-template-columns:1fr}.project,.project:first-child{grid-column:auto;min-height:0;padding:25px}.feature-insight .figure{font-size:55px}.small-project{grid-template-columns:1fr auto;gap:8px}.small-project p{grid-column:1/-1;grid-row:2}.contact-band{padding:60px 0}}
     @media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}*,*:before,*:after{transition:none!important;animation:none!important}}
   </style>
+  <script>try{document.documentElement.dataset.theme=localStorage.getItem("sv-portfolio-theme")||(matchMedia("(prefers-color-scheme: dark)").matches?"dark":"light")}catch(_){}</script>
   <link rel="stylesheet" href="assets/studio.css">
   <script defer src="assets/studio.js"></script>
 </head>
@@ -247,6 +248,7 @@
           <div><span class="eyebrow" data-t="moreEyebrow">03 / More projects</span><h2 id="more-heading" data-t="moreHeading">Other things I've built.</h2></div>
         </div>
         <div class="selected-list">
+          <div class="small-project"><a href="cases/kubernetes.html">Kubernetes self-healing experiment ↗</a><p>I tested pod recovery and load balancing on a local Minikube cluster. Autoscaling is a next step.</p><span>INFRA</span></div>
           <div class="small-project"><a href="https://github.com/ShalinVachheta017/Student-Performance-Prediction" target="_blank" rel="noopener noreferrer" data-t="other1">Student performance prediction ↗</a><p data-t="other1d">Regression models, evaluation and a small web application.</p><span>ML</span></div>
           <div class="small-project"><a href="https://github.com/ShalinVachheta017/Vehicle-Sales-Data-Analysis" target="_blank" rel="noopener noreferrer" data-t="other2">Vehicle sales data analysis ↗</a><p data-t="other2d">Exploring car auction records and explaining trends with charts.</p><span>DATA</span></div>
           <div class="small-project"><a href="https://github.com/ShalinVachheta017/GEN-AI-Llama-3.1-based-Cold-Email-Generator-" target="_blank" rel="noopener noreferrer" data-t="other3">Email drafting with Llama 3.1 ↗</a><p data-t="other3d">Generating editable outreach drafts from supplied context.</p><span>LLM</span></div>
