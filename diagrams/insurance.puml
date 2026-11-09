@@ -1,0 +1,39 @@
+@startuml
+title Vehicle insurance MLOps — component and configured delivery view
+left to right direction
+skinparam componentStyle rectangle
+skinparam shadowing false
+skinparam monochrome true
+database "MongoDB source data" as Mongo
+[Ingestion] as Ingest
+[Validation] as Validate
+[Transformation] as Transform
+[Model trainer] as Trainer
+[Model evaluation] as Eval
+database "Model artifact / S3" as Store
+actor "Website visitor" as Visitor
+[FastAPI form] as API
+[Prediction pipeline] as Predict
+cloud "Configured CI/CD (not SLA proof)" {
+  [GitHub Actions] as Actions
+  [Docker image build] as Docker
+  database "Amazon ECR" as ECR
+  node "Amazon EC2 target" as EC2
+}
+Mongo --> Ingest
+Ingest --> Validate
+Validate --> Transform
+Transform --> Trainer
+Trainer --> Eval
+Eval --> Store : conditional model artifact
+Visitor --> API
+API --> Predict
+Store --> Predict : model loading
+Actions --> Docker
+Docker --> ECR
+ECR --> EC2 : configured deployment workflow
+note bottom of Eval
+Old reported metrics are withheld,
+pending leakage-free reevaluation.
+end note
+@enduml
