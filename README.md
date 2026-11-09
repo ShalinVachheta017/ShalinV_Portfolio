@@ -60,4 +60,8 @@ Main branch is published via GitHub Pages. For larger design changes, edit on a 
 
 The thesis distinguishes seven core stages from three optional, human-approved retraining stages and documents a local Docker Compose runtime. RAG diagrams show ingestion, retrieval, answer grounding and a local Qdrant/Ollama runtime. Insurance distinguishes training, serving and configured GitHub Actions/AWS delivery without implying production readiness. Seq2Seq and PEGASUS are explicitly described as research/model pipelines rather than live hosted services.
 
-Diagrams use semantic HTML buttons over SVG arrow connectors, keyboard-operable view tabs and direct source links. On mobile, the architecture board can be scrolled horizontally; the selected component explanation stays readable outside the board.
+Diagrams use semantic HTML buttons over SVG arrow connectors, keyboard-operable view tabs and direct source links. Downloadable PlantUML files in `diagrams/` document the high-level structure in textual UML notation. On mobile, the architecture board can be scrolled horizontally; the selected component explanation stays readable outside the board.
+
+## QA
+
+`node scripts/check-site.mjs` validates local references and JavaScript syntax. `npm install` followed by `npm test` starts a local static server and runs the Playwright browser regression suite on desktop, mobile and small mobile breakpoints. GitHub Actions runs both suites on updates to main or the active architecture branch.
