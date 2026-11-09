@@ -1,0 +1,13 @@
+{
+  "name": "beyond-the-model-portfolio",
+  "private": true,
+  "version": "1.0.0",
+  "description": "Static portfolio with evidence-linked architecture case studies",
+  "scripts": {
+    "test": "playwright test",
+    "test:static": "node scripts/check-site.mjs"
+  },
+  "devDependencies": {
+    "@playwright/test": "^1.56.0"
+  }
+}
