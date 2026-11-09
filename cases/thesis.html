@@ -6,7 +6,7 @@
 <title>The model scored 93.61%. Then we tested a new person. — Shalin Vachheta</title>
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Instrument+Serif:ital@0;1&display=swap" rel="stylesheet">
-<script>try{document.documentElement.dataset.theme=localStorage.getItem("sv-portfolio-theme")||(matchMedia("(prefers-color-scheme: dark)").matches?"dark":"light")}catch(_){}</script><link rel="stylesheet" href="../assets/base.css"><link rel="stylesheet" href="../assets/studio.css"><script defer src="../assets/studio.js"></script>
+<script>try{document.documentElement.dataset.theme=localStorage.getItem("sv-portfolio-theme")||(matchMedia("(prefers-color-scheme: dark)").matches?"dark":"light")}catch(_){}</script><link rel="stylesheet" href="../assets/base.css"><link rel="stylesheet" href="../assets/studio.css"><script defer src="../assets/studio.js"></script><script defer src="../assets/architecture.js"></script>
 </head><body><div class="scroll-progress" aria-hidden="true"></div>
 <a class="skip" href="#main">Skip to content</a>
 <header class="topbar"><div class="wrap topbar-inner"><a class="monogram" href="../index.html" aria-label="Portfolio homepage">SV.</a>
@@ -36,16 +36,30 @@
     <p class="disclaimer">Real documented metrics, visualized interactively. These are not live measurements or a time-series trend.</p>
   </div></section>
 <section class="case-section reveal-on-scroll" id="architecture">
-   <span class="section-kicker">03 / Architecture explorer</span><h2>How the system fits together.</h2>
-   <p class="prose">Select a stage. Each step describes its input, purpose, and why it matters. The diagram is an educational view of the documented pipeline, not a remote execution.</p>
-   <div class="stage-layout" data-stage-explorer="thesis">
-     <div class="stage-groups" data-stages></div>
-     <aside class="stage-detail" aria-live="polite">
-       <div class="step-number" data-stage-number>01</div>
-       <h3 data-stage-title>Explore a stage</h3><p data-stage-description>Choose a step to read about it.</p><div class="note" data-stage-foot>Designed for understanding the flow.</div>
-     </aside>
-   </div><noscript><p class="note">JavaScript enables the architecture explorer. For a static version, see the linked technical README.</p></noscript>
- </section>
+<span class="section-kicker">03 / Architecture studio</span>
+<h2>Follow the system, not just the model.</h2>
+<p class="prose">Why this view exists: a high validation score alone says little about unknown users. The architecture shows how a frozen model contract, monitoring evidence and a human review gate work together.</p>
+<div class="arch-studio" data-architecture-project="thesis">
+  <span class="section-kicker">UML / C4 inspired · clickable components</span>
+  <p class="arch-intro">Frozen Model D1 contract · 7 core stages + 3 conditional stages · local Docker Compose. Choose a view, then a component to read its role and open its actual source file. These are explanatory architecture diagrams, not running services.</p>
+  <div class="arch-tabs" role="tablist" aria-label="Architecture views for this project" data-architecture-tabs></div>
+  <span class="arch-caption" data-architecture-subtitle></span>
+  <div class="arch-board-scroll" role="region" aria-label="Interactive architecture diagram; scroll horizontally on small screens" tabindex="0">
+    <div data-architecture-board id="arch-panel-thesis" role="tabpanel" aria-live="polite"></div>
+  </div>
+  <div class="arch-bottom"><div class="arch-detail" data-architecture-detail aria-live="polite">
+     <span class="arch-detail-eyebrow">Select a component</span><h3>Source-linked design</h3>
+     <p>Choose a diagram block to inspect the implemented module and its role.</p>
+  </div><div class="arch-legend"><strong>Notation</strong>
+    <span class="arch-key"><i></i> Implemented component</span>
+    <span class="arch-key"><i></i> External input / optional path</span>
+    <span class="arch-key"><i></i> Decision or gate</span>
+    <span class="arch-key"><i></i> Conditional / governed stage</span>
+  </div></div>
+  <p class="arch-note">Diagram notation is intentionally lightweight: a system/component view with UML-style arrows and workflow gates. Use the source links for precise implementation details. No claimed deployment unless documented.</p>
+  <noscript><p class="arch-noscript">Interactive architecture requires JavaScript. Read the source-linked technical README for a static description of the pipeline.</p></noscript>
+</div>
+</section>
 <section class="case-section reveal-on-scroll" id="recorded-evidence"><span class="section-kicker">Experimental data / What actually happened</span><h2>Inspect the recorded results.</h2><p class="prose">These charts use aggregate fold accuracies from files committed to the thesis repository. The fold-result JSON reports mean macro F1 of 0.937 for within-distribution CV and 0.419 for LOUO; these differ from some older documentation tables, so the linked JSON is used here. They do not expose raw participant sensor recordings. The cross-validation and leave-one-user-out tests answer different questions.</p><div class="evidence-visuals" aria-label="Thesis evaluation evidence">
 <div class="validation-chart"><span class="section-kicker">Recorded experimental evidence</span><h3>Five-fold results</h3><div class="chart-row"><span class="chart-label">Fold 1</span><div class="chart-track"><span class="chart-fill" style="width:93.3422%;background:var(--accent)"></span></div><strong class="chart-number">93.34%</strong></div><div class="chart-row"><span class="chart-label">Fold 2</span><div class="chart-track"><span class="chart-fill" style="width:94.4075%;background:var(--accent)"></span></div><strong class="chart-number">94.41%</strong></div><div class="chart-row"><span class="chart-label">Fold 3</span><div class="chart-track"><span class="chart-fill" style="width:94.1411%;background:var(--accent)"></span></div><strong class="chart-number">94.14%</strong></div><div class="chart-row"><span class="chart-label">Fold 4</span><div class="chart-track"><span class="chart-fill" style="width:93.4754%;background:var(--accent)"></span></div><strong class="chart-number">93.48%</strong></div><div class="chart-row"><span class="chart-label">Fold 5</span><div class="chart-track"><span class="chart-fill" style="width:92.6764%;background:var(--accent)"></span></div><strong class="chart-number">92.68%</strong></div><p class="chart-meta">Actual recorded fold accuracies. The repository notes that the scaler was fitted globally on users 1–6 before splitting; these within-distribution results are optimistic for unseen-user generalization. <a href='https://github.com/ShalinVachheta017/wearable-har-mlops-pipeline/blob/main/notebooks/model_HAR_27may_artifacts/garmin_5fold_window_cv_results.json' target='_blank' rel='noopener noreferrer'>Inspect the source JSON ↗</a></p></div>
 <div class="validation-chart"><span class="section-kicker">Recorded experimental evidence</span><h3>Leave-one-user-out results</h3><div class="chart-row"><span class="chart-label">User 1</span><div class="chart-track"><span class="chart-fill" style="width:45.5161%;background:var(--accent-2)"></span></div><strong class="chart-number">45.52%</strong></div><div class="chart-row"><span class="chart-label">User 2</span><div class="chart-track"><span class="chart-fill" style="width:5.6886%;background:var(--accent-2)"></span></div><strong class="chart-number">5.69%</strong></div><div class="chart-row"><span class="chart-label">User 3</span><div class="chart-track"><span class="chart-fill" style="width:50.5000%;background:var(--accent-2)"></span></div><strong class="chart-number">50.50%</strong></div><div class="chart-row"><span class="chart-label">User 4</span><div class="chart-track"><span class="chart-fill" style="width:53.7459%;background:var(--accent-2)"></span></div><strong class="chart-number">53.75%</strong></div><div class="chart-row"><span class="chart-label">User 5</span><div class="chart-track"><span class="chart-fill" style="width:50.0000%;background:var(--accent-2)"></span></div><strong class="chart-number">50.00%</strong></div><div class="chart-row"><span class="chart-label">User 6</span><div class="chart-track"><span class="chart-fill" style="width:61.0942%;background:var(--accent-2)"></span></div><strong class="chart-number">61.09%</strong></div><p class="chart-meta">Each bar represents the accuracy for a held-out person. User 2 was especially challenging. Mean across six users: 44.42%. <a href='https://github.com/ShalinVachheta017/wearable-har-mlops-pipeline/blob/main/notebooks/model_HAR_27may_artifacts/garmin_louo_users_1_6_results.json' target='_blank' rel='noopener noreferrer'>Inspect the LOUO results ↗</a></p></div>
