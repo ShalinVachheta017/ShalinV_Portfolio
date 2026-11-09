@@ -8,6 +8,7 @@
     "test:static": "node scripts/check-site.mjs"
   },
   "devDependencies": {
-    "@playwright/test": "^1.56.0"
+    "@playwright/test": "^1.56.0",
+    "@axe-core/playwright": "^4.10.0"
   }
 }
