@@ -1,0 +1,32 @@
+@startuml
+title Multilingual tender RAG — local prototype
+left to right direction
+skinparam componentStyle rectangle
+skinparam shadowing false
+skinparam monochrome true
+actor "Reader" as Reader
+folder "Tender PDFs + metadata" as Docs
+[PDF extraction / OCR fallback] as Extract
+[Chunking + Jina v3 embeddings] as Embed
+database "Local Qdrant" as Qdrant
+[Streamlit interface] as UI
+[Language / metadata routing] as Router
+[Retrieval + optional reranking] as Search
+[Ollama local model] as LLM
+[Answer with retrieved sources] as Answer
+Docs --> Extract
+Extract --> Embed
+Embed --> Qdrant
+Reader --> UI : English / German question
+UI --> Router
+Router --> Search
+Search --> Qdrant : find relevant passages
+Qdrant --> Search : candidates
+Search --> LLM : selected context
+LLM --> Answer
+Answer --> UI
+note bottom of Answer
+Answer quality depends on retrieval.
+No claim of secure public hosting.
+end note
+@enduml
