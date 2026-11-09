@@ -135,3 +135,14 @@ html:not([data-theme="dark"]) .theme-toggle .moon{display:block}
 @media(max-width:960px){.stage-layout,.narrative-grid,.case-hero,.lab-layout{grid-template-columns:1fr}.case-meta{border-left:0;padding-left:0;display:grid;grid-template-columns:repeat(3,1fr);gap:12px}.stage-detail{position:static}.lab-panel{max-width:none}.case-hero{padding-top:60px}}
 @media(max-width:620px){.theme-toggle .theme-label{display:none}.theme-toggle{padding:9px}.nav{gap:9px}.nav .contact-link{font-size:11px}.nav a:not(.contact-link){display:none}.case-hero{padding:44px 0}.case-hero h1{font-size:60px}.case-meta,.metric-grid,.evidence-list{grid-template-columns:1fr}.case-section{padding:57px 0}.stage-grid{grid-template-columns:1fr}.metric-grid{gap:8px}.metric-card{padding:18px}.stage-detail{padding:24px}.lab-panel{padding:18px}.learning-band{padding:67px 0}.eval-explorer{padding:20px}.project:hover{transform:none}}
 @media(prefers-reduced-motion:reduce){.reveal-on-scroll{opacity:1;transform:none;transition:none}.eval-line-fill{transition:none}.pod{transition:none}html{scroll-behavior:auto}}
+
+/* Theme contrast adjustments for shared editorial components */
+html[data-theme="dark"] .lead{color:var(--muted)}
+html[data-theme="dark"] .feature-insight .figure{color:var(--accent)}
+html[data-theme="dark"] .project .tags{color:var(--muted)}
+html[data-theme="dark"] .btn{background:var(--accent);color:var(--invert)}
+html[data-theme="dark"] .btn:hover{background:var(--ink);color:var(--invert)}
+html[data-theme="dark"] .text-link{color:var(--accent);border-color:var(--accent)}
+html[data-theme="dark"] .photo-frame figcaption{background:var(--panel);color:var(--muted)}
+html[data-theme="dark"] .project-index{color:var(--accent-2)}
+html[data-theme="dark"] .chip{color:var(--muted)}
