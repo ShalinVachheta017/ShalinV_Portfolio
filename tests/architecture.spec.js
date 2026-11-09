@@ -75,6 +75,23 @@ test("Thesis accuracy explorer retains the documented evaluation distinctions", 
   await expect(page.getByText("Inspect the recorded results.")).toBeVisible();
 });
 
+test("English and German portfolio routes are complete and hide the roadmap", async ({ page }) => {
+  await page.goto("/");
+  await expect(page.locator('a.language-route[href="de/index.html"]')).toBeVisible();
+  await expect(page.locator("#learning")).toHaveCount(0);
+  await page.locator('a.language-route[href="de/index.html"]').click();
+  await expect(page).toHaveURL(/\/de\/index\.html$/);
+  await expect(page.locator("html")).toHaveAttribute("lang", "de");
+  await expect(page.getByRole("heading", { level: 1 })).toHaveCount(1);
+  await page.locator('a[href="cases/thesis.html"]').first().click();
+  await expect(page).toHaveURL(/\/de\/cases\/thesis\.html$/);
+  await expect(page.locator("#architektur details")).toHaveCount(5);
+  await page.locator("#architektur details").first().locator("summary").click();
+  await expect(page.locator("#architektur details").first()).toHaveAttribute("open", "");
+  await page.locator('a.language-route[lang="en"]').click();
+  await expect(page).toHaveURL(/\/cases\/thesis\.html$/);
+});
+
 test("PEGASUS page is reachable from the featured homepage card", async ({ page }) => {
   await page.goto("/");
   await page.locator('a[href="cases/pegasus.html"]').click();
