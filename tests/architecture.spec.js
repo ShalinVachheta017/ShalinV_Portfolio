@@ -23,20 +23,20 @@ test("Homepage offers direct evidence paths", async ({ page }) => {
   await expect(index.getByText("6,126 tender documents")).toBeVisible();
 });
 
-test("Warm portfolio palette holds in light and dark mode", async ({ page }) => {
+test("Off-white and forest-sage palette holds in light and dark mode", async ({ page }) => {
   await page.goto("/");
   await expect(page.locator("html")).toHaveAttribute("data-theme", "light");
   const light = await page.evaluate(() => {
     const css = getComputedStyle(document.documentElement);
     return ["--page","--accent","--soft","--bg-about"].map(t => css.getPropertyValue(t).trim());
   });
-  expect(light).toEqual(["#f8f5eb", "#244f3b", "#f2e7c9", "#e8eee2"]);
+  expect(light).toEqual(["#F7F6F0", "#245845", "#E8EFE4", "#E6EFE4"]);
   await page.locator("[data-theme-toggle]").click();
   const dark = await page.evaluate(() => {
     const css = getComputedStyle(document.documentElement);
     return ["--page","--accent","--soft"].map(t => css.getPropertyValue(t).trim());
   });
-  expect(dark).toEqual(["#101b17", "#a9d4af", "#25372d"]);
+  expect(dark).toEqual(["#101F19", "#B4D5BC", "#253C2E"]);
 });
 
 test("Light and dark themes persist between pages", async ({ page }) => {
