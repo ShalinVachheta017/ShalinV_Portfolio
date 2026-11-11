@@ -23,11 +23,27 @@ test("Homepage offers direct evidence paths", async ({ page }) => {
   await expect(index.getByText("6,126 tender documents")).toBeVisible();
 });
 
+test("Warm portfolio palette holds in light and dark mode", async ({ page }) => {
+  await page.goto("/");
+  await expect(page.locator("html")).toHaveAttribute("data-theme", "light");
+  const light = await page.evaluate(() => {
+    const css = getComputedStyle(document.documentElement);
+    return ["--page","--accent","--soft","--bg-about"].map(t => css.getPropertyValue(t).trim());
+  });
+  expect(light).toEqual(["#f8f5eb", "#244f3b", "#f2e7c9", "#e8eee2"]);
+  await page.locator("[data-theme-toggle]").click();
+  const dark = await page.evaluate(() => {
+    const css = getComputedStyle(document.documentElement);
+    return ["--page","--accent","--soft"].map(t => css.getPropertyValue(t).trim());
+  });
+  expect(dark).toEqual(["#101b17", "#a9d4af", "#25372d"]);
+});
+
 test("Light and dark themes persist between pages", async ({ page }) => {
   await page.goto("/");
   await page.locator("[data-theme-toggle]").click();
   await expect(page.locator("html")).toHaveAttribute("data-theme", "dark");
-  await expect(page.locator('meta[name="theme-color"]')).toHaveAttribute("content", "#101010");
+  await expect(page.locator('meta[name="theme-color"]')).toHaveAttribute("content", "#101b17");
   await page.goto("/cases/thesis.html");
   await expect(page.locator("html")).toHaveAttribute("data-theme", "dark");
   await page.locator("[data-theme-toggle]").click();
