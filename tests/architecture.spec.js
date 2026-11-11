@@ -27,7 +27,7 @@ test("Light and dark themes persist between pages", async ({ page }) => {
   await page.goto("/");
   await page.locator("[data-theme-toggle]").click();
   await expect(page.locator("html")).toHaveAttribute("data-theme", "dark");
-  await expect(page.locator('meta[name="theme-color"]')).toHaveAttribute("content", "#101010");
+  await expect(page.locator('meta[name="theme-color"]')).toHaveAttribute("content", "#101b17");
   await page.goto("/cases/thesis.html");
   await expect(page.locator("html")).toHaveAttribute("data-theme", "dark");
   await page.locator("[data-theme-toggle]").click();
