@@ -11,7 +11,7 @@
   function setTheme(theme,persist=true){
     root.dataset.theme=theme;
     const themeMeta=document.querySelector('meta[name="theme-color"]');
-    if(themeMeta)themeMeta.content=theme==="dark"?"#101411":"#f6f5f0";
+    if(themeMeta)themeMeta.content=theme==="dark"?"#101010":"#f7f7f5";
     if(toggle){toggle.setAttribute("aria-label",german?(theme==="dark"?"Theme — Hell":"Theme — Dunkel"):(theme==="dark"?"Theme — Light mode":"Theme — Dark mode"));toggle.setAttribute("aria-pressed",String(theme==="dark"))}
     if(persist){try{localStorage.setItem("sv-portfolio-theme",theme)}catch(_){}}
   }
@@ -44,12 +44,13 @@
   window.addEventListener("scroll",()=>{if(!raf){raf=true;requestAnimationFrame(updateProgress)}},{passive:true});
   window.addEventListener("resize",updateProgress,{passive:true});updateProgress();
   if("IntersectionObserver" in window&&!motionReduced.matches){
+    root.classList.add("js-motion");
     const observer=new IntersectionObserver((entries)=>{entries.forEach(e=>{if(e.isIntersecting){e.target.classList.add("is-visible");observer.unobserve(e.target)}})},{threshold:.08,rootMargin:"0px 0px -25px 0px"});
     $$(".reveal-on-scroll").forEach(el=>observer.observe(el));
   }else $$(".reveal-on-scroll").forEach(el=>el.classList.add("is-visible"));
   const evalData={
-    cv:{accuracy:93.61,label:"Within-distribution five-fold cross-validation",detail:"The model was evaluated across five folds using familiar data distributions. This is a useful internal result, not a guarantee of performance on new people.",f1:"Macro F1 0.937"},
-    louo:{accuracy:44.42,label:"Leave-one-user-out: average of users 1–6",detail:"Each test holds out an entire person. The sharp drop shows the model has trouble generalizing to new individuals. It motivated better monitoring and clearer limits.",f1:"Macro F1 0.419"},
+    cv:{accuracy:93.61,label:"Within-distribution five-fold cross-validation",detail:"The model was evaluated across five folds using familiar data distributions. This is a useful internal result, not a guarantee of performance on new people.",f1:"Macro F1 0.952"},
+    louo:{accuracy:44.42,label:"Leave-one-user-out: average of users 1–6",detail:"Each test holds out an entire person. The sharp drop shows the model has trouble generalizing to new individuals. It motivated better monitoring and clearer limits.",f1:"Macro F1 0.397"},
     user7:{accuracy:36.96,label:"External labeled session: User 7",detail:"A separate 989-window labeled session provided another difficult check. Mean confidence was 0.858 even though accuracy was 36.96%; confident predictions can still be wrong.",f1:"Macro F1 0.350"}
   };
   const evaluation=$("[data-evaluation]");
@@ -63,7 +64,7 @@
       if(caption)caption.textContent=d.label;
       if(detail)detail.textContent=d.detail;
       if(f1)f1.textContent=d.f1;
-      if(bar)bar.style.width=d.accuracy+"%";
+      if(bar){bar.style.width=d.accuracy+"%";bar.parentElement?.setAttribute("aria-label",d.accuracy.toFixed(2)+"% accuracy: "+d.label)}
     }
     btns.forEach(b=>b.addEventListener("click",()=>pick(b.dataset.evalMode)));pick(evaluation.dataset.default||"cv");
   }
