@@ -285,34 +285,22 @@ html:not([data-theme="dark"]) .project-index{color:#82452f}
 html:not([data-theme="dark"]) .arch-home-teaser p{color:#43534a}
 
 /* Hallmark-inspired evidence-first visual system. Keep real content and wiring. */
-/* Hallmark-inspired chromatic direction: forest, sunflower, coral, cobalt. */
+/* Warm ivory, forest green and pale gold; legible in both color schemes. */
 :root{
-  --paper:#FFF8EC;--ink:#173B2F;--muted:#415B4C;--green:#14604B;
-  --line:#B9D0BE;--white:#FFFEF8;--sage:#C8EAD3;--rust:#A84531;
-  --page:#FFF8EC;--panel:#FFFEF8;--accent:#14604B;--accent-2:#A84531;
-  --soft:#FFE2A1;--invert:#FFF9E9;--shadow:0 16px 40px rgba(25,74,51,.09);
-  --bg-about:#C8EAD3;--bg-contact:#0B4939;--index-bg:#FFCF55;
-  --gold-line:#3557CA;--gold-hover:#FFEAA9;
-  --hero-field:#FFCF55;--hero-ink:#173B2F;--hero-muted:#2D4A3B;
-  --cream:#FFF9E9;--green-strong:#14604B;--cobalt:#3557CA;
-  --coral:#FF886D;--sun:#FFCF55;--coral-ink:#173B2F;
-  --project-1:#C8EAD3;--project-2:#DFE8FF;--project-3:#FFE1D7;
-  --project-4:#FFF0B9;--project-5:#D3EDE9;--eval-field:#FFF0BA;
-  --cobalt-ink:#FFF9E9;--sun-ink:#173B2F;--arch-line:#CFDAFF;
+  --paper:#f8f5eb;--ink:#22352b;--muted:#4d5d52;--green:#244f3b;
+  --line:#d8d7c9;--white:#fffdf7;--sage:#e8efe4;--rust:#865824;
+  --page:#f8f5eb;--panel:#fffdf7;--accent:#244f3b;--accent-2:#865824;
+  --soft:#f2e7c9;--invert:#fffdf7;--shadow:0 16px 40px rgba(43,56,36,.08);
+  --bg-about:#e8eee2;--bg-contact:#203f32;--index-bg:#f3ecd8;
+  --gold-line:#d8bf82;--gold-hover:#eae0c4;
 }
 html[data-theme="dark"]{
-  --paper:#0B2922;--ink:#F7F7E9;--muted:#C7E1D3;--green:#B9F3D0;
-  --line:#486B5B;--white:#153C32;--sage:#204A3A;--rust:#FF9D82;
-  --page:#0B2922;--panel:#153C32;--accent:#B9F3D0;--accent-2:#FFAC8E;
-  --soft:#224B3A;--invert:#0B2922;--shadow:0 18px 40px rgba(0,0,0,.28);
-  --bg-about:#164333;--bg-contact:#0A4738;--index-bg:#163E33;
-  --gold-line:#FFCF55;--gold-hover:#31544A;
-  --hero-field:#15523D;--hero-ink:#F7F7E9;--hero-muted:#E0F5E8;
-  --cream:#FFF9E9;--green-strong:#17664F;--cobalt:#3557CA;
-  --coral:#FF886D;--sun:#FFCF55;--coral-ink:#173B2F;
-  --project-1:#20533D;--project-2:#233C66;--project-3:#603E35;
-  --project-4:#554728;--project-5:#1E5048;--eval-field:#224C3B;
-  --cobalt-ink:#FFF9E9;--sun-ink:#173B2F;--arch-line:#CFDAFF;
+  --paper:#101b17;--ink:#f3f1e9;--muted:#c0c9bb;--green:#a9d4af;
+  --line:#405347;--white:#1a2a22;--sage:#263b2e;--rust:#e3c481;
+  --page:#101b17;--panel:#1a2a22;--accent:#a9d4af;--accent-2:#e3c481;
+  --soft:#25372d;--invert:#14251b;--shadow:0 18px 40px rgba(0,0,0,.28);
+  --bg-about:#1d3025;--bg-contact:#14271d;--index-bg:#1c3024;
+  --gold-line:#8b784c;--gold-hover:#2b412f;
 }
 html,body{overflow-x:clip}
 :focus-visible{outline-color:var(--ink)}
@@ -388,91 +376,76 @@ html[data-theme="dark"] .contact-band{background:var(--bg-contact)}
   .js-motion .reveal-on-scroll{opacity:1;transform:none}
 }
 
-/* Material-first color areas; each has a job, not a decorative random gradient. */
-.hero{
-  position:relative;isolation:isolate;background:var(--hero-field);
-  border-bottom:6px solid var(--cobalt);padding-inline:clamp(20px,4.1vw,52px);
-  color:var(--hero-ink);
+/* Refined editorial direction: green is the hero; ochre and clay are accents, never competing blocks. */
+:root{
+  --forest-display:#194C38;--forest-deep:#123D2F;--cream-ink:#FFF9EE;
+  --soft-ochre:#E7BD6B;--clay-ink:#945D40;--warm-sage:#D3E3D2;
+  --work-paper:#F2E7D5;--project-mist:#EDF0E7;--project-clay:#F2E3D9;
 }
-.hero .lead{color:var(--hero-muted)}
-.hero h1 span{color:var(--hero-ink)}
-.hero .eyebrow,.hero .section-kicker{color:var(--hero-ink)}
-.hero .text-link{color:var(--hero-ink);border-color:var(--hero-ink)}
-.hero .btn{background:var(--green-strong);color:var(--cream)}
-.hero .btn:hover{background:var(--cobalt);color:var(--cream)}
-html[data-theme="dark"] .hero .btn{background:var(--sun);color:var(--sun-ink)}
-html[data-theme="dark"] .hero .btn:hover{background:var(--coral);color:var(--coral-ink)}
-.photo-frame:before{background:var(--cobalt);border:0;inset:16px -17px -17px 16px}
+html[data-theme="dark"]{
+  --forest-display:#173D30;--forest-deep:#102B23;--cream-ink:#F9F4E8;
+  --soft-ochre:#E9C87B;--clay-ink:#F0B995;--warm-sage:#223A2E;
+  --work-paper:#20352B;--project-mist:#22372D;--project-clay:#362F29;
+}
+html:not([data-theme="dark"]) .hero,
+html[data-theme="dark"] .hero{
+  background:var(--forest-display);
+  color:var(--cream-ink);
+  padding-inline:clamp(20px,4vw,50px);
+  border-bottom:4px solid var(--soft-ochre);
+}
+.hero h1,.hero h1 span,.hero .eyebrow,.hero .section-kicker,
+.hero .lead,.hero .text-link{color:var(--cream-ink)}
+.hero .text-link{border-color:var(--soft-ochre)}
+.hero .btn,html[data-theme="dark"] .hero .btn{
+  background:var(--soft-ochre);color:var(--forest-deep);
+}
+.hero .btn:hover,html[data-theme="dark"] .hero .btn:hover{
+  background:var(--cream-ink);color:var(--forest-deep);
+}
+.photo-frame:before{border:2px solid var(--soft-ochre)}
 .photo-frame img{filter:none}
-.photo-frame figcaption{background:var(--cream);color:var(--coral-ink)}
-html[data-theme="dark"] .photo-frame figcaption{background:var(--cream);color:var(--coral-ink)}
-
-/* Three distinct project gateways: green = sensing, blue = documents, coral = APIs. */
-.proof-index{background:transparent;border:0;gap:0}
-.proof-index .proof-link{padding:23px 25px;transition:filter .16s ease,transform .16s ease}
-.proof-index .proof-link:nth-child(1){background:var(--green-strong);color:var(--cream)}
-.proof-index .proof-link:nth-child(2){background:var(--cobalt);color:var(--cobalt-ink)}
-.proof-index .proof-link:nth-child(3){background:var(--coral);color:var(--coral-ink)}
-.proof-index .proof-link .proof-number,.proof-index .proof-link .proof-detail{color:inherit}
-.proof-index .proof-link:hover{filter:brightness(1.06);transform:translateY(-2px)}
-.proof-index .proof-link+.proof-link{border-left:0}
-.proof-index .proof-link:focus-visible{outline:3px solid var(--sun);outline-offset:-5px}
-
-/* Case-study cards borrow the gateway hues in lighter material, not more white. */
-.featured .project:nth-child(1){background:var(--project-1)}
-.featured .project:nth-child(2){background:var(--project-2)}
-.featured .project:nth-child(3){background:var(--project-3)}
-.featured .project:nth-child(4){background:var(--project-4)}
-.featured .project:nth-child(5){background:var(--project-5)}
-.featured .project:nth-child(1){border-top:5px solid var(--green-strong)}
-.featured .project:nth-child(2){border-top:5px solid var(--cobalt)}
-.featured .project:nth-child(3){border-top:5px solid var(--coral)}
-.featured .project:nth-child(4){border-top:5px solid var(--sun)}
-.featured .project:nth-child(5){border-top:5px solid var(--green-strong)}
-html[data-theme="dark"] .featured .project:nth-child(1){background:var(--project-1)}
-html[data-theme="dark"] .featured .project:nth-child(2){background:var(--project-2)}
-html[data-theme="dark"] .featured .project:nth-child(3){background:var(--project-3)}
-html[data-theme="dark"] .featured .project:nth-child(4){background:var(--project-4)}
-html[data-theme="dark"] .featured .project:nth-child(5){background:var(--project-5)}
-
-/* Evidence stays precise and legible inside warmer, richer panels. */
-.eval-explorer{background:var(--eval-field);border-color:var(--line)}
-.eval-line-fill,html:not([data-theme="dark"]) .eval-line-fill{background:var(--cobalt)}
-.eval-tab[aria-pressed="true"]{background:var(--green-strong);border-color:var(--green-strong);color:var(--cream)}
-html[data-theme="dark"] .eval-tab[aria-pressed="true"]{background:var(--sun);border-color:var(--sun);color:var(--sun-ink)}
-html:not([data-theme="dark"]) .background{background:var(--bg-about)}
-
-/* One cobalt workbench calls attention to the real, clickable diagrams. */
-.arch-home-teaser,html:not([data-theme="dark"]) .arch-home-teaser{
-  background:var(--cobalt);border-color:var(--cobalt);color:var(--cobalt-ink);
+html:not([data-theme="dark"]) .photo-frame figcaption,
+html[data-theme="dark"] .photo-frame figcaption{background:var(--cream-ink);color:var(--forest-deep)}
+.proof-index{
+  background:var(--work-paper);
+  border-top:1px solid var(--line);
+  border-bottom:1px solid var(--line);
+}
+.proof-index .proof-link{
+  color:var(--ink);
+  background:transparent;
+  padding:21px 24px;
+}
+.proof-index .proof-link .proof-number{color:var(--clay-ink)}
+.proof-index .proof-link .proof-detail{color:var(--muted)}
+.proof-index .proof-link+.proof-link{border-left:1px solid var(--line)}
+.proof-index .proof-link:hover{background:var(--gold-hover);transform:none;filter:none}
+html:not([data-theme="dark"]) .featured .project:first-child{background:var(--warm-sage)}
+html:not([data-theme="dark"]) .featured .project:nth-child(2),
+html:not([data-theme="dark"]) .featured .project:nth-child(5){background:var(--project-mist)}
+html:not([data-theme="dark"]) .featured .project:nth-child(3){background:var(--project-clay)}
+html:not([data-theme="dark"]) .featured .project:nth-child(4){background:var(--panel)}
+html[data-theme="dark"] .featured .project:first-child{background:var(--warm-sage)}
+html[data-theme="dark"] .featured .project:nth-child(2),
+html[data-theme="dark"] .featured .project:nth-child(5){background:var(--project-mist)}
+html[data-theme="dark"] .featured .project:nth-child(3){background:var(--project-clay)}
+html:not([data-theme="dark"]) .background{background:var(--warm-sage)}
+html:not([data-theme="dark"]) .arch-home-teaser,
+html[data-theme="dark"] .arch-home-teaser{
+  background:var(--forest-display);
+  border-color:var(--forest-display);color:var(--cream-ink);
 }
 .arch-home-teaser h3,.arch-home-teaser .section-kicker,
 html:not([data-theme="dark"]) .arch-home-teaser p,
 html[data-theme="dark"] .arch-home-teaser p,
-.arch-home-teaser > a,.arch-home-teaser .case-link-list a{
-  color:var(--cobalt-ink);
+.arch-home-teaser a,.arch-home-teaser .case-link-list a{
+  color:var(--cream-ink);border-color:var(--soft-ochre)
 }
-.arch-home-teaser > a,.arch-home-teaser .case-link-list a{
-  border-color:var(--arch-line);
-}
-.arch-home-teaser .case-link-list a:hover{color:var(--cobalt-ink);border-color:var(--cobalt-ink)}
-html[data-theme="dark"] .arch-home-teaser{background:var(--cobalt);border-color:var(--cobalt)}
-
-/* The contact section has a sunflower-highlighted headline on deep green. */
-.contact-band h2{color:var(--sun)}
-.contact-band .contact-actions a{color:var(--cream);border-color:var(--sun)}
-.contact-band .contact-actions a:hover{color:var(--sun)}
-.nav .contact-link:hover{background:var(--green-strong);color:var(--cream)}
-
+.arch-home-teaser .case-link-list a:hover{color:var(--cream-ink);border-color:var(--cream-ink)}
+.contact-band h2{color:var(--cream-ink)}
+.contact-band .contact-actions a{border-color:var(--soft-ochre)}
 @media(max-width:850px){
-  .proof-index .proof-link{padding:20px 24px}
-  .proof-index .proof-link+.proof-link{border-top:0}
+  .proof-index .proof-link+.proof-link{border-left:0;border-top:1px solid var(--line)}
 }
-@media(max-width:620px){
-  .hero{padding-inline:20px}
-  .hero .photo-frame{max-width:calc(100% - 18px)}
-  .proof-index .proof-link{padding:18px 20px}
-}
-@media(prefers-reduced-motion:reduce){
-  .proof-index .proof-link{transition:none;transform:none}
-}
+@media(max-width:620px){.hero{padding-inline:20px}}
