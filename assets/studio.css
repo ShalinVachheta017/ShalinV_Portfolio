@@ -276,7 +276,7 @@ html{scroll-padding-top:125px}
 @media(prefers-reduced-motion:reduce){.arch-node{transition:none}}
 
 /* Accessibility: contrast and visible-name alignment */
-html:not([data-theme="dark"]) .project-index{color:#82452f}
+html:not([data-theme="dark"]) .project-index{color:var(--accent-2)}
 .language-route{display:inline-flex;align-items:center;border:1px solid var(--line);padding:5px 9px;color:var(--ink);font-weight:800;letter-spacing:.04em}
 .language-route:hover{border-color:var(--accent)}
 @media(max-width:850px){.nav .language-route{display:inline-flex!important;font-size:12px}}
@@ -284,23 +284,22 @@ html:not([data-theme="dark"]) .project-index{color:#82452f}
 /* WCAG contrast refinement for the architecture teaser on light surfaces */
 html:not([data-theme="dark"]) .arch-home-teaser p{color:#43534a}
 
-/* Hallmark-inspired evidence-first visual system. Keep real content and wiring. */
-/* Warm ivory, forest green and pale gold; legible in both color schemes. */
+/* Off-white, forest green and sage: site-wide editorial colors. */
 :root{
-  --paper:#f8f5eb;--ink:#22352b;--muted:#4d5d52;--green:#244f3b;
-  --line:#d8d7c9;--white:#fffdf7;--sage:#e8efe4;--rust:#865824;
-  --page:#f8f5eb;--panel:#fffdf7;--accent:#244f3b;--accent-2:#865824;
-  --soft:#f2e7c9;--invert:#fffdf7;--shadow:0 16px 40px rgba(43,56,36,.08);
-  --bg-about:#e8eee2;--bg-contact:#203f32;--index-bg:#f3ecd8;
-  --gold-line:#d8bf82;--gold-hover:#eae0c4;
+  --paper:#F7F6F0;--ink:#203C30;--muted:#4D6156;--green:#245845;
+  --line:#CBD8CC;--white:#FCFCF8;--sage:#E6EFE4;--rust:#366A50;
+  --page:#F7F6F0;--panel:#FCFCF8;--accent:#245845;--accent-2:#366A50;
+  --soft:#E8EFE4;--invert:#FCFCF8;--shadow:0 14px 32px rgba(23,63,44,.06);
+  --bg-about:#E6EFE4;--bg-contact:#214B3B;--index-bg:#F2F4EC;
+  --gold-line:#CFDACF;--gold-hover:#EDF2EA;
 }
 html[data-theme="dark"]{
-  --paper:#101b17;--ink:#f3f1e9;--muted:#c0c9bb;--green:#a9d4af;
-  --line:#405347;--white:#1a2a22;--sage:#263b2e;--rust:#e3c481;
-  --page:#101b17;--panel:#1a2a22;--accent:#a9d4af;--accent-2:#e3c481;
-  --soft:#25372d;--invert:#14251b;--shadow:0 18px 40px rgba(0,0,0,.28);
-  --bg-about:#1d3025;--bg-contact:#14271d;--index-bg:#1c3024;
-  --gold-line:#8b784c;--gold-hover:#2b412f;
+  --paper:#101F19;--ink:#F1F5ED;--muted:#C4D6C9;--green:#A8D5B3;
+  --line:#425D4D;--white:#172F24;--sage:#263D30;--rust:#B4D5BC;
+  --page:#101F19;--panel:#172F24;--accent:#B4D5BC;--accent-2:#B4D5BC;
+  --soft:#253C2E;--invert:#10231A;--shadow:0 18px 40px rgba(0,0,0,.24);
+  --bg-about:#1C3829;--bg-contact:#132C21;--index-bg:#182D22;
+  --gold-line:#53735C;--gold-hover:#264A37;
 }
 html,body{overflow-x:clip}
 :focus-visible{outline-color:var(--ink)}
@@ -376,16 +375,16 @@ html[data-theme="dark"] .contact-band{background:var(--bg-contact)}
   .js-motion .reveal-on-scroll{opacity:1;transform:none}
 }
 
-/* Refined editorial direction: green is the hero; ochre and clay are accents, never competing blocks. */
+/* Consistent supporting tones — no blue, coral, red, or orange accents. */
 :root{
-  --forest-display:#194C38;--forest-deep:#123D2F;--cream-ink:#FFF9EE;
-  --soft-ochre:#E7BD6B;--clay-ink:#70442D;--warm-sage:#D3E3D2;
-  --work-paper:#F2E7D5;--project-mist:#EDF0E7;--project-clay:#F2E3D9;
+  --forest-display:#21513E;--forest-deep:#173D2E;--cream-ink:#FCFCF8;
+  --soft-ochre:#E7ECD5;--clay-ink:#32664C;--warm-sage:#E6EFE4;
+  --work-paper:#F2F4EC;--project-mist:#EDF2EA;--project-clay:#F1F3EC;
 }
 html[data-theme="dark"]{
-  --forest-display:#173D30;--forest-deep:#102B23;--cream-ink:#F9F4E8;
-  --soft-ochre:#E9C87B;--clay-ink:#F0B995;--warm-sage:#223A2E;
-  --work-paper:#20352B;--project-mist:#22372D;--project-clay:#362F29;
+  --forest-display:#B4D5BC;--forest-deep:#10251A;--cream-ink:#F1F5ED;
+  --soft-ochre:#D5E4CB;--clay-ink:#B4D5BC;--warm-sage:#1C3829;
+  --work-paper:#172F24;--project-mist:#1E3628;--project-clay:#24392C;
 }
 html:not([data-theme="dark"]) .hero,
 html[data-theme="dark"] .hero{
@@ -611,3 +610,14 @@ html:not([data-theme="dark"]) .background{background:var(--warm-sage)}
   .eval-tab{font-size:12px}
   .arch-home-teaser{display:block}
 }
+
+/* Consistent contrast in both themes: buttons, evaluation and project labels. */
+html[data-theme="dark"] .hero .btn{
+  background:var(--accent);color:var(--invert);
+}
+html[data-theme="dark"] .hero .btn:hover{
+  background:var(--soft-ochre);color:var(--invert);
+}
+html[data-theme="dark"] .eval-value{color:var(--forest-display)}
+html:not([data-theme="dark"]) .project-index,
+html[data-theme="dark"] .project-index{color:var(--accent-2)}
