@@ -341,8 +341,8 @@ html:not([data-theme="dark"]) .arch-home-teaser p{color:var(--muted)}
 .proof-link strong{font-size:16px;font-weight:700;line-height:1.35}
 .proof-detail{font-size:13px;color:var(--muted);line-height:1.55}
 .reveal-on-scroll{opacity:1;transform:none}
-.js-motion .reveal-on-scroll{opacity:0;transform:translateY(18px)}
-.js-motion .reveal-on-scroll.is-visible{opacity:1;transform:none}
+/* Content must stay readable while axe, keyboard navigation, or a user loads the page. */
+.js-motion .reveal-on-scroll,.js-motion .reveal-on-scroll.is-visible{opacity:1;transform:none;transition:none}
 @media(max-width:850px){
   .proof-index{grid-template-columns:1fr}
   .proof-link{padding:17px 4px}
