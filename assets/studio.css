@@ -621,3 +621,40 @@ html[data-theme="dark"] .hero .btn:hover{
 html[data-theme="dark"] .eval-value{color:var(--forest-display)}
 html:not([data-theme="dark"]) .project-index,
 html[data-theme="dark"] .project-index{color:var(--accent-2)}
+
+/* One restrained third-color role: champagne gold is an interaction accent. */
+:root{
+  --accent-gold:#D4B568;
+  --accent-gold-strong:#A17D32;
+  --accent-gold-wash:#F5EDD8;
+  --on-gold:#203C30;
+}
+html[data-theme="dark"]{
+  --accent-gold:#D4B568;
+  --accent-gold-strong:#D4B568;
+  --accent-gold-wash:#253C2E;
+  --on-gold:#10231A;
+}
+/* Gold supports the green CTA only when a visitor interacts with it. */
+.hero .btn:hover,
+html[data-theme="dark"] .hero .btn:hover{
+  background:var(--accent-gold);
+  color:var(--on-gold);
+}
+.proof-index .proof-link:hover{
+  background:var(--accent-gold-wash);
+  color:var(--forest-display);
+}
+.featured>.project:first-child,
+html:not([data-theme="dark"]) .featured>.project:first-child,
+html[data-theme="dark"] .featured>.project:first-child{
+  border-top-color:var(--accent-gold-strong);
+}
+.featured>.project:first-child:hover{
+  border-top-color:var(--accent-gold-strong);
+}
+/* The active evaluation tab receives a slim, visible gold marker. */
+.eval-tab[aria-pressed="true"],
+html[data-theme="dark"] .eval-tab[aria-pressed="true"]{
+  border-bottom-color:var(--accent-gold-strong);
+}
