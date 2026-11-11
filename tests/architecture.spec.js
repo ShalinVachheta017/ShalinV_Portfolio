@@ -13,11 +13,21 @@ test("Homepage has accessible paths to all five flagship projects", async ({ pag
   expect(scroll).toBeLessThanOrEqual(0);
 });
 
+test("Homepage offers direct evidence paths", async ({ page }) => {
+  await page.goto("/");
+  const index = page.getByRole("navigation", { name: "Start with a project" });
+  await expect(index.getByRole("link")).toHaveCount(3);
+  for (const slug of ["thesis", "rag", "insurance"]) {
+    await expect(index.locator('a[href="cases/' + slug + '.html"]')).toHaveCount(1);
+  }
+  await expect(index.getByText("6,126 tender documents")).toBeVisible();
+});
+
 test("Light and dark themes persist between pages", async ({ page }) => {
   await page.goto("/");
   await page.locator("[data-theme-toggle]").click();
   await expect(page.locator("html")).toHaveAttribute("data-theme", "dark");
-  await expect(page.locator('meta[name="theme-color"]')).toHaveAttribute("content", "#101411");
+  await expect(page.locator('meta[name="theme-color"]')).toHaveAttribute("content", "#101010");
   await page.goto("/cases/thesis.html");
   await expect(page.locator("html")).toHaveAttribute("data-theme", "dark");
   await page.locator("[data-theme-toggle]").click();
@@ -68,7 +78,10 @@ for (const slug of slugs) {
 test("Thesis accuracy explorer retains the documented evaluation distinctions", async ({ page }) => {
   await page.goto("/cases/thesis.html");
   const explorer = page.locator("[data-evaluation]");
+  await explorer.locator('[data-eval-mode="cv"]').click();
+  await expect(explorer.locator("[data-eval-f1]")).toHaveText("Macro F1 0.952");
   await explorer.locator('[data-eval-mode="louo"]').click();
+  await expect(explorer.locator("[data-eval-f1]")).toHaveText("Macro F1 0.397");
   await expect(explorer.locator("[data-eval-value]")).toHaveText("44.42%");
   await explorer.locator('[data-eval-mode="user7"]').click();
   await expect(explorer.locator("[data-eval-value]")).toHaveText("36.96%");
