@@ -11,7 +11,7 @@
   function setTheme(theme,persist=true){
     root.dataset.theme=theme;
     const themeMeta=document.querySelector('meta[name="theme-color"]');
-    if(themeMeta)themeMeta.content=theme==="dark"?"#101b17":"#f8f5eb";
+    if(themeMeta)themeMeta.content=theme==="dark"?"#0b2922":"#fff8ec";
     if(toggle){toggle.setAttribute("aria-label",german?(theme==="dark"?"Theme — Hell":"Theme — Dunkel"):(theme==="dark"?"Theme — Light mode":"Theme — Dark mode"));toggle.setAttribute("aria-pressed",String(theme==="dark"))}
     if(persist){try{localStorage.setItem("sv-portfolio-theme",theme)}catch(_){}}
   }
