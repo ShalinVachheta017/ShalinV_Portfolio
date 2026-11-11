@@ -379,7 +379,7 @@ html[data-theme="dark"] .contact-band{background:var(--bg-contact)}
 /* Refined editorial direction: green is the hero; ochre and clay are accents, never competing blocks. */
 :root{
   --forest-display:#194C38;--forest-deep:#123D2F;--cream-ink:#FFF9EE;
-  --soft-ochre:#E7BD6B;--clay-ink:#945D40;--warm-sage:#D3E3D2;
+  --soft-ochre:#E7BD6B;--clay-ink:#70442D;--warm-sage:#D3E3D2;
   --work-paper:#F2E7D5;--project-mist:#EDF0E7;--project-clay:#F2E3D9;
 }
 html[data-theme="dark"]{
