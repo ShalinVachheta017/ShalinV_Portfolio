@@ -285,64 +285,83 @@ html:not([data-theme="dark"]) .project-index{color:#82452f}
 html:not([data-theme="dark"]) .arch-home-teaser p{color:#43534a}
 
 /* Hallmark-inspired evidence-first visual system. Keep real content and wiring. */
+/* Warm ivory, forest green and pale gold; legible in both color schemes. */
 :root{
-  --paper:#f7f7f5;--ink:#191919;--muted:#505050;--green:#191919;
-  --line:#d8d8d6;--white:#ffffff;--sage:#efefed;--rust:#4b4b4b;
-  --page:#f7f7f5;--panel:#ffffff;--accent:#191919;--accent-2:#545454;
-  --soft:#efefed;--invert:#ffffff;--shadow:0 16px 40px rgba(0,0,0,.065);
+  --paper:#f8f5eb;--ink:#22352b;--muted:#4d5d52;--green:#244f3b;
+  --line:#d8d7c9;--white:#fffdf7;--sage:#e8efe4;--rust:#865824;
+  --page:#f8f5eb;--panel:#fffdf7;--accent:#244f3b;--accent-2:#865824;
+  --soft:#f2e7c9;--invert:#fffdf7;--shadow:0 16px 40px rgba(43,56,36,.08);
+  --bg-about:#e8eee2;--bg-contact:#203f32;--index-bg:#f3ecd8;
+  --gold-line:#d8bf82;--gold-hover:#eae0c4;
 }
 html[data-theme="dark"]{
-  --paper:#101010;--ink:#f4f4f2;--muted:#bdbdbb;--green:#f4f4f2;
-  --line:#404040;--white:#191919;--sage:#242424;--rust:#bdbdbb;
-  --page:#101010;--panel:#191919;--accent:#ebebea;--accent-2:#b9b9b7;
-  --soft:#242424;--invert:#101010;--shadow:0 18px 40px rgba(0,0,0,.25);
+  --paper:#101b17;--ink:#f3f1e9;--muted:#c0c9bb;--green:#a9d4af;
+  --line:#405347;--white:#1a2a22;--sage:#263b2e;--rust:#e3c481;
+  --page:#101b17;--panel:#1a2a22;--accent:#a9d4af;--accent-2:#e3c481;
+  --soft:#25372d;--invert:#14251b;--shadow:0 18px 40px rgba(0,0,0,.28);
+  --bg-about:#1d3025;--bg-contact:#14271d;--index-bg:#1c3024;
+  --gold-line:#8b784c;--gold-hover:#2b412f;
 }
 html,body{overflow-x:clip}
 :focus-visible{outline-color:var(--ink)}
 .hero{padding-block:clamp(46px,6vw,75px);gap:clamp(28px,5vw,64px)}
 .hero h1{font-size:clamp(70px,9vw,128px);line-height:.93;overflow-wrap:break-word;min-width:0}
-.hero h1 span{color:var(--ink);font-style:normal}
+.hero h1 span{color:var(--green);font-style:normal}
 .hero .lead{max-width:565px}
-.btn{background:var(--ink);color:var(--invert)}
-.btn:hover{background:var(--muted);color:var(--invert)}
+.btn{background:var(--green);color:var(--invert)}
+.btn:hover{background:#173a2a;color:#fffdf7}
 html[data-theme="dark"] .btn{background:var(--accent);color:var(--invert)}
-html[data-theme="dark"] .btn:hover{background:#d4d4d2;color:#101010}
+html[data-theme="dark"] .btn:hover{background:#e3c481;color:#14251b}
 .nav .contact-link{border-color:var(--ink);color:var(--ink)}
-.nav .contact-link:hover{background:var(--ink);color:var(--invert)}
+.nav .contact-link:hover{background:var(--green);color:var(--invert)}
 .eyebrow,.section-kicker,.project-index,.date,.card-badge,.status-tag{
   text-transform:none;letter-spacing:0;font-size:12px;font-weight:600;
 }
 html:not([data-theme="dark"]) .project-index,
-html[data-theme="dark"] .project-index{color:var(--muted)}
+html[data-theme="dark"] .project-index{color:var(--accent-2)}
 .status-tag::before{display:none}
-.photo-frame::before{border-color:var(--line)}
+.photo-frame::before{border-color:var(--gold-line)}
 .photo-frame img{filter:grayscale(.18)}
 .project{border-color:var(--line);box-shadow:none}
 .project:first-child{background:var(--soft)}
 .project p,.project .lesson,.project .tags,.feature-insight p,
 .about-grid p,.timeline-item p,.skills p,.section-intro,.small-project p{color:var(--muted)}
 .project-foot,.feature-insight{border-color:var(--line)}
-.feature-insight .figure{color:var(--ink)}
+.feature-insight .figure{color:var(--green)}
 .project:hover{transform:translateY(-2px);box-shadow:var(--shadow)}
-.project .open,.text-link,.arch-home-teaser a{color:var(--ink);border-color:var(--ink)}
+.project .open,.text-link,.arch-home-teaser a{color:var(--accent);border-color:var(--accent)}
 .project .open:hover,.text-link:hover,.arch-home-teaser a:hover{text-decoration:underline;text-underline-offset:4px}
 .eval-heading{font:normal clamp(29px,4vw,42px)/1.1 "Instrument Serif",Georgia,serif;margin:12px 0}
-.contact-band,html[data-theme="dark"] .contact-band{background:#191919;color:#f7f7f5}
-.contact-band p{color:#d5d5d3}
-.contact-actions a{color:#f7f7f5;border-color:#a6a6a4}
+.contact-band,html[data-theme="dark"] .contact-band{background:var(--bg-contact);color:#fffdf7}
+.contact-band p{color:#e0e9db}
+.contact-actions a{color:#fffdf7;border-color:#c9d7c4}
 .contact-actions a:hover{color:#ffffff}
 footer{color:var(--muted)}
 html:not([data-theme="dark"]) .arch-home-teaser p{color:var(--muted)}
 .proof-index{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));border-top:1px solid var(--line);border-bottom:1px solid var(--line)}
 .proof-link{display:flex;flex-direction:column;gap:5px;padding:20px 22px;color:var(--ink);min-width:0;transition:background-color .2s ease}
 .proof-link+.proof-link{border-left:1px solid var(--line)}
-.proof-link:hover{background:var(--soft);color:var(--ink)}
+.proof-link:hover{background:var(--gold-hover);color:var(--ink)}
 .proof-number{color:var(--muted);font-size:12px;font-weight:600}
 .proof-link strong{font-size:16px;font-weight:700;line-height:1.35}
 .proof-detail{font-size:13px;color:var(--muted);line-height:1.55}
 .reveal-on-scroll{opacity:1;transform:none}
 /* Content must stay readable while axe, keyboard navigation, or a user loads the page. */
 .js-motion .reveal-on-scroll,.js-motion .reveal-on-scroll.is-visible{opacity:1;transform:none;transition:none}
+/* Warm paper surfaces with three deliberately distinct section materials. */
+html:not([data-theme="dark"]) .hero{
+  background:radial-gradient(ellipse at 83% 37%,rgba(235,207,139,.27),transparent 52%);
+}
+.proof-index{background:var(--index-bg)}
+html:not([data-theme="dark"]) .background,
+html[data-theme="dark"] .background{background:var(--bg-about)}
+html:not([data-theme="dark"]) .arch-home-teaser{background:var(--soft)}
+html:not([data-theme="dark"]) .photo-frame figcaption{
+  background:var(--panel);color:var(--muted);
+}
+html:not([data-theme="dark"]) .eval-line{background:#eadfcb}
+html:not([data-theme="dark"]) .eval-line-fill{background:var(--accent)}
+html[data-theme="dark"] .contact-band{background:var(--bg-contact)}
 @media(max-width:850px){
   .proof-index{grid-template-columns:1fr}
   .proof-link{padding:17px 4px}
