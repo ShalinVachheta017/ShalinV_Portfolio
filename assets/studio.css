@@ -303,6 +303,12 @@ html,body{overflow-x:clip}
 .hero h1{font-size:clamp(70px,9vw,128px);line-height:.93;overflow-wrap:break-word;min-width:0}
 .hero h1 span{color:var(--ink);font-style:normal}
 .hero .lead{max-width:565px}
+.btn{background:var(--ink);color:var(--invert)}
+.btn:hover{background:var(--muted);color:var(--invert)}
+html[data-theme="dark"] .btn{background:var(--accent);color:var(--invert)}
+html[data-theme="dark"] .btn:hover{background:#d4d4d2;color:#101010}
+.nav .contact-link{border-color:var(--ink);color:var(--ink)}
+.nav .contact-link:hover{background:var(--ink);color:var(--invert)}
 .eyebrow,.section-kicker,.project-index,.date,.card-badge,.status-tag{
   text-transform:none;letter-spacing:0;font-size:12px;font-weight:600;
 }
