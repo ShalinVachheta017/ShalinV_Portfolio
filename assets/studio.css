@@ -672,3 +672,57 @@ html[data-theme="dark"] .eval-tab[aria-pressed="true"]{
   text-align: left;
   border-bottom: 1px solid currentColor;
 }
+
+.wearable-story {
+  margin-block: clamp(2rem, 5vw, 4rem);
+  padding: clamp(1.25rem, 4vw, 3rem);
+  border: 1px solid var(--line);
+  border-radius: 1rem;
+  background: var(--soft);
+  color: var(--ink);
+}
+.wearable-story h2 {
+  max-width: 22ch;
+  margin: 0;
+  font-size: clamp(2rem, 4vw, 3.5rem);
+  line-height: 1.05;
+}
+.wearable-story h3 {
+  margin: 0;
+  font: 700 1.05rem/1.35 "DM Sans", system-ui, sans-serif;
+}
+.wearable-intro,
+.wearable-response p {
+  max-width: 68ch;
+}
+.wearable-tests {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 1rem;
+  padding: 0;
+  margin-block: 1.5rem;
+  list-style: none;
+}
+.wearable-tests li {
+  padding: 1rem;
+  border: 1px solid var(--line);
+  border-radius: .65rem;
+  background: var(--panel);
+}
+.wearable-tests p {
+  margin: .5rem 0 0;
+}
+.wearable-result {
+  display: block;
+  margin-top: .5rem;
+  color: var(--accent);
+  font-size: 1.9rem;
+  font-variant-numeric: tabular-nums;
+}
+.wearable-response {
+  padding-top: 1rem;
+  border-top: 1px solid var(--line);
+}
+@media (max-width: 760px) {
+  .wearable-tests { grid-template-columns: 1fr; }
+}
