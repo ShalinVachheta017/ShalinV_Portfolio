@@ -726,3 +726,20 @@ html[data-theme="dark"] .eval-tab[aria-pressed="true"]{
 @media (max-width: 760px) {
   .wearable-tests { grid-template-columns: 1fr; }
 }
+
+.featured .project,
+.featured + .selected-list .small-project {
+  border-inline-start: .35rem solid var(--project-color);
+  background: color-mix(in srgb, var(--project-color) 9%, var(--panel));
+}
+.featured .project:nth-child(1) { --project-color: #448469; }
+.featured .project:nth-child(2) { --project-color: #a18a36; }
+.featured .project:nth-child(3) { --project-color: #89749d; }
+.featured .project:nth-child(4) { --project-color: #718b47; }
+.featured + .selected-list .small-project:nth-child(1) { --project-color: #458c89; }
+.featured + .selected-list .small-project:nth-child(2) { --project-color: #9b7294; }
+.featured + .selected-list .small-project:nth-child(3) { --project-color: #73769a; }
+.featured + .selected-list .small-project:nth-child(4) { --project-color: #89795c; }
+.featured + .selected-list .small-project { padding-inline: 1rem; }
+.project-takeaway strong { display: block; color: var(--ink); }
+.wearable-response .text-link { display: inline-block; padding-block: .65rem; text-decoration: underline; }
