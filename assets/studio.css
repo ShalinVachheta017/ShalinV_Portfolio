@@ -743,3 +743,10 @@ html[data-theme="dark"] .eval-tab[aria-pressed="true"]{
 .featured + .selected-list .small-project { padding-inline: 1rem; }
 .project-takeaway strong { display: block; color: var(--ink); }
 .wearable-response .text-link { display: inline-block; padding-block: .65rem; text-decoration: underline; }
+
+@media (min-width: 851px) {
+  .proof-index { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+}
+@media (min-width: 601px) and (max-width: 850px) {
+  .proof-index { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+}
