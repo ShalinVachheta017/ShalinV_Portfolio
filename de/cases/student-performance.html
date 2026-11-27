@@ -1,0 +1,39 @@
+<!doctype html>
+<html lang="de">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Vorhersage von Schülerleistungen — Shalin Vachheta</title>
+  <link rel="icon" href="../../assets/favicon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="../../assets/base.css">
+  <link rel="stylesheet" href="../../assets/studio.css">
+  <script defer src="../../assets/studio.js"></script>
+</head>
+<body>
+<header class="topbar"><div class="wrap topbar-inner"><a class="monogram" href="../../index.html" aria-label="SV — Portfolio Startseite">SV.</a><nav class="nav" aria-label="Hauptnavigation"><a href="../../de/index.html#arbeiten">Projekte</a><a href="../../de/index.html#ueber-mich">Über mich</a><a class="language-route" lang="en" hreflang="en" href="../../cases/student-performance.html" aria-label="EN — English version">EN</a><a class="contact-link" href="../../de/index.html#kontakt">Kontakt</a><button class="theme-toggle" data-theme-toggle aria-label="Theme — Farbmodus wechseln" aria-pressed="false" type="button"><svg class="theme-icon moon" aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M20 15.5A8.5 8.5 0 0 1 8.5 4a8.5 8.5 0 1 0 11.5 11.5Z"/></svg><svg class="theme-icon sun" aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="12" r="4"/><path d="M12 2v2m0 16v2M2 12h2m16 0h2"/></svg><span class="theme-label">Theme</span></button><button class="mobile-nav-trigger" type="button" data-mobile-trigger aria-expanded="false" aria-controls="mobile-menu" aria-label="Menü öffnen"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h16"/></svg></button></nav></div><div class="mobile-nav-panel" data-mobile-panel hidden id="mobile-menu"><a href="../../de/index.html#arbeiten">Projekte</a><a href="../../de/index.html#ueber-mich">Über mich</a><a href="../../de/index.html#kontakt">Kontakt</a><a href="../../cases/student-performance.html" lang="en">English</a></div></header>
+  <main class="wrap" id="main">
+    <section class="case-hero">
+      <div>
+        <a class="back-link" href="../index.html#arbeiten">← Alle Projekte</a>
+        <h1>Vorhersage von Schülerleistungen</h1>
+        <p>Ich verglich neun Regressionsmodelle auf demselben Testdatensatz, um Mathematiknoten zu schätzen. Ridge erzielte den niedrigsten RMSE von 5,39 Punkten. Die gewöhnliche lineare Regression lag fast gleichauf.</p>
+        <a class="text-link" href="../../cases/student-performance.html" hreflang="en">English version ↗</a>
+      </div>
+    </section>
+    <section class="case-section">
+      <h2>Ergebnisse auf dem Testdatensatz</h2>
+      <table class="comparison-table">
+        <thead><tr><th scope="col">Modell</th><th scope="col">R²</th><th scope="col">RMSE</th></tr></thead>
+        <tbody>
+          <tr><th scope="row">Ridge</th><td>0,8806</td><td>5,39</td></tr>
+          <tr><th scope="row">Lineare Regression</th><td>0,8803</td><td>5,40</td></tr>
+          <tr><th scope="row">Random Forest</th><td>0,8521</td><td>6,00</td></tr>
+          <tr><th scope="row">XGBoost</th><td>0,8278</td><td>6,47</td></tr>
+        </tbody>
+      </table>
+      <p class="prose">Beide linearen Modelle schnitten in diesem Test besser ab als Random Forest und XGBoost. Bei korrelierten Eingaben kann Ridge die Koeffizienten stabilisieren. Der kleine Unterschied in diesem Vergleich erklärt für sich genommen nicht, warum Ridge vorne lag.</p>
+      <a class="text-link" href="https://github.com/ShalinVachheta017/Student-Performance-Prediction/blob/main/2.%20MODEL%20TRAINING.ipynb">Trainingsnotebook ansehen ↗</a>
+    </section>
+  </main>
+</body>
+</html>
