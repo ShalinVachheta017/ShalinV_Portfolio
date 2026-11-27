@@ -23,8 +23,9 @@
   <ol class="wearable-tests">
       <li><h3>People the model had seen</h3><strong class="wearable-result">93.61% correct</strong><p>It recognised most movements in fresh examples from the same group.</p></li>
       <li><h3>One person held back</h3><strong class="wearable-result">44.42% correct</strong><p>I trained on five people and tested on the sixth. Everyone took a turn. The 44.42% is the average across all six tests.</p></li>
-      <li><h3>Someone outside the group</h3><strong class="wearable-result">36.96% correct</strong><p>On one new recording, the model was 85.8% confident on average. It got the activity right only about 37% of the time.</p></li>
+      <li><h3>What happened when I wore the watch?</h3><strong class="wearable-result">36.96% correct</strong><p>I was the seventh wearer. I recorded myself outside the original recording protocol. On that recording, the model was 85.8% confident on average and right only about 37% of the time.</p></li>
   </ol>
+  <h3 id="why-accuracy-changed">Why did accuracy fall from 93.61% to 36.96%?</h3><p>Leaving one wearer out had already shown that a new person was a challenge. In my own test, both the wearer and the recording conditions changed. One recording couldn’t tell me how much each change contributed.</p>
   <div class="wearable-response">
     <h3>What I built in response</h3>
     <p>I combined confidence with checks for unusually frequent activity changes and shifts in sensor readings. The pipeline gives a reviewer evidence to investigate before deciding whether to collect more labelled data or retrain.</p>
