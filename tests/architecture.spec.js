@@ -16,8 +16,8 @@ test("Homepage has accessible paths to all five flagship projects", async ({ pag
 test("Homepage offers direct evidence paths", async ({ page }) => {
   await page.goto("/");
   const index = page.getByRole("navigation", { name: "Start with a project" });
-  await expect(index.getByRole("link")).toHaveCount(3);
-  for (const slug of ["thesis", "rag", "insurance"]) {
+  await expect(index.getByRole("link")).toHaveCount(4);
+  for (const slug of ["thesis", "rag", "insurance", "student-performance"]) {
     await expect(index.locator('a[href="cases/' + slug + '.html"]')).toHaveCount(1);
   }
   await expect(index.getByText("105 tenders")).toBeVisible();

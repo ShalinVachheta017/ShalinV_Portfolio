@@ -9,7 +9,7 @@
   <link rel="icon" type="image/svg+xml" href="assets/favicon.svg">
   <meta name="description" content="Portfolio of Shalin Vachheta — machine learning engineering, MLOps, research and applied AI projects.">
   <meta property="og:title" content="Shalin Vachheta — Machine Learning & MLOps">
-  <meta property="og:description" content="Selected engineering projects, research, and experience.">
+  <meta property="og:description" content="Wearable activity monitoring, multilingual tender search, model serving, and a comparison of nine regression models.">
   <title>Shalin Vachheta — ML Engineer & MLOps</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -37,12 +37,12 @@
     <div class="wrap" id="top">
       <section class="hero" aria-labelledby="hero-name">
         <div>
-          <span class="eyebrow" data-t="eyebrow">Machine Learning / MLOps / Applied AI</span>
+          <span class="eyebrow" data-t="eyebrow">Machine Learning Engineering · MLOps · Applied AI · Data Science</span>
           <h1 id="hero-name">Shalin<br><span>Vachheta.</span></h1>
-          <p class="lead">I’m an M.Sc. Mechatronics graduate focused on machine learning, MLOps, and applied AI. I’ve built systems for wearable activity monitoring, multilingual document search, and model serving.</p>
+          <p class="lead">I build and test machine learning systems for sensor data and document search. My M.Sc. in Mechatronics at the University of Siegen brought those interests together. I’m based in Siegen and open to relocation.</p>
           <div class="hero-actions">
-            <a class="btn" href="#work" data-t="seeWork">Explore case studies</a>
-            <a class="text-link" href="https://github.com/ShalinVachheta017" target="_blank" rel="noopener noreferrer">See GitHub</a>
+            <a class="btn" href="#work" data-t="seeWork">Explore projects</a>
+            <a class="text-link" href="#contact">Get in touch</a>
           </div>
         </div>
         <figure class="photo-frame">
@@ -52,27 +52,43 @@
       </section>
       <nav class="proof-index" aria-label="Start with a project">
         <a class="proof-link" href="cases/thesis.html">
-          <span class="proof-number">01 / MLOps</span>
+          <span class="proof-number">MLOps</span>
           <strong>Wearable activity recognition</strong>
-          <span class="proof-detail">11 activity classes, monitoring and gated retraining</span>
+          <span class="proof-detail">Testing how a smartwatch model handles a new wearer</span>
         </a>
         <a class="proof-link" href="cases/insurance.html">
-          <span class="proof-number">02 / ML engineering</span>
+          <span class="proof-number">ML engineering</span>
           <strong>Vehicle insurance service</strong>
-          <span class="proof-detail">Training, evaluation, API and deployment workflow</span>
+          <span class="proof-detail">From customer records to predictions served through an API</span>
         </a>
         <a class="proof-link" href="cases/rag.html">
-          <span class="proof-number">03 / Document AI</span>
-          <strong>Multilingual RAG</strong>
-          <span class="proof-detail">Retrieval across 105 tenders · November 2026 run</span>
+          <span class="proof-number">Document AI</span>
+          <strong>Multilingual tender search</strong>
+          <span class="proof-detail">Searching 1,692 PDFs across 105 tenders</span>
+        </a>
+        <a class="proof-link" href="cases/student-performance.html">
+          <span class="proof-number">Data Science</span>
+          <strong>Comparing regression models</strong>
+          <span class="proof-detail">Nine models compared on the same student dataset</span>
         </a>
       </nav>
+
+
+      <section class="section" id="work" aria-labelledby="work-heading">
+        <div class="section-heading">
+          <div>
+            <span class="eyebrow" data-t="workEyebrow">01 / Selected engineering work</span>
+            <h2 id="work-heading" data-t="workHeading">Selected projects</h2>
+          </div>
+
+        </div>
+        <div class="featured">
 <section class="wearable-story" id="wearable-story" aria-labelledby="wearable-story-title">
   <h2 id="wearable-story-title">Can the watch recognise someone new?</h2>
-  <p class="wearable-intro">Six people wore the watch. One person’s recordings stood out from the others. I wanted to know how well the model could handle those differences.</p>
+  <p class="wearable-intro">I built a pipeline to recognise 11 activities from wrist movement and wrote 88 automated tests for it. Six people supplied the original recordings. How well would it work for a different person?</p>
   <ol class="wearable-tests">
-      <li><h3>People the model had seen</h3><strong class="wearable-result">93.61% correct</strong><p>It recognised most movements in fresh examples from the same group.</p></li>
-      <li><h3>One person held back</h3><strong class="wearable-result">44.42% correct</strong><p>I trained on five people and tested on the sixth. Everyone took a turn. The 44.42% is the average across all six tests.</p></li>
+      <li><h3>People the model had seen</h3><strong class="wearable-result">93.61% correct</strong><p>The training and test sets contained different windows of movement from the same six people.</p></li>
+      <li><h3>One person held back</h3><strong class="wearable-result">44.42% correct</strong><p>I trained on five people and tested on the sixth, taking turns until everyone had been held back once. One person’s recordings stood out. The average shows how hard it was to transfer the model across people.</p></li>
       <li><h3>What happened when I wore the watch?</h3><strong class="wearable-result">36.96% correct</strong><p>I was the seventh wearer. I recorded myself outside the original recording protocol. On that recording, the model was 85.8% confident on average and right only about 37% of the time.</p></li>
   </ol>
   <div class="wearable-response">
@@ -81,29 +97,6 @@
     <a class="text-link" href="cases/thesis.html#why-accuracy-changed">Why did accuracy fall from 93.61% to 36.96%? ↗</a>
   </div>
 </section>
-
-      <section class="section" id="work" aria-labelledby="work-heading">
-        <div class="section-heading">
-          <div>
-            <span class="eyebrow" data-t="workEyebrow">01 / Selected engineering work</span>
-            <h2 id="work-heading" data-t="workHeading">Projects that taught me the most.</h2>
-          </div>
-          <p class="section-intro" data-t="workIntro">Each project started with a practical question. I have included the difficult parts and what the results actually tell us.</p>
-        </div>
-        <div class="featured">
-<article class="project">
-            <div class="feature-summary">
-              <span class="project-index" data-t="p1k">01 / Wearable MLOps</span>
-              <h3 data-t="p1t">Recognizing hand activities from smartwatch data</h3>
-              <p data-t="p1d">I built an offline-first pipeline that processes wrist-sensor readings, predicts 11 activities, and checks for unusual behavior in new data. The hardest part was understanding how differently the model performed on people it had not seen before.</p>
-
-              <p class="project-takeaway"><strong>What I learned</strong> Confidence alone could miss a problem. I added checks for changing sensor patterns and rapidly switching predictions.</p><div class="project-foot">
-                <span class="tags">Python, TensorFlow, FastAPI, Docker, MLflow</span>
-                <a class="open" href="cases/thesis.html" data-t="viewCode">Read case study</a>
-              </div>
-            </div>
-            <aside class="feature-insight"><div class="figure">11</div><p>Activity classes from wrist motion</p><div class="figure">88</div><p>Automated tests for the pipeline</p></aside>
-          </article>
 <article class="project">
             <span class="project-index">02 / ML engineering</span>
             <h3 data-t="p3t">From an insurance model to a working service</h3>
@@ -212,7 +205,7 @@
       <div class="wrap">
         <span class="eyebrow" style="color:#c6ddcf" data-t="contactEyebrow">05 / Contact</span>
         <h2 data-t="contactHeading">Let's talk about useful machine learning.</h2>
-        <p data-t="contactP">I'm interested in early-career opportunities and engineering teams working on machine learning, MLOps, and applied AI. You can reach me by email or find more details on GitHub and LinkedIn.</p>
+        <p data-t="contactP">I’m looking for full-time work in machine learning engineering, MLOps, applied AI, or data science. Email me about your team or connect with me on LinkedIn.</p>
         <div class="contact-actions">
           <a href="mailto:shalin2010vachheta@gmail.com" data-t="emailLink">Send an email ↗</a>
           <a href="https://github.com/ShalinVachheta017" target="_blank" rel="noopener noreferrer">GitHub ↗</a>
