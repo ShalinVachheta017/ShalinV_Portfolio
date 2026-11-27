@@ -3,7 +3,7 @@
 <head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="theme-color" content="#f6f5f0"><link rel="alternate" hreflang="de" href="https://shalinvachheta017.github.io/ShalinV_Portfolio/de/cases/thesis.html">
 <link rel="icon" type="image/svg+xml" href="../assets/favicon.svg">
 <meta name="description" content="Building a wearable activity-recognition system taught me that a good validation score is only the beginning. This case study follows the difference between training-distribution results, unseen people, and the monitoring work that came next.">
-<title>Building a wearable activity model that flags recordings for review — Shalin Vachheta</title>
+<title>The model was confident. The new wearer changed the story. — Shalin Vachheta</title>
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Instrument+Serif:ital@0;1&display=swap" rel="stylesheet">
 <script>try{document.documentElement.dataset.theme=localStorage.getItem("sv-portfolio-theme")||(matchMedia("(prefers-color-scheme: dark)").matches?"dark":"light")}catch(_){}</script><link rel="stylesheet" href="../assets/base.css"><link rel="stylesheet" href="../assets/studio.css"><script defer src="../assets/studio.js"></script><script defer src="../assets/architecture.js"></script>
@@ -14,9 +14,24 @@
 <main id="main" class="wrap">
 <section class="case-hero">
 <div><a href="../index.html#work" class="back-link">← All projects</a><span class="section-kicker">01 / MASTER'S THESIS · WEARABLE ML</span>
-<h1>Building a wearable activity model that flags recordings for review</h1><p>The pipeline recognises 11 activities and is supported by 88 automated tests. The monitoring rules recommended review for 23 of 25 unlabelled recordings. That describes how often the rules flagged a session. Without labels, the recordings could not establish whether those flags were correct.</p><div class="hero-actions"><a class="btn" target="_blank" rel="noopener noreferrer" href="https://github.com/ShalinVachheta017/wearable-har-mlops-pipeline">Explore the source code ↗</a><a class="text-link" href="#architecture">Explore architecture ↓</a></div></div>
+<h1>The model was confident. The new wearer changed the story.</h1><p>A smartwatch pipeline for 11 activities, with 88 automated tests and a review workflow for unusual recordings.</p><div class="hero-actions"><a class="btn" target="_blank" rel="noopener noreferrer" href="https://github.com/ShalinVachheta017/wearable-har-mlops-pipeline">Explore the source code ↗</a><a class="text-link" href="#architecture">Explore architecture ↓</a></div></div>
 <div class="case-meta"><div class="meta-item"><span>Project type</span><strong>Research prototype</strong></div><div class="meta-item"><span>Technology</span><strong>TensorFlow · FastAPI · Docker · DVC · MLflow</strong></div><div class="meta-item"><span>Focus</span><strong>Engineering decisions and what I learned</strong></div></div>
 </section>
+<section class="wearable-story" id="wearable-story" aria-labelledby="wearable-story-title">
+  <h2 id="wearable-story-title">What the three tests showed</h2>
+  <p class="wearable-intro">I built a smartwatch pipeline that recognises 11 activities. To find out whether it would work for someone new, I tested it three ways.</p>
+  <ol class="wearable-tests">
+      <li><h3>Could it recognise new examples from familiar wearers?</h3><strong class="wearable-result">93.61%</strong><p>Five-fold validation used data from the same pool of wearers. The model could recognise patterns from a group already represented in training.</p></li>
+      <li><h3>What if we left out an entire wearer?</h3><strong class="wearable-result">44.42%</strong><p>I held out one of six wearers at a time and trained on the other five. Wrist movements can vary from person to person, and the small cohort covered only a limited range of that variation.</p></li>
+      <li><h3>What happened with a seventh wearer?</h3><strong class="wearable-result">36.96%</strong><p>In one separate recording, the model was right on about 37% of activity windows while reporting 85.8% average confidence. That one session showed how confidently it could be wrong.</p></li>
+  </ol>
+  <div class="wearable-response">
+    <h3>What I built in response</h3>
+    <p>I combined confidence with checks for unusually frequent activity changes and shifts in sensor readings. The pipeline gives a reviewer evidence to investigate before deciding whether to collect more labelled data or retrain.</p>
+    <p>The rules recommended review for 23 of 25 unlabelled recordings. That count shows how often the rules flagged a session. The recordings had no reference labels to check which recommendations were correct.</p>
+  </div>
+</section>
+
 <section class="case-section reveal-on-scroll"><span class="section-kicker">01 / The question</span><div class="narrative-grid"><div><h2>How can we tell whether a model is reliable when the next person's movements differ from the people it learned from?</h2></div><p class="prose">The input came from a Garmin Venu 3 smartwatch: accelerometer and gyroscope measurements on the wrist. I worked with a 1D-CNN–BiLSTM model that estimates eleven activities, including hand tapping, hair pulling and nail biting. It operates on four-second windows, with each new window starting two seconds after the previous one. Because an activity label is not always available for new data, the pipeline also records confidence and monitors unusual patterns.</p></div></section>
 <section class="case-section reveal-on-scroll" id="evidence"><span class="section-kicker">02 / What the evidence showed</span><h2>The numbers changed the story.</h2>
 <p class="prose">The cross-validation results looked very promising. But evaluation that left out entire people revealed a much harder problem: user-to-user differences. I did not treat that as a reason to hide the result. It shaped the monitoring logic, the review decisions, and the rule that model replacement should require a human decision.</p><div class="metric-grid"><div class="metric-card"><div class="big">93.61%</div><small>Within-distribution CV</small></div><div class="metric-card"><div class="big">44.42%</div><small>Leave-one-user-out mean</small></div><div class="metric-card"><div class="big">36.96%</div><small>External User 7</small></div></div>
