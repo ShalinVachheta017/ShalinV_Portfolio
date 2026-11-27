@@ -138,3 +138,18 @@ test("All case-study source images load when they are in view", async ({ page })
     await expect.poll(async () => images.nth(i).evaluate(el => el.complete && el.naturalWidth > 0)).toBe(true);
   }
 });
+
+test("Project descriptions, workflow visuals and links occupy separate rows", async ({ page }) => {
+  for (const route of ["/", "/de/index.html"]) {
+    await page.goto(route);
+    const cards = page.locator(".featured article.project");
+    await expect(cards).toHaveCount(3);
+    for (const card of await cards.all()) {
+      const description = await card.locator("p").first().boundingBox();
+      const visual = await card.locator(".project-flow").boundingBox();
+      const footer = await card.locator(".project-foot").boundingBox();
+      expect(description.y + description.height).toBeLessThanOrEqual(visual.y + 1);
+      expect(visual.y + visual.height).toBeLessThanOrEqual(footer.y + 1);
+    }
+  }
+});
