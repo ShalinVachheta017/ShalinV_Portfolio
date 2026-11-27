@@ -22,11 +22,13 @@
 <div class="case-page-nav" aria-label="Case study sections"><div class="wrap"><a href="#evidence">Problem &amp; learning</a><a href="#architecture">Architecture</a><a href="#references">Evidence</a></div></div>
 <main id="main" class="wrap">
 <section class="case-hero"><div><a href="../index.html#work" class="back-link">← All projects</a><span class="section-kicker">05 / LANGUAGE MODELS · TEXT SUMMARIZATION</span>
-<h1>Making long conversations easier to read.</h1><p>Fine-tuning PEGASUS on the SAMSum dialogue dataset, separating data preparation, model training, evaluation and a local FastAPI prediction endpoint.</p>
+<h1>Making long conversations easier to read.</h1><p>Who agreed to do what? I trained a language model to turn a conversation into a short recap that keeps the important details.</p>
 <div class="hero-actions"><a class="btn" target="_blank" rel="noopener noreferrer" href="https://github.com/ShalinVachheta017/pegasus-dialogue-summarization">Explore the source code ↗</a><a class="text-link" href="#architecture">Explore architecture ↓</a></div></div>
-<div class="case-meta"><div class="meta-item"><span>Project type</span><strong>Text summarization · learning project</strong></div>
-<div class="meta-item"><span>Technology</span><strong>PEGASUS · Transformers · Python · FastAPI</strong></div>
-<div class="meta-item"><span>Focus</span><strong>From research notebooks to modular inference</strong></div></div></section>
+<div class="case-meta">
+  <div class="meta-item"><span>Training examples</span><strong>SAMSum dialogues and human summaries</strong></div>
+  <div class="meta-item"><span>Summarise</span><strong>Fine-tune PEGASUS on conversations</strong></div>
+  <div class="meta-item"><span>Evaluate</span><strong>Measure reference-text overlap with ROUGE</strong></div>
+</div></section>
 <section class="case-section reveal-on-scroll" id="evidence"><span class="section-kicker">01 / The problem</span>
 <div class="narrative-grid"><div><h2>How do we shorten a dialogue without losing its meaning?</h2></div>
 <div class="prose"><p>A useful summary is more than a shorter version of the input. It should keep the details that matter and avoid adding facts. I used the SAMSum dataset to adapt a PEGASUS summarization model, building a modular training pipeline from the original research experiments.</p>
