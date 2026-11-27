@@ -18,12 +18,12 @@
 <div class="case-meta"><div class="meta-item"><span>Project type</span><strong>Research prototype</strong></div><div class="meta-item"><span>Technology</span><strong>TensorFlow · FastAPI · Docker · DVC · MLflow</strong></div><div class="meta-item"><span>Focus</span><strong>Engineering decisions and what I learned</strong></div></div>
 </section>
 <section class="wearable-story" id="wearable-story" aria-labelledby="wearable-story-title">
-  <h2 id="wearable-story-title">What the three tests showed</h2>
-  <p class="wearable-intro">I built a smartwatch pipeline that recognises 11 activities. To find out whether it would work for someone new, I tested it three ways.</p>
+  <h2 id="wearable-story-title">Can the watch recognise someone new?</h2>
+  <p class="wearable-intro">Six people wore the watch. One person’s recordings stood out from the others. I wanted to know how well the model could handle those differences.</p>
   <ol class="wearable-tests">
-      <li><h3>Could it recognise new examples from familiar wearers?</h3><strong class="wearable-result">93.61%</strong><p>Five-fold validation used data from the same pool of wearers. The model could recognise patterns from a group already represented in training.</p></li>
-      <li><h3>What if we left out an entire wearer?</h3><strong class="wearable-result">44.42%</strong><p>I held out one of six wearers at a time and trained on the other five. Wrist movements can vary from person to person, and the small cohort covered only a limited range of that variation.</p></li>
-      <li><h3>What happened with a seventh wearer?</h3><strong class="wearable-result">36.96%</strong><p>In one separate recording, the model was right on about 37% of activity windows while reporting 85.8% average confidence. That one session showed how confidently it could be wrong.</p></li>
+      <li><h3>People the model had seen</h3><strong class="wearable-result">93.61% correct</strong><p>It recognised most movements in fresh examples from the same group.</p></li>
+      <li><h3>One person held back</h3><strong class="wearable-result">44.42% correct</strong><p>I trained on five people and tested on the sixth. Everyone took a turn. The 44.42% is the average across all six tests.</p></li>
+      <li><h3>Someone outside the group</h3><strong class="wearable-result">36.96% correct</strong><p>On one new recording, the model was 85.8% confident on average. It got the activity right only about 37% of the time.</p></li>
   </ol>
   <div class="wearable-response">
     <h3>What I built in response</h3>
