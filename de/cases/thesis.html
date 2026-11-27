@@ -5,8 +5,9 @@
   <ol class="wearable-tests">
       <li><h3>Bekannte Personen</h3><strong class="wearable-result">93,61 % richtig</strong><p>Bei neuen Beispielen aus derselben Gruppe erkannte das Modell die meisten Bewegungen.</p></li>
       <li><h3>Eine Person im Test</h3><strong class="wearable-result">44,42 % richtig</strong><p>Ich trainierte mit fünf Personen und testete mit der sechsten. Jede Person war einmal an der Reihe. Die 44,42 % sind der Durchschnitt aller sechs Tests.</p></li>
-      <li><h3>Eine weitere Person</h3><strong class="wearable-result">36,96 % richtig</strong><p>In einer separaten Aufnahme war das Modell im Mittel zu 85,8 % sicher. Richtig lag es nur bei rund 37 % der Zeitfenster.</p></li>
+      <li><h3>Was passierte, als ich die Uhr trug?</h3><strong class="wearable-result">36,96 % richtig</strong><p>Ich war die siebte Testperson. Meine Aufnahme entstand außerhalb der ursprünglichen Aufnahmebedingungen. Bei einer mittleren Vorhersagesicherheit von 85,8 % lag das Modell nur in rund 37 % der Zeitfenster richtig.</p></li>
   </ol>
+  <h3 id="why-accuracy-changed">Warum sank die Trefferquote von 93,61 % auf 36,96 %?</h3><p>Der Test mit sechs Personen zeigte bereits, wie schwierig die Übertragung auf eine neue Person war. Bei meiner eigenen Aufnahme änderten sich sowohl die Person als auch die Aufnahmebedingungen. Eine einzelne Aufnahme kann diese beiden Einflüsse nicht trennen.</p>
   <div class="wearable-response">
     <h3>Wie ich darauf reagiert habe</h3>
     <p>Zusätzlich zur Vorhersagesicherheit prüft die Pipeline auffällig häufige Aktivitätswechsel und Veränderungen in den Sensordaten. Diese Hinweise helfen bei der Entscheidung, ob mehr gekennzeichnete Daten oder ein erneutes Training nötig sind.</p>
