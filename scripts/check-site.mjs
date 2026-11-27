@@ -4,7 +4,7 @@ import path from "node:path";
 import { fileURLToPath } from "node:url";
 import { execFileSync } from "node:child_process";
 const root=path.resolve(path.dirname(fileURLToPath(import.meta.url)),"..");
-const pages=["index.html","cases/thesis.html","cases/rag.html","cases/insurance.html","cases/kubernetes.html","cases/seq2seq.html","cases/pegasus.html","de/index.html","de/cases/thesis.html","de/cases/rag.html","de/cases/insurance.html","de/cases/kubernetes.html","de/cases/seq2seq.html","de/cases/pegasus.html"];
+const pages=["index.html","cases/thesis.html","cases/rag.html","cases/insurance.html","cases/kubernetes.html","cases/seq2seq.html","cases/pegasus.html","de/index.html","de/cases/thesis.html","de/cases/rag.html","de/cases/insurance.html","de/cases/kubernetes.html","de/cases/seq2seq.html","de/cases/pegasus.html","cases/student-performance.html","de/cases/student-performance.html"];
 const files=["assets/base.css","assets/studio.css","assets/studio.js","assets/architecture.js","assets/favicon.svg"];
 const errors=[];
 for(const relative of pages){
@@ -16,7 +16,7 @@ for(const relative of pages){
   if(!html.includes('data-theme-toggle'))errors.push(relative+": theme toggle missing");
   if(relative.startsWith("de/") && !html.includes('<html lang="de">'))errors.push(relative+": German language attribute missing");
   if(!html.includes('data-mobile-trigger')||!html.includes('data-mobile-panel'))errors.push(relative+": mobile menu missing");
-  if(relative.startsWith("cases/") && relative!=="cases/kubernetes.html"){
+  if(relative.startsWith("cases/") && !["cases/kubernetes.html","cases/student-performance.html"].includes(relative)){
     if(!html.includes('data-architecture-project'))errors.push(relative+": architecture explorer missing");
     if(!html.includes('src="../assets/architecture.js"'))errors.push(relative+": architecture script missing");
   }
